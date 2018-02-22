@@ -7,14 +7,13 @@ public class Board {
 
 //	Feel free to change any method(return type, parameters, definition etc.) 
 //  add or remove parameters and instance variables as you like.
-
-	
-	
 	
 	private int RedCount; //Count for Red Agents
 	private int BlueCount; //Count for blue agents
 	private int IBCount; //Count for Innocent Bystanders
 	private int Assassin; //The Assassin *Dun Dun Dun*
+	
+	private boolean redTurn; //Indicates whether or not it is the Red Team's turn
 	
 	//ArrayList holding all the names from sample .txt file
 	private ArrayList<String> AllGameWords = new ArrayList<String>(); 
@@ -22,6 +21,11 @@ public class Board {
 	//ArrayList holding 25 randomly selected names.
 	private ArrayList<String> NewGameWords;
 	
+	//ArrayList holding 25 randomized Persons (Red and Blue Agents, Bystanders, and Assassin);
+	private ArrayList<String> Persons;
+	
+	//ArrayList holding 25 Locations
+	private ArrayList<Location> Locations;
 	
 	
 //	Correctly reads codenames from a file named GameWords.txt and stores them in a List
@@ -40,17 +44,37 @@ public class Board {
 			}
 	}
 	
-//  Creates List containing randomly generated assignments for each of the 9 Red Agents, 
-//	8 Blue Agents, 7 Innocent Bystanders, and 1 Assassin	
+/**
+ *  Creates List containing randomly generated assignments for each of the 9 Red Agents, 
+ *  8 Blue Agents, 7 Innocent Bystanders, and 1 Assassin
+ *  
+ *  @author Dan
+ */
 	public void RandomAssign() {
+		String[] initialData = {"R","R","R","R","R","R","R","R","R","B","B","B","B","B","B","B","B","I","I","I","I","I","I","I","A"};
+		this.Persons = new ArrayList<>();
 		
+		for (int a = 0; a < 25; a++) {
+			this.Persons.add(initialData[a]);
+		}
+		
+		Collections.shuffle(this.Persons);
 	}
 	
-	
-//	When game started, it is Red team's move and each of Board's 25 Location instances
-//	is assigned a codename, Person, and is Not Revealed	
+/**
+ * When game started, sets redTurn to true and assigns each of Board's 25 Location instances
+ * a codename, Person, and is Not Revealed
+ * 
+ * @author Dan
+ */	
 	public void GameStart() {
+		this.select25();
+		this.RandomAssign();
 		
+		for (int a = 0; a < 25; a++)
+			this.Locations.add(new Location(this.NewGameWords.get(a), this.Persons.get(a), false));
+		
+		this.redTurn = true;
 	}
 	
 	
@@ -79,6 +103,15 @@ public class Board {
 	public String WinTeam() {
 		return null;
 		
+	}
+	
+/**
+ * Getter method for Persons
+ * 
+ * @author Dan
+ */
+	public ArrayList<String> getPersons() {
+		return this.Persons;
 	}
 	
 	
