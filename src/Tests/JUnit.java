@@ -9,7 +9,7 @@ public class JUnit {
 	
  
 	
-	// Test to check the method ReadTextFile
+	// Test to check the method ReadTextFile.
 	@Test
 	public void Check_ReadTextFile() {
 		fail("Not yet implemented");

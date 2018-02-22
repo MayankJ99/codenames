@@ -6,7 +6,7 @@ import java.util.Collections;
 public class Board {
 
 //	Feel free to change any method(return type, parameters, definition etc.) 
-//  add or remove parameters and instance variables as you like
+//  add or remove parameters and instance variables as you like.
 
 	
 	
