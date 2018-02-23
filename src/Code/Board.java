@@ -86,6 +86,17 @@ public class Board {
 //	Method defined which correctly returns if a clue is legal or illegal (clues cannot equal a current 
 //	codename unless that codename is in a locations that was already Revealed)
 	public boolean CheckClue(String clue) {
+		for(int i = 0; i < Locations.size();i++) {
+			if(Locations.get(i).getCodename().equals(clue)==false) {
+				return true;
+			}
+			if(Locations.get(i).getCodename().equals(clue)) {
+				if(Locations.get(i).getRevealed()==true) {
+					return true;
+				}
+			}
+			
+		}
 		return false;
 		
 	}
@@ -94,6 +105,7 @@ public class Board {
 //	Method defined which decrements the count, updates a Location when the Location's
 //	codename was selected, and returns if the Location contained the current team's Agent	
 	public void UpdateLocation() {
+		
 		
 	}
 	
