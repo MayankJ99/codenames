@@ -1,6 +1,7 @@
 package Tests;
 
 import Code.Board;
+import Code.Location;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -65,7 +66,32 @@ public class JUnit {
 	// Test to check the method GameStart
 	@Test
 	public void Check_GameStart() {
-		fail("Not yet implemented");
+		Board board = new Board();
+		board.RandomAssign();
+		board.select25();
+		board.GameStart();
+		
+		boolean sameNames = true;
+		boolean samePersons = true;
+		boolean notRevealed = true;
+		
+		ArrayList<Location> locations = board.getLocations();
+		
+		assertEquals(25, locations.size());
+		
+		for (int a = 0; a < 25; a++) {
+			if (!locations.get(a).getCodename().equals(board.getCodenames().get(a)))
+				sameNames = false;
+			if (!locations.get(a).getPerson().equals(board.getPersons().get(a)))
+				samePersons = false;
+			if (locations.get(a).getRevealed())
+				notRevealed = false;
+		}
+		
+		assertTrue(sameNames);
+		assertTrue(samePersons);
+		assertTrue(notRevealed);
+		assertTrue(board.getRedTurn());
 	}
 	
 	

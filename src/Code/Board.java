@@ -71,8 +71,13 @@ public class Board {
 		this.select25();
 		this.RandomAssign();
 		
-		for (int a = 0; a < 25; a++)
-			this.Locations.add(new Location(this.NewGameWords.get(a), this.Persons.get(a), false));
+		for (int a = 0; a < 25; a++) {
+			Location temp = new Location();
+			temp.setCodename(this.NewGameWords.get(a));
+			temp.setPerson(this.Persons.get(a));
+			this.Locations.add(temp);
+			//this.Locations.add(new Location(this.NewGameWords.get(a), this.Persons.get(a), false));
+		}
 		
 		this.redTurn = true;
 	}
@@ -110,10 +115,28 @@ public class Board {
  * 
  * @author Dan
  */
-	public ArrayList<String> getPersons() {
-		return this.Persons;
-	}
+	public ArrayList<String> getPersons() {return this.Persons;}
 	
+/**
+ * Getter method for Locations
+ * 
+ * @author Dan
+ */	
+	public ArrayList<Location> getLocations() {return this.Locations;}
+
+/**
+ * Getter method for NewGameWords
+ * 
+ * @author Dan
+ */
+	public ArrayList<String> getCodenames() {return this.NewGameWords;}
+
+/**
+ * Getter method for redTurn
+ * 
+ * @author Dan
+ */
+	public boolean getRedTurn() {return this.redTurn;}
 	
 	
 }
