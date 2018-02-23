@@ -106,9 +106,32 @@ public class Board {
 	
 //	Method defined which correctly returns which team did not lose (i.e., win) when the Assassin was revealed	
 	public String WinTeam() {
-		return null;
-		
-	}
+		String WT = "";
+
+		if(this.redTurn) {
+			for(int i = 0; i<25 ; i++) {
+				if(Locations.get(i).getCodename() == "A") {
+					WT = "Blue team won!";
+					break;
+				}
+			}
+		}
+
+		else
+		{
+			for(int i = 0; i<25 ; i++) {
+				if(Locations.get(i).getCodename() == "A") {
+					WT = "Red team won!";
+					break;
+				}
+			}
+		}
+
+
+
+
+		return WT;
+	}	
 	
 /**
  * Getter method for Persons
