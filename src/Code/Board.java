@@ -1,7 +1,10 @@
 package Code;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Board {
 
@@ -29,7 +32,26 @@ public class Board {
 	
 	
 //	Correctly reads codenames from a file named GameWords.txt and stores them in a List
-	public void ReadTextFile(String filename) {
+	public void CodeNamesFileReader(String filename) {
+
+		ArrayList<String> codeNames = new ArrayList<>();
+		Scanner reader = null;
+
+		try {
+			File file = new File(filename);
+			reader = new Scanner(file);
+
+			while (reader.hasNextLine()) {
+				codeNames.add(reader.nextLine());
+			}
+
+			System.out.println(codeNames);
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			reader.close();
+		}
 		
 	}
 	
