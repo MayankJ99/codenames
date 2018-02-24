@@ -38,8 +38,7 @@ public class Board {
 		Scanner reader = null;
 
 		try {
-			File file = new File(filename);
-			reader = new Scanner(file);
+			reader = new Scanner(new File(filename));
 
 			while (reader.hasNextLine()) {
 				codeNames.add(reader.nextLine());
