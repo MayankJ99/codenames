@@ -74,6 +74,12 @@ public Board(String filename) {
 	
 	
 //	Creates List containing 25 distinct codenames selected at random 
+	
+/**Creates List containing 25 distinct codenames selected at random 
+ * and assigns them to an arrayList
+ * @author mayank
+ * 	
+ */
 	public void select25(){
 
 		NewGameWords = new ArrayList<String>();
@@ -122,8 +128,14 @@ public Board(String filename) {
 	}
 	
 	
-//	Method defined which correctly returns if a clue is legal or illegal (clues cannot equal a current 
-//	codename unless that codename is in a locations that was already Revealed)
+
+	
+/**
+ * Method defined which correctly returns if a clue is legal or illegal (clues cannot equal a current
+ * codename unless that codename is in a locations that was already Revealed)
+ * @param String ; The clue that will be checked for validity
+ * @return true if legal and false if not
+ */
 	public boolean CheckClue(String clue) {
 		for(int i = 0; i < Locations.size();i++) {
 			if(Locations.get(i).getCodename().equals(clue)==false) {
