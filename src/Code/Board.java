@@ -20,7 +20,7 @@ public class Board {
 	private boolean redTurn; //Indicates whether or not it is the Red Team's turn
 	
 	//ArrayList holding all the names from sample .txt file
-	private ArrayList<String> AllGameWords = new ArrayList<String>(); 
+	private ArrayList<String> AllGameWords ;
 	
 	//ArrayList holding 25 randomly selected names.
 	private ArrayList<String> NewGameWords;
@@ -42,6 +42,10 @@ public class Board {
 	 * 
 	 */
 	public Board() {
+		this.RedCount = 9;
+		this.BlueCount = 8; 
+		this.IBCount=7;
+		this.Assassin = 1;
 	
 }
 
