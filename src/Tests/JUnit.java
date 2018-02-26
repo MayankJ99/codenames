@@ -168,10 +168,14 @@ public class JUnit {
 	}
 	
 	
+	
 	// Test to check the method WinTeam
 	@Test
 	public void Check_WinTeam() {
-		fail("Not yet implemented");
+		Board b = new Board();
+		b.GameStart();
+		
+		assertEquals("Blue team won!", b.WinTeam());
 	}
 
 }

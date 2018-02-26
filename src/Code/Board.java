@@ -195,7 +195,11 @@ public Board(String filename) {
 	}
 	
 	
-//	Method defined which correctly returns which team did not lose (i.e., win) when the Assassin was revealed	
+/**
+ * Method defined which correctly returns which team did not lose (i.e., win) when the Assassin was revealed	
+ * @return "Blue team won!" if the assassin gets revealed in Red Team's turn. 
+ * @author Minseo Kim 
+ */
 	public String WinTeam() {
 		String WT = "";
 
