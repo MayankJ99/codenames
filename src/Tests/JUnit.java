@@ -25,13 +25,18 @@ public class JUnit {
 	// Test to check the method Select25.
 	@Test
 	public void Check_Select25() {
-		Board x = new Board();
+		//Board x = new Board();
 		String file = "Dictionaries/GameWords2.txt";
-		x.CodeNamesFileReader(file);
-		x.select25();
+		//x.CodeNamesFileReader(file);
+		//x.select25();
+		
+		Board x = new Board(file);
 		
 		Assert.assertEquals(25,x.getCodenames().size(),0);
 		Assert.assertNotNull(x.getCodenames());
+		Assert.assertTrue(x.getCodenames().size()!=0);
+		
+		Assert.assertTrue(x.getAllWords().containsAll(x.getCodenames()));
 	}
 	
 	

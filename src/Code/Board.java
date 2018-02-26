@@ -32,13 +32,30 @@ public class Board {
 	private ArrayList<Location> Locations = new ArrayList<Location>();
 	
 	
-//default empty constructor for temp use
+
+	
+	/**
+	 * Default Constructor for Board class
+	 * Temporary use until code changes are made for proper construtor
+	 * 
+	 * @author mayank
+	 * 
+	 */
 	public Board() {
 	
 }
 
 
 //Constructor to call basic methods.
+	
+	/**
+	 * Constructor for Board class 
+	 * initializes all arrayLists and variables up until the Final 25 Location instances
+	 * 
+	 * @param filename - the string of filename that we will read over 
+	 * 
+	 * @author mayank
+	 */
 public Board(String filename) {
 	this.CodeNamesFileReader(filename);
 	this.select25();
@@ -227,6 +244,16 @@ public Board(String filename) {
 
 		return WT;
 	}	
+	
+/**Setter Method for All Game Words
+ * 
+ * @return AllGameWords arrayList which contains all gamewords from the txt file
+ * 
+ * @author mayank
+ */
+	
+	
+	public ArrayList<String> getAllWords(){ return this.AllGameWords; }
 	
 /**
  * Getter method for Persons
