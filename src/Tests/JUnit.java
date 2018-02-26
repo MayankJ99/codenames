@@ -4,6 +4,8 @@ import Code.Board;
 import Code.Location;
 
 import static org.junit.Assert.*;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -23,7 +25,13 @@ public class JUnit {
 	// Test to check the method Select25
 	@Test
 	public void Check_Select25() {
-		fail("Not yet implemented");
+		Board x = new Board();
+		String file = "Dictionaries/GameWords2.txt";
+		x.CodeNamesFileReader(file);
+		x.select25();
+		
+		Assert.assertEquals(25,x.getCodenames().size(),0);
+		Assert.assertNotNull(x.getCodenames());
 	}
 	
 	
@@ -96,7 +104,26 @@ public class JUnit {
 	// Test to check the method CheckClue
 	@Test
 	public void Check_CheckClue() {
-		fail("Not yet implemented");
+		Board x = new Board();
+		x.GameStart();
+		
+		String legal = "Knox 104";
+		String illegal = x.getLocations().get(5).getCodename();
+		String nothing = null;
+		String empty = "";
+		
+		
+	Assert.assertTrue(x.CheckClue(legal));
+	Assert.assertTrue(x.CheckClue(nothing));	
+	Assert.assertTrue(x.CheckClue(empty));	
+	//Trick Test
+	
+	for(int i = 0; i < x.getLocations().size();i++) {
+		if(x.getLocations().get(i).getCodename().equals(illegal))
+		if(x.getLocations().get(i).getRevealed()==true) {
+			Assert.assertTrue(x.CheckClue(illegal));
+			}
+		}
 	}
 	
 

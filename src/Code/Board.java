@@ -15,7 +15,7 @@ public class Board {
 	private int BlueCount; //Count for blue agents
 	private int IBCount; //Count for Innocent Bystanders
 	private int Assassin; //The Assassin *Dun Dun Dun*
-	private int count; //The count given by the Spymaster with a clue
+	private int count; //The count given by the Spymaster with a clue.
 	
 	private boolean redTurn; //Indicates whether or not it is the Red Team's turn
 	
@@ -32,6 +32,22 @@ public class Board {
 	private ArrayList<Location> Locations = new ArrayList<Location>();
 	
 	
+//default empty constructor for temp use
+	public Board() {
+	
+}
+
+
+//Constructor to call basic methods
+public Board(String filename) {
+	this.CodeNamesFileReader(filename);
+	this.select25();
+	this.RandomAssign();
+	this.GameStart();
+	}
+	
+	
+
 //	Correctly reads codenames from a file named GameWords.txt and stores them in a List
 	public void CodeNamesFileReader(String filename) {
 
@@ -91,7 +107,7 @@ public class Board {
  * @author Dan
  */	
 	public void GameStart() {
-		this.CodeNamesFileReader("src/GameWords.txt");
+		this.CodeNamesFileReader("Dictionaries/GameWords2.txt");
 		this.select25();
 		this.RandomAssign();
 		
