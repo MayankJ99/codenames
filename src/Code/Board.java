@@ -15,6 +15,7 @@ public class Board {
 	private int BlueCount; //Count for blue agents
 	private int IBCount; //Count for Innocent Bystanders
 	private int Assassin; //The Assassin *Dun Dun Dun*
+	private int count; //The count given by the Spymaster with a clue
 	
 	private boolean redTurn; //Indicates whether or not it is the Red Team's turn
 	
@@ -28,7 +29,7 @@ public class Board {
 	private ArrayList<String> Persons;
 	
 	//ArrayList holding 25 Locations
-	private ArrayList<Location> Locations;
+	private ArrayList<Location> Locations = new ArrayList<Location>();
 	
 	
 //	Correctly reads codenames from a file named GameWords.txt and stores them in a List
@@ -44,7 +45,8 @@ public class Board {
 				codeNames.add(reader.nextLine());
 			}
 
-			System.out.println(codeNames);
+			//System.out.println(codeNames);
+			this.AllGameWords = codeNames;
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -89,6 +91,7 @@ public class Board {
  * @author Dan
  */	
 	public void GameStart() {
+		this.CodeNamesFileReader("src/GameWords.txt");
 		this.select25();
 		this.RandomAssign();
 		
@@ -99,7 +102,6 @@ public class Board {
 			this.Locations.add(temp);
 			//this.Locations.add(new Location(this.NewGameWords.get(a), this.Persons.get(a), false));
 		}
-		
 		this.redTurn = true;
 	}
 	
@@ -122,12 +124,40 @@ public class Board {
 		
 	}
 	
-	
-//	Method defined which decrements the count, updates a Location when the Location's
-//	codename was selected, and returns if the Location contained the current team's Agent	
-	public void UpdateLocation() {
-		
-		
+/**
+ * Method defined which decrements the count, updates a Location when the Location's
+ * codename was selected, and returns if the Location contained the current team's Agent
+ * 
+ * @param clue the location selected by the current team
+ * @return true if the location contains a spy for the current team
+ * @author Dan
+ */	
+	public boolean UpdateLocation(String guess) {
+		this.count -= 1;
+		for (Location location : this.Locations) {
+			if (guess.equals(location.getCodename())) {
+				location.setRevealed(true);
+				if ((this.redTurn && (location.getPerson().equals("R"))) || (!this.redTurn && (location.getPerson().equals("B"))))
+					return true;
+			}
+		}
+		return false;
+	}
+
+/**
+ * Method defined which decrements the count, updates a Location when the Location's
+ * codename was selected, and returns if the Location contained the current team's Agent
+ * 
+ * @param location a reference to the location selected by the current team
+ * @return true if the location contains a spy for the current team
+ * @author Dan
+ */	
+	public boolean UpdateLocation(Location location) {
+		this.count -= 1;
+		location.setRevealed(true);
+		if ((this.redTurn && (location.getPerson().equals("R"))) || (!this.redTurn && (location.getPerson().equals("B"))))
+			return true;
+		return false;
 	}
 	
 	
@@ -194,5 +224,17 @@ public class Board {
  */
 	public boolean getRedTurn() {return this.redTurn;}
 	
-	
+/**
+ * Setter method for count
+ * 
+ * @author Dan
+ */
+	public void setCount(int c) {this.count = c;}
+
+/**
+ * Getter method for count
+ *
+ * @author Dan
+ */
+	public int getCount() {return this.count;}
 }

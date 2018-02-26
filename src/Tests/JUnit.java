@@ -67,10 +67,8 @@ public class JUnit {
 	@Test
 	public void Check_GameStart() {
 		Board board = new Board();
-		board.RandomAssign();
-		board.select25();
 		board.GameStart();
-		
+
 		boolean sameNames = true;
 		boolean samePersons = true;
 		boolean notRevealed = true;
@@ -104,8 +102,35 @@ public class JUnit {
 
 	// Test to check the method UpdateLocation
 	@Test
-	public void Check_UpdateLocation() {
-		fail("Not yet implemented");
+	public void Check_UpdateLocationString() {
+		int randomIndex = (int) Math.floor(Math.random() * 25);
+		
+		Board board = new Board();
+		board.GameStart();
+		board.setCount(randomIndex);
+		
+		Location location = board.getLocations().get(randomIndex);
+		String codeName = location.getCodename();
+		
+		assertTrue(board.UpdateLocation(codeName) == (location.getPerson().equals("R")));
+		assertEquals(randomIndex - 1, board.getCount());
+		assertTrue(board.getLocations().get(randomIndex).getRevealed());
+	}
+	
+	// Test to check the method UpdateLocation
+	@Test
+	public void Check_UpdateLocationLoc() {
+		int randomIndex = (int) Math.floor(Math.random() * 25);
+		
+		Board board = new Board();
+		board.GameStart();
+		board.setCount(randomIndex);
+		
+		Location location = board.getLocations().get(randomIndex);
+		
+		assertTrue(board.UpdateLocation(location) == (location.getPerson().equals("R")));
+		assertEquals(randomIndex - 1, board.getCount());
+		assertTrue(board.getLocations().get(randomIndex).getRevealed());
 	}
 	
 	
