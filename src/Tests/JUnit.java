@@ -37,6 +37,17 @@ public class JUnit {
 		Assert.assertTrue(x.getCodenames().size()!=0);
 		
 		Assert.assertTrue(x.getAllWords().containsAll(x.getCodenames()));
+		
+		for(int i = 0; i < x.getCodenames().size();i++) {
+			for(int j = 0; j< x.getCodenames().size();j++) {
+				if(i!=j) {
+					Assert.assertNotEquals(x.getCodenames().get(i), x.getCodenames().get(j));
+				}
+			}
+		}
+		
+		
+		
 	}
 	
 	

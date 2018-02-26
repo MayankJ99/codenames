@@ -70,7 +70,7 @@ public Board(String filename) {
 	
 
 //	Correctly reads codenames from a file named GameWords.txt and stores them in a List
-	public void CodeNamesFileReader(String filename) {
+public void CodeNamesFileReader(String filename) {
 
 		ArrayList<String> codeNames = new ArrayList<>();
 		Scanner reader = null;
