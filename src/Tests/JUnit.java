@@ -22,7 +22,7 @@ public class JUnit {
 	}
 	
 	
-	// Test to check the method Select25
+	// Test to check the method Select25.
 	@Test
 	public void Check_Select25() {
 		Board x = new Board();

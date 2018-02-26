@@ -38,7 +38,7 @@ public class Board {
 }
 
 
-//Constructor to call basic methods
+//Constructor to call basic methods.
 public Board(String filename) {
 	this.CodeNamesFileReader(filename);
 	this.select25();
