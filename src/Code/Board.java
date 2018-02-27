@@ -22,7 +22,7 @@ public class Board {
 	private boolean redTurn; //Indicates whether or not it is the Red Team's turn
 	
 	//ArrayList holding all the names from sample .txt file
-	private ArrayList<String> AllGameWords ;
+	private ArrayList<String> AllGameWords= new ArrayList<String>();
 	
 	//ArrayList holding 25 randomly selected names.
 	private ArrayList<String> NewGameWords;
@@ -109,6 +109,8 @@ public Board(String filename) {
 //			finally {
 //				reader.close();
 //			}
+			
+			AllGameWords = codeNames;
 		}
 		
 		public String getCodeNames(){
