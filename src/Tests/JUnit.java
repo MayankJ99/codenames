@@ -224,8 +224,7 @@ public class JUnit {
 	// Test to check the method WinTeam
 	@Test
 	public void Check_WinTeam() {
-		Board b = new Board();
-		b.GameStart();
+		Board b = new Board("GameWords.txt");
 		
 		assertEquals("Blue team won!", b.WinTeam());
 	}
