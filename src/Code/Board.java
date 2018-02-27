@@ -195,6 +195,16 @@ public Board(String filename) {
 		this.count -= 1;
 		for (Location location : this.Locations) {
 			if (guess.equals(location.getCodename())) {
+				switch (location.getPerson()) {
+					case "R" : this.RedCount -= 1;
+					break;
+					case "B" : this.BlueCount -= 1;
+					break;
+					case "I" : this.IBCount -= 1;
+					break;
+					case "A" : this.Assassin -= 1;
+					break;
+				}
 				location.setRevealed(true);
 				if ((this.redTurn && (location.getPerson().equals("R"))) || (!this.redTurn && (location.getPerson().equals("B"))))
 					return true;
@@ -213,6 +223,16 @@ public Board(String filename) {
  */	
 	public boolean UpdateLocation(Location location) {
 		this.count -= 1;
+		switch (location.getPerson()) {
+			case "R" : this.RedCount -= 1;
+			break;
+			case "B" : this.BlueCount -= 1;
+			break;
+			case "I" : this.IBCount -= 1;
+			break;
+			case "A" : this.Assassin -= 1;
+			break;
+		}
 		location.setRevealed(true);
 		if ((this.redTurn && (location.getPerson().equals("R"))) || (!this.redTurn && (location.getPerson().equals("B"))))
 			return true;
