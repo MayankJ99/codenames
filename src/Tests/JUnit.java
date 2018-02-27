@@ -2,8 +2,8 @@ package Tests;
 
 import Code.Board;
 import Code.Location;
-
 import static org.junit.Assert.*;
+
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,9 +17,45 @@ public class JUnit {
 	
 	// Test to check the method ReadTextFile.
 	@Test
-	public void Check_ReadTextFile() {
-		fail("Not yet implemented");
+	public void CodeNamesListTest() {
+		Board real = new Board();
+		Board ints = new Board();
+		Board expected = new Board();
+		Board empty = new Board();
+		
+//		CodeNamesFileReader expectedCodeNames = new CodenamesFileReader();
+//		CodenamesFileReader realCodeNames = new CodenamesFileReader();
+//		CodenamesFileReader intCodeNames = new CodenamesFileReader();
+//		CodenamesFileReader emptyCodeNames = new CodenamesFileReader();
+//		CodenamesFileReader nullCodeNames = new CodenamesFileReader();
+
+		
+		String expectedFile = "Dictionaries/GameWords2.txt";
+		String intFile = "Dictionaries/intFile";
+		String emptyFile ="Dictionaries/EmptyFile";
+//		String nullFile = "";
+		
+		real.CodeNamesFileReader("Dictionaries/GameWords2.txt");
+		ints.CodeNamesFileReader(intFile);
+		expected.CodeNamesFileReader(expectedFile);
+		empty.CodeNamesFileReader(emptyFile);
+
+//		realCodeNames.printCodeNames("src/GameWords.txt");
+//		intCodeNames.printCodeNames(intFile);
+//		expectedCodeNames.printCodeNames(expectedFile);
+//		emptyCodeNames.printCodeNames(emptyFile);
+//		nullCodeNames.printCodeNames(nullFile);
+		
+		
+
+		assertNotNull(real.getCodeNames());
+		assertFalse(real.getCodeNames().isEmpty());
+		assertFalse(real.getCodeNames().equals(ints.getCodeNames()));
+		assertFalse(real.getCodeNames().equals(empty.getCodeNames()));
+//		assertFalse(realCodeNames.getCodeNames().equals(nullCodeNames.getCodeNames()));
+		assertEquals(expected.getCodeNames(), real.getCodeNames());
 	}
+
 	
 	
 	// Test to check the method Select25.
