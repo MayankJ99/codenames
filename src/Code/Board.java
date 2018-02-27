@@ -251,29 +251,50 @@ public Board(String filename) {
 /**
  * Method defined which correctly returns which team did not lose (i.e., win) when the Assassin was revealed	
  * @return "Blue team won!" if the assassin gets revealed in Red Team's turn. 
- * @author Minseo Kim 
+ * @author Minseo Kim
  */
 	public String WinTeam() {
 		String WT = "";
-
+		
 		if(this.redTurn) {
-			for(int i = 0; i<25 ; i++) {
+			for(int i = 0; i<25; i++) {
 				if(Locations.get(i).getCodename() == "A") {
-					WT = "Blue team won!";
-					break;
+					if(Locations.get(i).getRevealed() == true) {
+						WT = "Blue team won!";
+					}
 				}
 			}
 		}
-
+		
 		else
 		{
-			for(int i = 0; i<25 ; i++) {
+			for(int i = 0; i<25; i++) {
 				if(Locations.get(i).getCodename() == "A") {
-					WT = "Red team won!";
-					break;
+					if(Locations.get(i).getRevealed() == true) {
+						WT = "Red team won!";
 				}
 			}
 		}
+	}
+
+//		if(this.redTurn) {
+//			for(int i = 0; i<25 ; i++) {
+//				if(Locations.get(i).getCodename() == "A") {
+//					WT = "Blue team won!";
+//					break;
+//				}
+//			}
+//		}
+//
+//		else
+//		{
+//			for(int i = 0; i<25 ; i++) {
+//				if(Locations.get(i).getCodename() == "A") {
+//					WT = "Red team won!";
+//					break;
+//				}
+//			}
+//		}
 
 
 
