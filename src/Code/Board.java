@@ -2,6 +2,8 @@ package Code;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -30,6 +32,9 @@ public class Board {
 	
 	//ArrayList holding 25 Locations
 	private ArrayList<Location> Locations = new ArrayList<Location>();
+	
+	//String holding the path of the file.
+	private String filename;
 	
 	
 
@@ -82,26 +87,43 @@ public Board(String filename) {
 	 */
 	public void CodeNamesFileReader(String filename) {
 
-		ArrayList<String> codeNames = new ArrayList<>();
-		Scanner reader = null;
+			
+			this.filename = filename;
 
-		try {
-			reader = new Scanner(new File(filename));
+			ArrayList<String> codeNames = new ArrayList<>();
+			Scanner reader = null;
 
-			while (reader.hasNextLine()) {
-				codeNames.add(reader.nextLine());
-			}
+			try {
+				File file = new File(filename);
+				reader = new Scanner(file);
 
-			// System.out.println(codeNames);
-			this.AllGameWords = codeNames;
+				while (reader.hasNextLine()) {
+					codeNames.add(reader.nextLine());
+				}
 
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} finally {
-			reader.close();
+				System.out.println(codeNames);
+
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			} 
+//			finally {
+//				reader.close();
+//			}
 		}
-
-	}
+		
+		public String getCodeNames(){
+			String lines = null;
+			try {
+				for(String line : Files.readAllLines(Paths.get(this.filename))) {
+					lines = line + " " + lines;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return lines ;
+		}
+	
 	
 	
 //	Creates List containing 25 distinct codenames selected at random 
