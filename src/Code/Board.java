@@ -69,8 +69,18 @@ public Board(String filename) {
 	
 	
 
-//	Correctly reads codenames from a file named GameWords.txt and stores them in a List
-public void CodeNamesFileReader(String filename) {
+	// Correctly reads codenames from a file named GameWords.txt and stores them in
+	// a List
+	/**
+	 * Reads a file by its location, parameterized as a String input, and creates a
+	 * list containing 25 code names from the aforementioned file.
+	 * 
+	 * @author Juan Mendoza
+	 * 
+	 * @param filename
+	 *            String of the name of the path of the file to be read.
+	 */
+	public void CodeNamesFileReader(String filename) {
 
 		ArrayList<String> codeNames = new ArrayList<>();
 		Scanner reader = null;
@@ -82,7 +92,7 @@ public void CodeNamesFileReader(String filename) {
 				codeNames.add(reader.nextLine());
 			}
 
-			//System.out.println(codeNames);
+			// System.out.println(codeNames);
 			this.AllGameWords = codeNames;
 
 		} catch (IOException ex) {
@@ -90,7 +100,7 @@ public void CodeNamesFileReader(String filename) {
 		} finally {
 			reader.close();
 		}
-		
+
 	}
 	
 	
