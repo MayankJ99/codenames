@@ -106,9 +106,9 @@ public Board(String filename) {
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			} 
-//			finally {
-//				reader.close();
-//			}
+			finally {
+				reader.close();
+			}
 		}
 		
 		public String getCodeNames(){
