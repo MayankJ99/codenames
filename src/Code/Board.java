@@ -247,8 +247,19 @@ public Board(String filename) {
 	
 //	Method defined which correctly returns whether or not the Board is in one of the winning states	
 	public boolean checkGameState() {
+		if(WinTeam().equals("Blue Team Won")) {
+			return true;
+		}else if(WinTeam().equals("Red Team Won")) {
+			return true;
+		}else if(getRedCount() == 0) {
+			return true;
+		}else if(getBlueCount() == 0) {
+			return true;
+		}
+		
 		return false;
 	}
+
 	
 	
 /**
@@ -356,4 +367,23 @@ public Board(String filename) {
  * @author Dan
  */
 	public int getCount() {return this.count;}
+
+/**
+ * @return the number of red spys left
+ * 
+ * @author Juan Menodza
+ */
+	public int getRedCount() {
+		return this.RedCount;
+	}
+	
+	/**
+	 * @return the number of blue spys left
+	 * 
+	 * @author Juan Menodza
+	 */
+	
+	public int getBlueCount() {
+		return this.BlueCount;
+	}
 }
