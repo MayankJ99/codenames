@@ -264,8 +264,12 @@ public Board(String filename) {
 		return false;
 	}
 	
-	
-//	Method defined which correctly returns whether or not the Board is in one of the winning states	
+/**
+ * "Method defined which correctly returns whether or not the Board is in one of the winning states."
+ *  
+ * @return true if blueCount or recount or assassinCount equals 0 else it returns false
+ * @author Juan Mendoza
+ */
 	public boolean checkGameState() {
 //		if(WinTeam().equals("Blue team won!")) {
 //			return true;
@@ -410,7 +414,12 @@ public Board(String filename) {
 	public int getBlueCount() {
 		return this.BlueCount;
 	}
-
+	
+	/**
+	 * @return the number of assassins left
+	 * 
+	 * @author Juan Menodza
+	 */
 	public int getAssassinCount() {
 		return this.Assassin;
 	}
