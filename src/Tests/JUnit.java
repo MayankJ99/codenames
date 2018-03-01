@@ -222,26 +222,32 @@ public class JUnit {
 		
 		int TrueRedBoardCOUNT = TrueREDBoard.getRedCount();
 		while(TrueRedBoardCOUNT > 0) {
-			TrueRedBoardCOUNT -= 1;
+			TrueRedBoardCOUNT = TrueRedBoardCOUNT- 1;
+			assertFalse(TrueREDBoard.checkGameState());
 		}
 		
 		int TrueBLUEBoardCOUNT = TrueBLUEBoard.getBlueCount();
 		while(TrueBLUEBoardCOUNT > 0) {
 			TrueBLUEBoardCOUNT -= 1;
+			assertFalse(TrueBLUEBoard.checkGameState());
 		}
 		
-		int ASSASSINBoardCOUNT = TrueBLUEBoard.getAssassinCount();
+		int ASSASSINBoardCOUNT = ASSASSINBoard.getAssassinCount();
 		while(ASSASSINBoardCOUNT > 0) {
 			ASSASSINBoardCOUNT -= 1;
+			assertFalse(ASSASSINBoard.checkGameState());
 		}
 		
+		if(TrueRedBoardCOUNT == 0) {
+			
+		}
 		assertTrue(TrueREDBoard.checkGameState());
 		assertTrue(TrueBLUEBoard.checkGameState());
 		assertTrue(ASSASSINBoard.checkGameState());
 		
-		assertEquals(TrueREDBoard.checkGameState(),TrueRedBoardCOUNT == 0 );
-		assertEquals(TrueBLUEBoard.checkGameState(),TrueBLUEBoardCOUNT == 0 );
-		assertEquals(ASSASSINBoard.checkGameState(),ASSASSINBoardCOUNT == 0 );
+		assertTrue(TrueBLUEBoardCOUNT == 0);
+		assertTrue(TrueBLUEBoardCOUNT == 0 );
+		assertTrue(ASSASSINBoardCOUNT == 0 );
 
 	}
 	

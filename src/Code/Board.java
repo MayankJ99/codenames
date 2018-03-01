@@ -267,24 +267,22 @@ public Board(String filename) {
 	
 //	Method defined which correctly returns whether or not the Board is in one of the winning states	
 	public boolean checkGameState() {
-		if(WinTeam().equals("Blue Team Won")) {
-			return true;
-		}else if(WinTeam().equals("Red Team Won")) {
-			return true;
-		}else if(getRedCount() == 0) {
-			return true;
-		}else if(getBlueCount() == 0) {
-			return true;
-		}else if(this.Assassin == 0) {
-			return true;
+//		if(WinTeam().equals("Blue team won!")) {
+//			return true;
+//		}else if(WinTeam().equals( "Red team won!")) {
+//			return true;
+//		}
+		if(this.getRedCount() != 0) {
+			return false;
+		}if(this.getBlueCount() != 0) {
+			return false;
+		}if(this.Assassin != 0) {
+			return false;
 		}
 		
-		return false;
+		return true;
 	}
-	
-	public int getAssassinCount() {
-		return this.Assassin;
-	}
+
 
 	
 	
@@ -411,5 +409,9 @@ public Board(String filename) {
 	
 	public int getBlueCount() {
 		return this.BlueCount;
+	}
+
+	public int getAssassinCount() {
+		return this.Assassin;
 	}
 }
