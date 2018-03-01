@@ -275,9 +275,15 @@ public Board(String filename) {
 			return true;
 		}else if(getBlueCount() == 0) {
 			return true;
+		}else if(this.Assassin == 0) {
+			return true;
 		}
 		
 		return false;
+	}
+	
+	public int getAssassinCount() {
+		return this.Assassin;
 	}
 
 	

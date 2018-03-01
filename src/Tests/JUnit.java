@@ -216,7 +216,33 @@ public class JUnit {
 	// Test to check the method CheckGameState
 	@Test
 	public void Check_CheckGameState() {
-		fail("Not yet implemented");
+		Board TrueREDBoard = new Board();
+		Board TrueBLUEBoard = new Board();
+		Board ASSASSINBoard = new Board();
+		
+		int TrueRedBoardCOUNT = TrueREDBoard.getRedCount();
+		while(TrueRedBoardCOUNT > 0) {
+			TrueRedBoardCOUNT -= 1;
+		}
+		
+		int TrueBLUEBoardCOUNT = TrueBLUEBoard.getBlueCount();
+		while(TrueBLUEBoardCOUNT > 0) {
+			TrueBLUEBoardCOUNT -= 1;
+		}
+		
+		int ASSASSINBoardCOUNT = TrueBLUEBoard.getAssassinCount();
+		while(ASSASSINBoardCOUNT > 0) {
+			ASSASSINBoardCOUNT -= 1;
+		}
+		
+		assertTrue(TrueREDBoard.checkGameState());
+		assertTrue(TrueBLUEBoard.checkGameState());
+		assertTrue(ASSASSINBoard.checkGameState());
+		
+		assertEquals(TrueREDBoard.checkGameState(),TrueRedBoardCOUNT == 0 );
+		assertEquals(TrueBLUEBoard.checkGameState(),TrueBLUEBoardCOUNT == 0 );
+		assertEquals(ASSASSINBoard.checkGameState(),ASSASSINBoardCOUNT == 0 );
+
 	}
 	
 	
