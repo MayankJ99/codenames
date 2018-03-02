@@ -216,9 +216,9 @@ public class JUnit {
 	// Test to check the method CheckGameState
 	@Test
 	public void Check_CheckGameState() {
-		Board TrueREDBoard = new Board();
-		Board TrueBLUEBoard = new Board();
-		Board ASSASSINBoard = new Board();
+		Board TrueREDBoard = new Board("Dictionaries/GameWords2.txt");
+		Board TrueBLUEBoard = new Board("Dictionaries/GameWords2.txt");
+		Board ASSASSINBoard = new Board("Dictionaries/GameWords2.txt");
 		
 		int TrueRedBoardCOUNT = TrueREDBoard.getRedCount();
 		while(TrueRedBoardCOUNT > 0) {
@@ -246,8 +246,8 @@ public class JUnit {
 		assertTrue(ASSASSINBoard.checkGameState());
 		
 		assertTrue(TrueBLUEBoardCOUNT == 0);
-		assertTrue(TrueBLUEBoardCOUNT == 0 );
-		assertTrue(ASSASSINBoardCOUNT == 0 );
+		assertTrue(TrueBLUEBoardCOUNT == 0);
+		assertTrue(ASSASSINBoardCOUNT == 0);
 
 	}
 	

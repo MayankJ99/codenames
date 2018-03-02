@@ -276,15 +276,11 @@ public Board(String filename) {
 //		}else if(WinTeam().equals( "Red team won!")) {
 //			return true;
 //		}
-		if(this.getRedCount() != 0) {
-			return false;
-		}if(this.getBlueCount() != 0) {
-			return false;
-		}if(this.Assassin != 0) {
+		if(this.RedCount == 0 || this.BlueCount == 0 || this.Assassin == 0) {
+			return true;
+		}else {
 			return false;
 		}
-		
-		return true;
 	}
 
 
