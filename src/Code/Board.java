@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+/**
+ * This class simulates the board game Code Names.
+ * 
+ * @author Mayank, Minseo Kim, Juan Mendoza, Dan Walsh
+ */
+
 public class Board {
 
 //	Feel free to change any method(return type, parameters, definition etc.) 
@@ -69,8 +75,6 @@ public class Board {
 	private String filename;
 	
 	
-
-	
 	/**
 	 * Default Constructor for Board class
 	 * Temporary use until code changes are made for proper construtor
@@ -80,15 +84,11 @@ public class Board {
 	 */
 	public Board() {
 		this.RedCount = 9;
-		this.BlueCount = 8; 
-		this.IBCount=7;
+		this.BlueCount = 8;
 		this.Assassin = 1;
-	
-}
+	}
 
 
-//Constructor to call basic methods.
-	
 	/**
 	 * Constructor for Board class 
 	 * initializes all arrayLists and variables up until the Final 25 Location instances
@@ -97,17 +97,18 @@ public class Board {
 	 * 
 	 * @author mayank
 	 */
-public Board(String filename) {
-	this.CodeNamesFileReader(filename);
-	this.select25();
-	this.RandomAssign();
-	this.GameStart();
+	public Board(String filename) {
+		this.RedCount = 9;
+		this.BlueCount = 8;
+		this.Assassin = 1;
+		
+		this.CodeNamesFileReader(filename);
+		this.select25();
+		this.RandomAssign();
+		this.GameStart();
 	}
 	
 	
-
-	// Correctly reads codenames from a file named GameWords.txt and stores them in
-	// a List
 	/**
 	 * Reads a file by its location, parameterized as a String input, and creates a
 	 * list containing 25 code names from the aforementioned file.
@@ -123,31 +124,32 @@ public Board(String filename) {
 			this.filename = filename;
 
 			ArrayList<String> codeNames = new ArrayList<>();
-			Scanner reader = null;
+//			Scanner reader = null;
 
 			try {
 				File file = new File(filename);
-				reader = new Scanner(file);
+				Scanner reader = new Scanner(file);
 
 				while (reader.hasNextLine()) {
 					codeNames.add(reader.nextLine());
 				}
 
-				System.out.println(codeNames);
+				//System.out.println(codeNames);
 
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			} 
-			finally {
-				reader.close();
-			}
+//			finally {
+//				reader.close();
+//			}
 
 			
 			AllGameWords = codeNames;
 		}
+	
 		
 		public String getCodeNames(){
-			String lines = null;
+			String lines = " ";
 			try {
 				for(String line : Files.readAllLines(Paths.get(this.filename))) {
 					lines = line + " " + lines;
@@ -160,29 +162,25 @@ public Board(String filename) {
 		}
 	
 	
-	
-//	Creates List containing 25 distinct codenames selected at random 
-	
-/**Creates List containing 25 distinct codenames selected at random 
- * and assigns them to an arrayList
- * @author mayank
- * 	
- */
+	/**Creates List containing 25 distinct codenames selected at random 
+	 * and assigns them to an arrayList
+	 * @author mayank
+	 * 	
+	 */
 	public void select25(){
-
 		NewGameWords = new ArrayList<String>();
 		Collections.shuffle(AllGameWords);
 		for(int i = 0 ; i < 25 ; i++){
 			NewGameWords.add(AllGameWords.get(i));
-			}
+		}
 	}
 	
-/**
- *  Creates List containing randomly generated assignments for each of the 9 Red Agents, 
- *  8 Blue Agents, 7 Innocent Bystanders, and 1 Assassin
- *  
- *  @author Dan
- */
+	/**
+	 *  Creates List containing randomly generated assignments for each of the 9 Red Agents, 
+	 *  8 Blue Agents, 7 Innocent Bystanders, and 1 Assassin
+	 *	  
+	 *  @author Dan
+	 */
 	public void RandomAssign() {
 		String[] initialData = {"R","R","R","R","R","R","R","R","R","B","B","B","B","B","B","B","B","I","I","I","I","I","I","I","A"};
 		this.Persons = new ArrayList<>();
@@ -194,12 +192,12 @@ public Board(String filename) {
 		Collections.shuffle(this.Persons);
 	}
 	
-/**
- * When game started, sets redTurn to true and assigns each of Board's 25 Location instances
- * a codename, Person, and is Not Revealed
- * 
- * @author Dan
- */	
+	/**
+	 * When game started, sets redTurn to true and assigns each of Board's 25 Location instances
+	 * a codename, Person, and is Not Revealed
+	 * 
+	 * @author Dan
+	 */	
 	public void GameStart() {
 		this.CodeNamesFileReader("Dictionaries/GameWords2.txt");
 		this.select25();
@@ -214,16 +212,13 @@ public Board(String filename) {
 		}
 		this.redTurn = true;
 	}
-	
-	
-
-	
-/**
- * Method defined which correctly returns if a clue is legal or illegal (clues cannot equal a current
- * codename unless that codename is in a locations that was already Revealed)
- * @param String ; The clue that will be checked for validity
- * @return true if legal and false if not
- */
+		
+	/**
+	 * Method defined which correctly returns if a clue is legal or illegal (clues cannot equal a current
+	 * codename unless that codename is in a locations that was already Revealed)
+	 * @param String ; The clue that will be checked for validity
+	 * @return true if legal and false if not
+	 */
 //	public boolean CheckClue(String clue) {
 //		for(int i = 0; i < Locations.size();i++) {
 //			if(Locations.get(i).getCodename().equals(clue)==false) {
@@ -247,14 +242,14 @@ public Board(String filename) {
 		return true;
 	}
 	
-/**
- * Method defined which decrements the count, updates a Location when the Location's
- * codename was selected, and returns if the Location contained the current team's Agent
- * 
- * @param clue the location selected by the current team
- * @return true if the location contains a spy for the current team
- * @author Dan
- */	
+	/**
+	 * Method defined which decrements the count, updates a Location when the Location's
+	 * codename was selected, and returns if the Location contained the current team's Agent
+	 * 
+	 * @param clue the location selected by the current team
+	 * @return true if the location contains a spy for the current team
+	 * @author Dan
+	 */	
 	public boolean UpdateLocation(String guess) {
 		this.count -= 1;
 		for (Location location : this.Locations) {

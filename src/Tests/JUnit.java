@@ -18,10 +18,14 @@ public class JUnit {
 	// Test to check the method ReadTextFile.
 	@Test
 	public void CodeNamesListTest() {
-		Board real = new Board();
-		Board ints = new Board();
-		Board expected = new Board();
-		Board empty = new Board();
+		String expectedFile = "Dictionaries/GameWords2.txt";
+		String intFile = "Dictionaries/intFile";
+		String emptyFile ="Dictionaries/EmptyFile";
+		
+		Board real = new Board("Dictionaries/GameWords2.txt");
+		Board ints = new Board(intFile);
+		Board expected = new Board(expectedFile);
+		Board empty = new Board(emptyFile);
 		
 //		CodeNamesFileReader expectedCodeNames = new CodenamesFileReader();
 //		CodenamesFileReader realCodeNames = new CodenamesFileReader();
@@ -30,9 +34,9 @@ public class JUnit {
 //		CodenamesFileReader nullCodeNames = new CodenamesFileReader();
 
 		
-		String expectedFile = "Dictionaries/GameWords2.txt";
-		String intFile = "Dictionaries/intFile";
-		String emptyFile ="Dictionaries/EmptyFile";
+//		String expectedFile = "Dictionaries/GameWords2.txt";
+//		String intFile = "Dictionaries/intFile";
+//		String emptyFile ="Dictionaries/EmptyFile";
 //		String nullFile = "";
 		
 		real.CodeNamesFileReader("Dictionaries/GameWords2.txt");
@@ -149,6 +153,9 @@ public class JUnit {
 		assertTrue(samePersons);
 		assertTrue(notRevealed);
 		assertTrue(board.getRedTurn());
+		assertEquals(9, board.getRedCount());
+		assertEquals(8, board.getBlueCount());
+		assertEquals(1, board.getAssassinCount()); 
 	}
 	
 	
@@ -170,11 +177,17 @@ public class JUnit {
 	//Trick Test
 	
 	for(int i = 0; i < x.getLocations().size();i++) {
-		if(x.getLocations().get(i).getCodename().equals(illegal))
+		if(x.getLocations().get(i).getCodename().equals(illegal)) {
 		if(x.getLocations().get(i).getRevealed()==true) {
 			Assert.assertTrue(x.CheckClue(illegal));
 			}
+		
+		if(x.getLocations().get(i).getRevealed()==false) {
+			Assert.assertFalse(x.CheckClue(illegal));
 		}
+		}
+		}
+	
 	}
 	
 
@@ -219,35 +232,18 @@ public class JUnit {
 		Board TrueBLUEBoard = new Board("Dictionaries/GameWords2.txt");
 		Board ASSASSINBoard = new Board("Dictionaries/GameWords2.txt");
 		
-		int TrueRedBoardCOUNT = TrueREDBoard.getRedCount();
-		while(TrueRedBoardCOUNT > 0) {
-			TrueRedBoardCOUNT = TrueRedBoardCOUNT- 1;
-			assertFalse(TrueREDBoard.checkGameState());
-		}
+		assertFalse(TrueREDBoard.checkGameState());
+		TrueREDBoard.setRedCount(0);
 		
-		int TrueBLUEBoardCOUNT = TrueBLUEBoard.getBlueCount();
-		while(TrueBLUEBoardCOUNT > 0) {
-			TrueBLUEBoardCOUNT -= 1;
-			assertFalse(TrueBLUEBoard.checkGameState());
-		}
+		assertFalse(TrueBLUEBoard.checkGameState());
+		TrueBLUEBoard.setBlueCount(0);
 		
-		int ASSASSINBoardCOUNT = ASSASSINBoard.getAssassinCount();
-		while(ASSASSINBoardCOUNT > 0) {
-			ASSASSINBoardCOUNT -= 1;
-			assertFalse(ASSASSINBoard.checkGameState());
-		}
-		
-		if(TrueRedBoardCOUNT == 0) {
-			
-		}
+		assertFalse(ASSASSINBoard.checkGameState());
+		ASSASSINBoard.setAssassinCount(0);
+
 		assertTrue(TrueREDBoard.checkGameState());
 		assertTrue(TrueBLUEBoard.checkGameState());
 		assertTrue(ASSASSINBoard.checkGameState());
-		
-		assertTrue(TrueBLUEBoardCOUNT == 0);
-		assertTrue(TrueBLUEBoardCOUNT == 0);
-		assertTrue(ASSASSINBoardCOUNT == 0);
-
 	}
 	
 	
