@@ -1,0 +1,30 @@
+Meeting Minutes for _add meeting date________:
+
+Meeting Attendance: (list all students who were present) [1 minute]
+	*(M) Juan Mendoza
+	* Daniel Walsh
+	* Mayank Jha
+    * Minseo Kim
+	
+Tasks completed since last meeting [1-2 minutes]
+	* CodeNamesFileReaderTest()
+	* WinGame()
+	* WinGameTest()
+
+Tasks worked upon but not completed since last meeting [2-4 minutes]
+	* Talked about when to pull so no previous work is lost.
+	* Talked about fixing the count decrement methods, and adding that particular functionality into others.
+	* Talked about optimizing Board Class.
+	* Brain stormed about defining WinningGameState().
+	* Exchanged thoughts about the current Junit tests.
+	* Discussed Javadocs.
+	* Agreed on no duplicate effort.(Implementing minor unnecessary optimization.)
+	
+Goals for the next meeting [20+ minutes]
+	* Completing WinningGameState().
+	* Completing CheckWinningGameStateTest().
+	* Committing Javadocs.
+	
+
+Schedule for the next week's set of pair programming meetings [3-4 minutes]
+	* Saturday, March 3rd @ 5pm.
