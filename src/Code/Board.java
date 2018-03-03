@@ -128,7 +128,12 @@ public class Board {
 
 			try {
 				File file = new File(filename);
+<<<<<<< HEAD
 				Scanner reader = new Scanner(file);
+=======
+				reader = new Scanner(file);
+				
+>>>>>>> branch 'master' of https://github.com/CSE116-Spring2018/s18semesterproject-a7-nullpointers.git
 
 				while (reader.hasNextLine()) {
 					codeNames.add(reader.nextLine());
