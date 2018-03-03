@@ -13,27 +13,59 @@ public class Board {
 //	Feel free to change any method(return type, parameters, definition etc.) 
 //  add or remove parameters and instance variables as you like.
 	
-	private int RedCount; //Count for Red Agents
+	/**
+	 * Counter for number of red spies
+	 */
+	private int RedCount; 
+	
+	/**
+	 * Counter for number of blue spies
+	 */
 	private int BlueCount; //Count for blue agents
+	
+	/**
+	 * Counter for number of Innocent Bystanders
+	 */
 	private int IBCount; //Count for Innocent Bystanders
+	
+	/**
+	 * Assassin Counter
+	 */
 	private int Assassin; //The Assassin *Dun Dun Dun*
+	
+	/**
+	 * The count given by the Spymaster with a clue.
+	 */
 	private int count; //The count given by the Spymaster with a clue.
 	
+	/**
+	 * Indicates whether or not it is the Red Team's turn
+	 */
 	private boolean redTurn; //Indicates whether or not it is the Red Team's turn
 	
-	//ArrayList holding all the names from sample .txt file
+	/**
+	 * ArrayList holding all the names from sample .txt file
+	 */
 	private ArrayList<String> AllGameWords= new ArrayList<String>();
 	
-	//ArrayList holding 25 randomly selected names.
+	/**
+	 * ArrayList holding 25 randomly selected names.
+	 */
 	private ArrayList<String> NewGameWords;
 	
-	//ArrayList holding 25 randomized Persons (Red and Blue Agents, Bystanders, and Assassin);
+	/**
+	 * ArrayList holding 25 randomized Persons (Red and Blue Agents, Bystanders, and Assassin);
+	 */
 	private ArrayList<String> Persons;
 	
-	//ArrayList holding 25 Locations
+	/**
+	 * ArrayList holding 25 Locations
+	 */
 	private ArrayList<Location> Locations = new ArrayList<Location>();
 	
-	//String holding the path of the file.
+	/**
+	 * String holding the path of the file.
+	 */
 	private String filename;
 	
 	
