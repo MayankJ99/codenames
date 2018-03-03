@@ -292,52 +292,25 @@ public Board(String filename) {
  * @author Minseo Kim
  */
 	public String WinTeam() {
-		String WT = "";
-		
-		if(this.redTurn) {
-			for(int i = 0; i<25; i++) {
-				if(Locations.get(i).getCodename() == "A") {
-					if(Locations.get(i).getRevealed() == true) {
-						WT = "Blue team won!";
-					}
-				}
-			}
-		}
-		
-		else
-		{
-			for(int i = 0; i<25; i++) {
-				if(Locations.get(i).getCodename() == "A") {
-					if(Locations.get(i).getRevealed() == true) {
-						WT = "Red team won!";
-				}
-			}
+String WT = "";
+	if(this.redTurn) {
+		if(Assassin==0) {
+		WT = "Blue Team Won"; }
+	}
+	
+	if(this.redTurn==false) {
+		if(Assassin == 0) {
+			WT ="Red Team Won";
+			
 		}
 	}
-
-//		if(this.redTurn) {
-//			for(int i = 0; i<25 ; i++) {
-//				if(Locations.get(i).getCodename() == "A") {
-//					WT = "Blue team won!";
-//					break;
-//				}
-//			}
-//		}
-//
-//		else
-//		{
-//			for(int i = 0; i<25 ; i++) {
-//				if(Locations.get(i).getCodename() == "A") {
-//					WT = "Red team won!";
-//					break;
-//				}
-//			}
-//		}
-
-
-
-
-		return WT;
+	
+	if(Assassin > 0) {
+		WT = "No Team Won yet";
+	}
+	
+	return WT;
+	
 	}	
 	
 /**Setter Method for All Game Words
@@ -378,6 +351,14 @@ public Board(String filename) {
  */
 	public boolean getRedTurn() {return this.redTurn;}
 	
+	
+/**
+ * setterMethod for red turn	
+ * @param x boolean value
+ * @author mayank
+ */
+	public void setRedTurn(boolean x) {this.redTurn = x;}
+
 /**
  * Setter method for count
  * 
@@ -419,4 +400,37 @@ public Board(String filename) {
 	public int getAssassinCount() {
 		return this.Assassin;
 	}
+	
+	
+	/**
+	 * Setter method for red count
+	 * @param x integer value for new value of red spies
+	 * @author mayank
+	 */
+	public void setRedCount(int x ) {
+		this.RedCount =x;
+	}
+	
+	/**
+	 * setter method for blue count
+	 * @param x integer value for new value of blue spies
+	 * @author mayank
+	 */
+	public void setBlueCount( int x ) {
+		this.BlueCount = x;
+	}
+	
+	/**
+	 * setter method for assassin count
+	 * @param x integer value for new value of Assassin
+	 * @author mayank
+	 */
+	public void setAssassinCount(int x ) {
+		this.Assassin=x;
+	}
+	
+	
+	
+	
+	
 }
