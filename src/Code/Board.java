@@ -13,27 +13,59 @@ public class Board {
 //	Feel free to change any method(return type, parameters, definition etc.) 
 //  add or remove parameters and instance variables as you like.
 	
-	private int RedCount; //Count for Red Agents
+	/**
+	 * Counter for number of red spies
+	 */
+	private int RedCount; 
+	
+	/**
+	 * Counter for number of blue spies
+	 */
 	private int BlueCount; //Count for blue agents
+	
+	/**
+	 * Counter for number of Innocent Bystanders
+	 */
 	private int IBCount; //Count for Innocent Bystanders
+	
+	/**
+	 * Assassin Counter
+	 */
 	private int Assassin; //The Assassin *Dun Dun Dun*
+	
+	/**
+	 * The count given by the Spymaster with a clue.
+	 */
 	private int count; //The count given by the Spymaster with a clue.
 	
+	/**
+	 * Indicates whether or not it is the Red Team's turn
+	 */
 	private boolean redTurn; //Indicates whether or not it is the Red Team's turn
 	
-	//ArrayList holding all the names from sample .txt file
+	/**
+	 * ArrayList holding all the names from sample .txt file
+	 */
 	private ArrayList<String> AllGameWords= new ArrayList<String>();
 	
-	//ArrayList holding 25 randomly selected names.
+	/**
+	 * ArrayList holding 25 randomly selected names.
+	 */
 	private ArrayList<String> NewGameWords;
 	
-	//ArrayList holding 25 randomized Persons (Red and Blue Agents, Bystanders, and Assassin);
+	/**
+	 * ArrayList holding 25 randomized Persons (Red and Blue Agents, Bystanders, and Assassin);
+	 */
 	private ArrayList<String> Persons;
 	
-	//ArrayList holding 25 Locations
+	/**
+	 * ArrayList holding 25 Locations
+	 */
 	private ArrayList<Location> Locations = new ArrayList<Location>();
 	
-	//String holding the path of the file.
+	/**
+	 * String holding the path of the file.
+	 */
 	private String filename;
 	
 	
@@ -192,20 +224,27 @@ public Board(String filename) {
  * @param String ; The clue that will be checked for validity
  * @return true if legal and false if not
  */
+//	public boolean CheckClue(String clue) {
+//		for(int i = 0; i < Locations.size();i++) {
+//			if(Locations.get(i).getCodename().equals(clue)==false) {
+//				return true;
+//			}
+//			if(Locations.get(i).getCodename().equals(clue)) {
+//				if(Locations.get(i).getRevealed()==true) {
+//					return true;
+//				}
+//			}
+//			
+//		}
+//		return false;
+//		
+//	}
+	
 	public boolean CheckClue(String clue) {
-		for(int i = 0; i < Locations.size();i++) {
-			if(Locations.get(i).getCodename().equals(clue)==false) {
-				return true;
-			}
-			if(Locations.get(i).getCodename().equals(clue)) {
-				if(Locations.get(i).getRevealed()==true) {
-					return true;
-				}
-			}
-			
-		}
-		return false;
-		
+		for (int i = 0; i < Locations.size(); i++)
+			if (Locations.get(i).getCodename().equals(clue) && !Locations.get(i).getRevealed())
+				return false;
+		return true;
 	}
 	
 /**
@@ -292,52 +331,25 @@ public Board(String filename) {
  * @author Minseo Kim
  */
 	public String WinTeam() {
-		String WT = "";
-		
-		if(this.redTurn) {
-			for(int i = 0; i<25; i++) {
-				if(Locations.get(i).getCodename() == "A") {
-					if(Locations.get(i).getRevealed() == true) {
-						WT = "Blue team won!";
-					}
-				}
-			}
-		}
-		
-		else
-		{
-			for(int i = 0; i<25; i++) {
-				if(Locations.get(i).getCodename() == "A") {
-					if(Locations.get(i).getRevealed() == true) {
-						WT = "Red team won!";
-				}
-			}
+String WT = "";
+	if(this.redTurn) {
+		if(Assassin==0) {
+		WT = "Blue Team Won"; }
+	}
+	
+	if(this.redTurn==false) {
+		if(Assassin == 0) {
+			WT ="Red Team Won";
+			
 		}
 	}
-
-//		if(this.redTurn) {
-//			for(int i = 0; i<25 ; i++) {
-//				if(Locations.get(i).getCodename() == "A") {
-//					WT = "Blue team won!";
-//					break;
-//				}
-//			}
-//		}
-//
-//		else
-//		{
-//			for(int i = 0; i<25 ; i++) {
-//				if(Locations.get(i).getCodename() == "A") {
-//					WT = "Red team won!";
-//					break;
-//				}
-//			}
-//		}
-
-
-
-
-		return WT;
+	
+	if(Assassin > 0) {
+		WT = "No Team Won yet";
+	}
+	
+	return WT;
+	
 	}	
 	
 /**Setter Method for All Game Words
@@ -378,6 +390,14 @@ public Board(String filename) {
  */
 	public boolean getRedTurn() {return this.redTurn;}
 	
+	
+/**
+ * setterMethod for red turn	
+ * @param x boolean value
+ * @author mayank
+ */
+	public void setRedTurn(boolean x) {this.redTurn = x;}
+
 /**
  * Setter method for count
  * 
@@ -419,4 +439,37 @@ public Board(String filename) {
 	public int getAssassinCount() {
 		return this.Assassin;
 	}
+	
+	
+	/**
+	 * Setter method for red count
+	 * @param x integer value for new value of red spies
+	 * @author mayank
+	 */
+	public void setRedCount(int x ) {
+		this.RedCount =x;
+	}
+	
+	/**
+	 * setter method for blue count
+	 * @param x integer value for new value of blue spies
+	 * @author mayank
+	 */
+	public void setBlueCount( int x ) {
+		this.BlueCount = x;
+	}
+	
+	/**
+	 * setter method for assassin count
+	 * @param x integer value for new value of Assassin
+	 * @author mayank
+	 */
+	public void setAssassinCount(int x ) {
+		this.Assassin=x;
+	}
+	
+	
+	
+	
+	
 }

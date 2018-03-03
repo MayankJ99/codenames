@@ -36,7 +36,6 @@ public class JUnit {
 //		String nullFile = "";
 		
 		real.CodeNamesFileReader("Dictionaries/GameWords2.txt");
-		ints.CodeNamesFileReader(intFile);
 		expected.CodeNamesFileReader(expectedFile);
 		empty.CodeNamesFileReader(emptyFile);
 
@@ -256,9 +255,20 @@ public class JUnit {
 	// Test to check the method WinTeam
 	@Test
 	public void Check_WinTeam() {
-		Board b = new Board("Dictionaries/GameWords2.txt");
+		Board x = new Board();
+		String R = "Red Team Won";
+		String B = "Blue Team Won";
+		String empty = "";
+		x.GameStart();
 		
-		assertEquals("Blue team won!", b.WinTeam());
+		x.setRedTurn(true);
+		x.setAssassinCount(0);
+		Assert.assertTrue(x.WinTeam().equals(B));
+		
+		x.setRedTurn(false);
+		Assert.assertTrue(x.WinTeam().equals(R));
+		
+		Assert.assertFalse(x.WinTeam().equals(empty));
 	}
 
 }
