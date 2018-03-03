@@ -224,20 +224,27 @@ public Board(String filename) {
  * @param String ; The clue that will be checked for validity
  * @return true if legal and false if not
  */
+//	public boolean CheckClue(String clue) {
+//		for(int i = 0; i < Locations.size();i++) {
+//			if(Locations.get(i).getCodename().equals(clue)==false) {
+//				return true;
+//			}
+//			if(Locations.get(i).getCodename().equals(clue)) {
+//				if(Locations.get(i).getRevealed()==true) {
+//					return true;
+//				}
+//			}
+//			
+//		}
+//		return false;
+//		
+//	}
+	
 	public boolean CheckClue(String clue) {
-		for(int i = 0; i < Locations.size();i++) {
-			if(Locations.get(i).getCodename().equals(clue)==false) {
-				return true;
-			}
-			if(Locations.get(i).getCodename().equals(clue)) {
-				if(Locations.get(i).getRevealed()==true) {
-					return true;
-				}
-			}
-			
-		}
-		return false;
-		
+		for (int i = 0; i < Locations.size(); i++)
+			if (Locations.get(i).getCodename().equals(clue) && !Locations.get(i).getRevealed())
+				return false;
+		return true;
 	}
 	
 /**
