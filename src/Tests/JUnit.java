@@ -18,39 +18,22 @@ public class JUnit {
 	// Test to check the method ReadTextFile.
 	@Test
 	public void CodeNamesListTest() {
-		Board real = new Board();
-		Board ints = new Board();
-		Board expected = new Board();
-		Board empty = new Board();
-		
-//		CodeNamesFileReader expectedCodeNames = new CodenamesFileReader();
-//		CodenamesFileReader realCodeNames = new CodenamesFileReader();
-//		CodenamesFileReader intCodeNames = new CodenamesFileReader();
-//		CodenamesFileReader emptyCodeNames = new CodenamesFileReader();
-//		CodenamesFileReader nullCodeNames = new CodenamesFileReader();
-
-		
 		String expectedFile = "Dictionaries/GameWords2.txt";
-		String intFile = "Dictionaries/intFile";
-		String emptyFile ="Dictionaries/EmptyFile";
+//		String intFile = "Dictionaries/intFile";
+//		String emptyFile ="Dictionaries/emptyFile.txt";
 //		String nullFile = "";
 		
-		real.CodeNamesFileReader("Dictionaries/GameWords2.txt");
-		expected.CodeNamesFileReader(expectedFile);
-		empty.CodeNamesFileReader(emptyFile);
-
-//		realCodeNames.printCodeNames("src/GameWords.txt");
-//		intCodeNames.printCodeNames(intFile);
-//		expectedCodeNames.printCodeNames(expectedFile);
-//		emptyCodeNames.printCodeNames(emptyFile);
-//		nullCodeNames.printCodeNames(nullFile);
 		
+		Board real = new Board("Dictionaries/GameWords2.txt");
+//		Board ints = new Board(intFile);
+	Board expected = new Board(expectedFile);
+//		Board empty = new Board(emptyFile);
 		
 
 		assertNotNull(real.getCodeNames());
 		assertFalse(real.getCodeNames().isEmpty());
-		assertFalse(real.getCodeNames().equals(ints.getCodeNames()));
-		assertFalse(real.getCodeNames().equals(empty.getCodeNames()));
+		//assertFalse(real.getCodeNames().equals(ints.getCodeNames()));
+	//	assertFalse(real.getCodeNames().equals(empty.getCodeNames()));
 //		assertFalse(realCodeNames.getCodeNames().equals(nullCodeNames.getCodeNames()));
 		assertEquals(expected.getCodeNames(), real.getCodeNames());
 	}

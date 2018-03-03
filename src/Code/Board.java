@@ -128,6 +128,7 @@ public Board(String filename) {
 			try {
 				File file = new File(filename);
 				reader = new Scanner(file);
+				
 
 				while (reader.hasNextLine()) {
 					codeNames.add(reader.nextLine());
