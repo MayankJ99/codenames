@@ -114,24 +114,6 @@ public class Board {
 	}
 
 	/**
-	 * Method for comparison of file content; concatenates all lines into a String, separated by spaces
-	 * 
-	 * @return String consisting of code names from file
-	 */
-	public String codeNameFileString(){
-		String lines = " ";
-		try {
-			for(String line : Files.readAllLines(Paths.get(this.filename))) {
-				lines = line + " " + lines;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return lines;
-	}
-
-	/**
 	 * Creates List containing 25 distinct codenames selected at random 
 	 * and assigns them to an arrayList	
 	 */
