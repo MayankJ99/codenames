@@ -102,8 +102,6 @@ public class Board {
 				allGameWords.add(reader.nextLine());
 			}
 
-			System.out.println(allGameWords);
-
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} 
