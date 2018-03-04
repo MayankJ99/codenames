@@ -123,7 +123,7 @@ public class Board {
 	}
 
 	/**
-	 * Method for comparison of file content; aggregates all lines into a String, separated by spaces
+	 * Method for comparison of file content; concatenates all lines into a String, separated by spaces
 	 * 
 	 * @return String consisting of code names from file
 	 */

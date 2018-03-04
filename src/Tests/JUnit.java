@@ -176,19 +176,19 @@ public class JUnit {
 	@Test
 	public void Check_CheckGameState() {
 		Board TrueREDBoard = new Board("Dictionaries/GameWords2.txt");
-		TrueREDBoard.gameStart();
 		Board TrueBLUEBoard = new Board("Dictionaries/GameWords2.txt");
-		TrueBLUEBoard.gameStart();
 		Board ASSASSINBoard = new Board("Dictionaries/GameWords2.txt");
+		
+		TrueREDBoard.gameStart();
+		TrueBLUEBoard.gameStart();
 		ASSASSINBoard.gameStart();
 		
 		assertFalse(TrueREDBoard.checkGameState());
-		TrueREDBoard.setRedCount(0);
-		
 		assertFalse(TrueBLUEBoard.checkGameState());
-		TrueBLUEBoard.setBlueCount(0);
-		
 		assertFalse(ASSASSINBoard.checkGameState());
+		
+		TrueREDBoard.setRedCount(0);
+		TrueBLUEBoard.setBlueCount(0);
 		ASSASSINBoard.setAssassinCount(0);
 
 		assertTrue(TrueREDBoard.checkGameState());
@@ -202,16 +202,18 @@ public class JUnit {
 		Board x = new Board();
 		String R = "Red Team Won";
 		String B = "Blue Team Won";
-		String empty = "";
+		String N = "No Team Won yet";
+		//String empty = "";
 		x.gameStart();
 		
-		x.setRedTurn(true);
+		Assert.assertTrue(x.winTeam().equals(N));
+		
 		x.setAssassinCount(0);
 		Assert.assertTrue(x.winTeam().equals(B));
 		
 		x.setRedTurn(false);
 		Assert.assertTrue(x.winTeam().equals(R));
 		
-		Assert.assertFalse(x.winTeam().equals(empty));
+		//Assert.assertFalse(x.winTeam().equals(empty));
 	}
 }
