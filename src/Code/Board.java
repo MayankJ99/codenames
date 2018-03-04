@@ -124,29 +124,24 @@ public class Board {
 			this.filename = filename;
 
 			ArrayList<String> codeNames = new ArrayList<>();
-//			Scanner reader = null;
+			Scanner reader = null;
 
 			try {
 				File file = new File(filename);
-<<<<<<< HEAD
-				Scanner reader = new Scanner(file);
-=======
 				reader = new Scanner(file);
-				
->>>>>>> branch 'master' of https://github.com/CSE116-Spring2018/s18semesterproject-a7-nullpointers.git
 
 				while (reader.hasNextLine()) {
 					codeNames.add(reader.nextLine());
 				}
 
-				//System.out.println(codeNames);
+				System.out.println(codeNames);
 
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			} 
-//			finally {
-//				reader.close();
-//			}
+			finally {
+				reader.close();
+			}
 
 			
 			AllGameWords = codeNames;

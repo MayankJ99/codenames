@@ -19,29 +19,8 @@ public class JUnit {
 	@Test
 	public void CodeNamesListTest() {
 		String expectedFile = "Dictionaries/GameWords2.txt";
-<<<<<<< HEAD
-		String intFile = "Dictionaries/intFile";
-		String emptyFile ="Dictionaries/EmptyFile";
-		
-		Board real = new Board("Dictionaries/GameWords2.txt");
-		Board ints = new Board(intFile);
-		Board expected = new Board(expectedFile);
-		Board empty = new Board(emptyFile);
-		
-//		CodeNamesFileReader expectedCodeNames = new CodenamesFileReader();
-//		CodenamesFileReader realCodeNames = new CodenamesFileReader();
-//		CodenamesFileReader intCodeNames = new CodenamesFileReader();
-//		CodenamesFileReader emptyCodeNames = new CodenamesFileReader();
-//		CodenamesFileReader nullCodeNames = new CodenamesFileReader();
-
-		
-//		String expectedFile = "Dictionaries/GameWords2.txt";
-//		String intFile = "Dictionaries/intFile";
-//		String emptyFile ="Dictionaries/EmptyFile";
-=======
 //		String intFile = "Dictionaries/intFile";
 //		String emptyFile ="Dictionaries/emptyFile.txt";
->>>>>>> branch 'master' of https://github.com/CSE116-Spring2018/s18semesterproject-a7-nullpointers.git
 //		String nullFile = "";
 		
 		
