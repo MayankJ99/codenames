@@ -11,10 +11,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 public class JUnit {
-
-	
- //comment
-	
 	// Test to check the method ReadTextFile.
 	@Test
 	public void CodeNamesListTest() {
@@ -26,7 +22,7 @@ public class JUnit {
 		
 		Board real = new Board("Dictionaries/GameWords2.txt");
 //		Board ints = new Board(intFile);
-	Board expected = new Board(expectedFile);
+		Board expected = new Board(expectedFile);
 //		Board empty = new Board(emptyFile);
 		
 
@@ -43,10 +39,7 @@ public class JUnit {
 	// Test to check the method Select25.
 	@Test
 	public void Check_Select25() {
-		//Board x = new Board();
 		String file = "Dictionaries/GameWords2.txt";
-		//x.CodeNamesFileReader(file);
-		//x.select25();
 		
 		Board x = new Board(file);
 		
@@ -63,9 +56,6 @@ public class JUnit {
 				}
 			}
 		}
-		
-		
-		
 	}
 	
 	
@@ -103,7 +93,6 @@ public class JUnit {
 		
 		assertFalse(testString.equals("RRRRRRRRRBBBBBBBBIIIIIIIA"));
 	}
-	
 	
 	// Test to check the method GameStart
 	@Test
@@ -150,26 +139,23 @@ public class JUnit {
 		String empty = "";
 		
 		
-	Assert.assertTrue(x.CheckClue(legal));
-	Assert.assertTrue(x.CheckClue(nothing));	
-	Assert.assertTrue(x.CheckClue(empty));	
-	//Trick Test
+		Assert.assertTrue(x.CheckClue(legal));
+		Assert.assertTrue(x.CheckClue(nothing));	
+		Assert.assertTrue(x.CheckClue(empty));	
+		//Trick Test
 	
-	for(int i = 0; i < x.getLocations().size();i++) {
-		if(x.getLocations().get(i).getCodename().equals(illegal)) {
-		if(x.getLocations().get(i).getRevealed()==true) {
-			Assert.assertTrue(x.CheckClue(illegal));
+		for(int i = 0; i < x.getLocations().size();i++) {
+			if(x.getLocations().get(i).getCodename().equals(illegal)) {
+				if(x.getLocations().get(i).getRevealed()==true) {
+					Assert.assertTrue(x.CheckClue(illegal));
+				}
+				if(x.getLocations().get(i).getRevealed()==false) {
+					Assert.assertFalse(x.CheckClue(illegal));
+				}
 			}
-		
-		if(x.getLocations().get(i).getRevealed()==false) {
-			Assert.assertFalse(x.CheckClue(illegal));
 		}
-		}
-		}
-	
 	}
 	
-
 	// Test to check the method UpdateLocation
 	@Test
 	public void Check_UpdateLocationString() {

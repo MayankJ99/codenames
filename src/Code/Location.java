@@ -10,7 +10,12 @@ public class Location {
 		Person = "";
 		Revealed = false;
 	}
-
+	
+	public Location(String C, String P) {
+		codename = C;
+		Person = P;
+	}
+	
 	public void setCodename(String c) {
 		codename = c;
 	}

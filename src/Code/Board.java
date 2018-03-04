@@ -15,10 +15,6 @@ import java.util.Scanner;
  */
 
 public class Board {
-
-//	Feel free to change any method(return type, parameters, definition etc.) 
-//  add or remove parameters and instance variables as you like.
-	
 	/**
 	 * Counter for number of red spies
 	 */
@@ -27,32 +23,27 @@ public class Board {
 	/**
 	 * Counter for number of blue spies
 	 */
-	private int BlueCount; //Count for blue agents
-	
-	/**
-	 * Counter for number of Innocent Bystanders
-	 */
-	private int IBCount; //Count for Innocent Bystanders
+	private int BlueCount;
 	
 	/**
 	 * Assassin Counter
 	 */
-	private int Assassin; //The Assassin *Dun Dun Dun*
+	private int Assassin;
 	
 	/**
 	 * The count given by the Spymaster with a clue.
 	 */
-	private int count; //The count given by the Spymaster with a clue.
+	private int count;
 	
 	/**
 	 * Indicates whether or not it is the Red Team's turn
 	 */
-	private boolean redTurn; //Indicates whether or not it is the Red Team's turn
+	private boolean redTurn;
 	
 	/**
 	 * ArrayList holding all the names from sample .txt file
 	 */
-	private ArrayList<String> AllGameWords= new ArrayList<String>();
+	private ArrayList<String> AllGameWords;
 	
 	/**
 	 * ArrayList holding 25 randomly selected names.
@@ -67,13 +58,12 @@ public class Board {
 	/**
 	 * ArrayList holding 25 Locations
 	 */
-	private ArrayList<Location> Locations = new ArrayList<Location>();
+	private ArrayList<Location> Locations;
 	
 	/**
 	 * String holding the path of the file.
 	 */
 	private String filename;
-	
 	
 	/**
 	 * Default Constructor for Board class
@@ -83,11 +73,7 @@ public class Board {
 	 * 
 	 */
 	public Board() {
-		this.RedCount = 9;
-		this.BlueCount = 8;
-		this.Assassin = 1;
 	}
-
 
 	/**
 	 * Constructor for Board class 
@@ -98,16 +84,11 @@ public class Board {
 	 * @author mayank
 	 */
 	public Board(String filename) {
-		this.RedCount = 9;
-		this.BlueCount = 8;
-		this.Assassin = 1;
-		
 		this.CodeNamesFileReader(filename);
 		this.select25();
 		this.RandomAssign();
 		this.GameStart();
 	}
-	
 	
 	/**
 	 * Reads a file by its location, parameterized as a String input, and creates a
@@ -119,49 +100,43 @@ public class Board {
 	 *            String of the name of the path of the file to be read.
 	 */
 	public void CodeNamesFileReader(String filename) {
+		this.filename = filename;
 
-			
-			this.filename = filename;
+		ArrayList<String> codeNames = new ArrayList<>();
+		Scanner reader = null;
 
-			ArrayList<String> codeNames = new ArrayList<>();
-			Scanner reader = null;
+		try {
+			File file = new File(filename);
+			reader = new Scanner(file);
 
-			try {
-				File file = new File(filename);
-				reader = new Scanner(file);
-
-				while (reader.hasNextLine()) {
-					codeNames.add(reader.nextLine());
-				}
-
-				System.out.println(codeNames);
-
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			} 
-			finally {
-				reader.close();
+			while (reader.hasNextLine()) {
+				codeNames.add(reader.nextLine());
 			}
 
-			
-			AllGameWords = codeNames;
+			System.out.println(codeNames);
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} 
+		finally {
+			reader.close();
 		}
-	
-		
-		public String getCodeNames(){
-			String lines = " ";
-			try {
-				for(String line : Files.readAllLines(Paths.get(this.filename))) {
-					lines = line + " " + lines;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
+		AllGameWords = codeNames;
+	}
+
+	public String getCodeNames(){
+		String lines = " ";
+		try {
+			for(String line : Files.readAllLines(Paths.get(this.filename))) {
+				lines = line + " " + lines;
 			}
-			
-			return lines ;
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-	
-	
+
+		return lines ;
+	}
+
 	/**Creates List containing 25 distinct codenames selected at random 
 	 * and assigns them to an arrayList
 	 * @author mayank
@@ -202,15 +177,15 @@ public class Board {
 		this.CodeNamesFileReader("Dictionaries/GameWords2.txt");
 		this.select25();
 		this.RandomAssign();
+		this.Locations = new ArrayList<Location>();
 		
-		for (int a = 0; a < 25; a++) {
-			Location temp = new Location();
-			temp.setCodename(this.NewGameWords.get(a));
-			temp.setPerson(this.Persons.get(a));
-			this.Locations.add(temp);
-			//this.Locations.add(new Location(this.NewGameWords.get(a), this.Persons.get(a), false));
-		}
+		for (int a = 0; a < 25; a++)
+			this.Locations.add(new Location(this.NewGameWords.get(a), this.Persons.get(a)));
+		
 		this.redTurn = true;
+		this.RedCount = 9;
+		this.BlueCount = 8;
+		this.Assassin = 1;
 	}
 		
 	/**
@@ -219,22 +194,6 @@ public class Board {
 	 * @param String ; The clue that will be checked for validity
 	 * @return true if legal and false if not
 	 */
-//	public boolean CheckClue(String clue) {
-//		for(int i = 0; i < Locations.size();i++) {
-//			if(Locations.get(i).getCodename().equals(clue)==false) {
-//				return true;
-//			}
-//			if(Locations.get(i).getCodename().equals(clue)) {
-//				if(Locations.get(i).getRevealed()==true) {
-//					return true;
-//				}
-//			}
-//			
-//		}
-//		return false;
-//		
-//	}
-	
 	public boolean CheckClue(String clue) {
 		for (int i = 0; i < Locations.size(); i++)
 			if (Locations.get(i).getCodename().equals(clue) && !Locations.get(i).getRevealed())
@@ -259,8 +218,6 @@ public class Board {
 					break;
 					case "B" : this.BlueCount -= 1;
 					break;
-					case "I" : this.IBCount -= 1;
-					break;
 					case "A" : this.Assassin -= 1;
 					break;
 				}
@@ -272,22 +229,20 @@ public class Board {
 		return false;
 	}
 
-/**
- * Method defined which decrements the count, updates a Location when the Location's
- * codename was selected, and returns if the Location contained the current team's Agent
- * 
- * @param location a reference to the location selected by the current team
- * @return true if the location contains a spy for the current team
- * @author Dan
- */	
+	/**
+	 * Method defined which decrements the count, updates a Location when the Location's
+	 * codename was selected, and returns if the Location contained the current team's Agent
+	 * 
+	 * @param location a reference to the location selected by the current team
+	 * @return true if the location contains a spy for the current team
+	 * @author Dan
+	 */	
 	public boolean UpdateLocation(Location location) {
 		this.count -= 1;
 		switch (location.getPerson()) {
 			case "R" : this.RedCount -= 1;
 			break;
 			case "B" : this.BlueCount -= 1;
-			break;
-			case "I" : this.IBCount -= 1;
 			break;
 			case "A" : this.Assassin -= 1;
 			break;
@@ -298,135 +253,127 @@ public class Board {
 		return false;
 	}
 	
-/**
- * "Method defined which correctly returns whether or not the Board is in one of the winning states."
- *  
- * @return true if blueCount or recount or assassinCount equals 0 else it returns false
- * @author Juan Mendoza
- */
+	/**
+	 * "Method defined which correctly returns whether or not the Board is in one of the winning states."
+	 *  
+	 * @return true if blueCount or recount or assassinCount equals 0 else it returns false
+	 * @author Juan Mendoza
+	 */
 	public boolean checkGameState() {
-//		if(WinTeam().equals("Blue team won!")) {
-//			return true;
-//		}else if(WinTeam().equals( "Red team won!")) {
-//			return true;
-//		}
 		if(this.RedCount == 0 || this.BlueCount == 0 || this.Assassin == 0) {
 			return true;
 		}else {
 			return false;
 		}
 	}
-
-
 	
-	
-/**
- * Method defined which correctly returns which team did not lose (i.e., win) when the Assassin was revealed	
- * @return "Blue team won!" if the assassin gets revealed in Red Team's turn. 
- * @author Minseo Kim
- */
+	/**
+	 * Method defined which correctly returns which team did not lose (i.e., win) when the Assassin was revealed	
+	 * @return "Blue team won!" if the assassin gets revealed in Red Team's turn. 
+	 * @author Minseo Kim
+	 */
 	public String WinTeam() {
-String WT = "";
-	if(this.redTurn) {
-		if(Assassin==0) {
-		WT = "Blue Team Won"; }
-	}
-	
-	if(this.redTurn==false) {
-		if(Assassin == 0) {
-			WT ="Red Team Won";
-			
+		String WT = "";
+		if(this.redTurn) {
+			if(Assassin==0) {
+				WT = "Blue Team Won"; }
 		}
-	}
 	
-	if(Assassin > 0) {
-		WT = "No Team Won yet";
-	}
+		if(this.redTurn==false) {
+			if(Assassin == 0) {
+				WT ="Red Team Won";
+			}
+		}
 	
-	return WT;
-	
+		if(Assassin > 0) {
+			WT = "No Team Won yet";
+		}
+
+		return WT;
 	}	
 	
-/**Setter Method for All Game Words
- * 
- * @return AllGameWords arrayList which contains all gamewords from the txt file
- * 
- * @author mayank
- */
-	
-	
+	/**Getter Method for All Game Words
+	 * 
+	 * @return AllGameWords arrayList which contains all gamewords from the txt file
+	 * 
+	 * @author mayank
+	 */
 	public ArrayList<String> getAllWords(){ return this.AllGameWords; }
 	
-/**
- * Getter method for Persons
- * 
- * @author Dan
- */
+	/**
+	 * Getter method for Persons
+	 * 
+	 * @author Dan
+	 */
 	public ArrayList<String> getPersons() {return this.Persons;}
 	
-/**
- * Getter method for Locations
- * 
- * @author Dan
- */	
+	/**
+	 * Getter method for Locations
+	 * 
+	 * @author Dan
+	 */	
 	public ArrayList<Location> getLocations() {return this.Locations;}
 
-/**
- * Getter method for NewGameWords
- * 
- * @author Dan
- */
+	/**
+	 * Getter method for NewGameWords
+	 * 
+	 * @author Dan
+	 */
 	public ArrayList<String> getCodenames() {return this.NewGameWords;}
 
-/**
- * Getter method for redTurn
- * 
- * @author Dan
- */
+	/**
+	 * Getter method for redTurn
+	 * 
+	 * @author Dan
+	 */
 	public boolean getRedTurn() {return this.redTurn;}
 	
-	
-/**
- * setterMethod for red turn	
- * @param x boolean value
- * @author mayank
- */
+	/**
+	 * setterMethod for red turn	
+	 * @param x boolean value
+	 * @author mayank
+	 */
 	public void setRedTurn(boolean x) {this.redTurn = x;}
 
-/**
- * Setter method for count
- * 
- * @author Dan
- */
+	/**
+	 * Setter method for count
+	 * 
+	 * @author Dan
+	 */
 	public void setCount(int c) {this.count = c;}
 
-/**
- * Getter method for count
- *
- * @author Dan
- */
+	/**
+	 * Getter method for count
+	 *
+	 * @author Dan
+	 */
 	public int getCount() {return this.count;}
 
-/**
- * @return the number of red spys left
- * 
- * @author Juan Menodza
- */
+	/**
+	 * Getter method for RedCount
+	 * 
+	 * @return the number of red spys left
+	 * 
+	 * @author Juan Menodza
+	 */
 	public int getRedCount() {
 		return this.RedCount;
 	}
 	
 	/**
+	 * Getter method for Bluecount
+	 * 
 	 * @return the number of blue spys left
 	 * 
 	 * @author Juan Menodza
 	 */
-	
 	public int getBlueCount() {
 		return this.BlueCount;
 	}
 	
 	/**
+	 * Getter method for Assassins
+	 * 
 	 * @return the number of assassins left
 	 * 
 	 * @author Juan Menodza
@@ -434,7 +381,6 @@ String WT = "";
 	public int getAssassinCount() {
 		return this.Assassin;
 	}
-	
 	
 	/**
 	 * Setter method for red count
@@ -462,9 +408,4 @@ String WT = "";
 	public void setAssassinCount(int x ) {
 		this.Assassin=x;
 	}
-	
-	
-	
-	
-	
 }
