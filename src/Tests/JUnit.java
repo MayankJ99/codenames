@@ -14,10 +14,17 @@ public class JUnit {
 	// Test to check the method ReadTextFile.
 	@Test
 	public void CodeNamesListTest() {
-		Board real = new Board();
+		Board real = new Board("Dictionaries/GameWords2.txt");
 		assertEquals(50, real.getAllWords().size());
 		assertTrue(real.getAllWords().get(0).equals("area"));
 		assertTrue(real.getAllWords().get(49).equals("year"));
+		
+		Board empty = new Board("Dictionaries/emptyFile.txt");
+		assertTrue(empty.getAllWords().isEmpty());
+		
+		Board nullBoard = new Board("Dictionaries/nonExistentFile.txt");
+		assertNull(nullBoard.getAllWords());
+		
 //		String expectedFile = "Dictionaries/GameWords2.txt";
 ////		String intFile = "Dictionaries/intFile";
 ////		String emptyFile ="Dictionaries/emptyFile.txt";
@@ -183,7 +190,7 @@ public class JUnit {
 		
 		Location location = board.getLocations().get(randomIndex);
 		
-		assertTrue(board.updateLocation(location) == (location.getPerson().equals("R")));
+		assertEquals(board.updateLocation(location), (location.getPerson().equals("R")));
 		assertEquals(randomIndex - 1, board.getCount());
 		assertTrue(board.getLocations().get(randomIndex).getRevealed());
 		

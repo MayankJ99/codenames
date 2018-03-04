@@ -100,26 +100,30 @@ public class Board {
 	public void codeNamesFileReader(String filename) {
 		this.filename = filename;
 
-		ArrayList<String> codeNames = new ArrayList<>();
+		//ArrayList<String> codeNames = new ArrayList<>();
+		//this.allGameWords = new ArrayList<>();
 		Scanner reader = null;
 
 		try {
 			File file = new File(filename);
 			reader = new Scanner(file);
-
+			this.allGameWords = new ArrayList<>();
+			
 			while (reader.hasNextLine()) {
-				codeNames.add(reader.nextLine());
+				//codeNames.add(reader.nextLine());
+				allGameWords.add(reader.nextLine());
 			}
 
-			System.out.println(codeNames);
+			//System.out.println(codeNames);
+			System.out.println(allGameWords);
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} 
-		finally {
+		/*finally {
 			reader.close();
-		}
-		allGameWords = codeNames;
+		}*/
+		//allGameWords = codeNames;
 	}
 
 	/**
