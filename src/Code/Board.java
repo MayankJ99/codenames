@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * This class simulates the board game Code Names.
  * 
- * @author Mayank, Minseo Kim, Juan Mendoza, Dan Walsh
+ * @author Mayank Jha, Minseo Kim, Juan Mendoza, Dan Walsh
  */
 
 public class Board {
@@ -66,23 +66,16 @@ public class Board {
 	private String filename;
 	
 	/**
-	 * Default Constructor for Board class
-	 * Temporary use until code changes are made for proper constructor
-	 * 
-	 * @author mayank
-	 * 
+	 * Constructor for Board class, default file is GameWords.txt
 	 */
 	public Board() {
-		this.codeNamesFileReader("Dictionaries/GameWords2.txt");
+		this.codeNamesFileReader("Dictionaries/GameWords.txt");
 	}
 
 	/**
-	 * Constructor for Board class 
-	 * initializes all arrayLists and variables up until the Final 25 Location instances
+	 * Constructor for Board class that accepts a filename to be read into allGameWords
 	 * 
 	 * @param filename - the string of filename that we will read over 
-	 * 
-	 * @author mayank
 	 */
 	public Board(String filename) {
 		this.codeNamesFileReader(filename);
@@ -92,16 +85,12 @@ public class Board {
 	 * Reads a file by its location, parameterized as a String input, and creates a
 	 * list containing 25 code names from the aforementioned file.
 	 * 
-	 * @author Juan Mendoza
-	 * 
 	 * @param filename
 	 *            String of the name of the path of the file to be read.
 	 */
 	public void codeNamesFileReader(String filename) {
 		this.filename = filename;
 
-		//ArrayList<String> codeNames = new ArrayList<>();
-		//this.allGameWords = new ArrayList<>();
 		Scanner reader = null;
 
 		try {
@@ -110,20 +99,18 @@ public class Board {
 			this.allGameWords = new ArrayList<>();
 			
 			while (reader.hasNextLine()) {
-				//codeNames.add(reader.nextLine());
 				allGameWords.add(reader.nextLine());
 			}
 
-			//System.out.println(codeNames);
 			System.out.println(allGameWords);
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} 
-		/*finally {
-			reader.close();
-		}*/
-		//allGameWords = codeNames;
+		finally {
+			if (reader != null)
+				reader.close();
+		}
 	}
 
 	/**
@@ -144,10 +131,9 @@ public class Board {
 		return lines;
 	}
 
-	/**Creates List containing 25 distinct codenames selected at random 
-	 * and assigns them to an arrayList
-	 * @author mayank
-	 * 	
+	/**
+	 * Creates List containing 25 distinct codenames selected at random 
+	 * and assigns them to an arrayList	
 	 */
 	public void select25(){
 		newGameWords = new ArrayList<String>();
@@ -160,8 +146,6 @@ public class Board {
 	/**
 	 *  Creates List containing randomly generated assignments for each of the 9 Red Agents, 
 	 *  8 Blue Agents, 7 Innocent Bystanders, and 1 Assassin
-	 *	  
-	 *  @author Dan
 	 */
 	public void randomAssign() {
 		String[] initialData = {"R","R","R","R","R","R","R","R","R","B","B","B","B","B","B","B","B","I","I","I","I","I","I","I","A"};
@@ -177,8 +161,6 @@ public class Board {
 	/**
 	 * When game started, sets redTurn to true and assigns each of Board's 25 Location instances
 	 * a codename, Person, and is Not Revealed
-	 * 
-	 * @author Dan
 	 */	
 	public void gameStart() {
 		this.select25();
@@ -213,7 +195,6 @@ public class Board {
 	 * 
 	 * @param clue the location selected by the current team
 	 * @return true if the location contains a spy for the current team
-	 * @author Dan
 	 */	
 	public boolean updateLocation(String guess) {
 		this.count -= 1;
@@ -241,7 +222,6 @@ public class Board {
 	 * 
 	 * @param location a reference to the location selected by the current team
 	 * @return true if the location contains a spy for the current team
-	 * @author Dan
 	 */	
 	public boolean updateLocation(Location location) {
 		this.count -= 1;
@@ -262,8 +242,7 @@ public class Board {
 	/**
 	 * "Method defined which correctly returns whether or not the Board is in one of the winning states."
 	 *  
-	 * @return true if blueCount or recount or assassinCount equals 0 else it returns false
-	 * @author Juan Mendoza
+	 * @return true if blueCount or redCount or assassinCount equals 0 else it returns false
 	 */
 	public boolean checkGameState() {
 		if(this.redCount == 0 || this.blueCount == 0 || this.assassin == 0) {
@@ -275,8 +254,8 @@ public class Board {
 	
 	/**
 	 * Method defined which correctly returns which team did not lose (i.e., win) when the Assassin was revealed	
-	 * @return "Blue team won!" if the assassin gets revealed in Red Team's turn. 
-	 * @author Minseo Kim
+	 *
+	 * @return a String identifying the winner if the assassin has been revealed. 
 	 */
 	public String winTeam() {
 		String WT = "";
@@ -298,118 +277,95 @@ public class Board {
 		return WT;
 	}	
 	
-	/**Getter Method for All Game Words
+	/**
+	 * Getter Method for allGameWords
 	 * 
-	 * @return AllGameWords arrayList which contains all gamewords from the txt file
-	 * 
-	 * @author mayank
+	 * @return allGameWords arrayList which contains allGameWords from the text file
 	 */
 	public ArrayList<String> getAllWords(){ return this.allGameWords; }
 	
 	/**
-	 * Getter method for Persons
-	 * 
-	 * @author Dan
+	 * Getter method for persons
 	 */
 	public ArrayList<String> getPersons() {return this.persons;}
 	
 	/**
-	 * Getter method for Locations
-	 * 
-	 * @author Dan
+	 * Getter method for locations
 	 */	
 	public ArrayList<Location> getLocations() {return this.locations;}
 
 	/**
-	 * Getter method for NewGameWords
-	 * 
-	 * @author Dan
+	 * Getter method for newGameWords
 	 */
 	public ArrayList<String> getCodenames() {return this.newGameWords;}
 
 	/**
 	 * Getter method for redTurn
-	 * 
-	 * @author Dan
 	 */
 	public boolean getRedTurn() {return this.redTurn;}
 	
 	/**
-	 * setterMethod for red turn	
+	 * setterMethod for redTurn	
 	 * @param x boolean value
-	 * @author mayank
 	 */
 	public void setRedTurn(boolean x) {this.redTurn = x;}
 
 	/**
 	 * Setter method for count
-	 * 
-	 * @author Dan
 	 */
 	public void setCount(int c) {this.count = c;}
 
 	/**
 	 * Getter method for count
-	 *
-	 * @author Dan
 	 */
 	public int getCount() {return this.count;}
 
 	/**
-	 * Getter method for RedCount
+	 * Getter method for redCount
 	 * 
 	 * @return the number of red spys left
-	 * 
-	 * @author Juan Menodza
 	 */
 	public int getRedCount() {
 		return this.redCount;
 	}
 	
 	/**
-	 * Getter method for Bluecount
+	 * Getter method for blueCount
 	 * 
 	 * @return the number of blue spys left
-	 * 
-	 * @author Juan Menodza
 	 */
 	public int getBlueCount() {
 		return this.blueCount;
 	}
 	
 	/**
-	 * Getter method for Assassins
+	 * Getter method for assassin
 	 * 
 	 * @return the number of assassins left
-	 * 
-	 * @author Juan Menodza
 	 */
 	public int getAssassinCount() {
 		return this.assassin;
 	}
 	
 	/**
-	 * Setter method for red count
+	 * Setter method for redCount
 	 * @param x integer value for new value of red spies
-	 * @author mayank
 	 */
 	public void setRedCount(int x ) {
 		this.redCount =x;
 	}
 	
 	/**
-	 * setter method for blue count
+	 * setter method for blueCount
 	 * @param x integer value for new value of blue spies
-	 * @author mayank
 	 */
 	public void setBlueCount( int x ) {
 		this.blueCount = x;
 	}
 	
 	/**
-	 * setter method for assassin count
+	 * setter method for assassin
 	 * @param x integer value for new value of Assassin
-	 * @author mayank
 	 */
 	public void setAssassinCount(int x ) {
 		this.assassin=x;
