@@ -2,8 +2,6 @@ package Code;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -61,11 +59,6 @@ public class Board {
 	private ArrayList<Location> locations;
 	
 	/**
-	 * String holding the path of the file.
-	 */
-	private String filename;
-	
-	/**
 	 * Constructor for Board class, default file is GameWords.txt
 	 */
 	public Board() {
@@ -89,8 +82,6 @@ public class Board {
 	 *            String of the name of the path of the file to be read.
 	 */
 	public void codeNamesFileReader(String filename) {
-		this.filename = filename;
-
 		Scanner reader = null;
 
 		try {
