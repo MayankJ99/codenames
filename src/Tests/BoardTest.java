@@ -10,7 +10,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 public class BoardTest {
-	// Test to check the method ReadTextFile.
+	// Test to check the method codeNamesFileReader.
 	@Test
 	public void CodeNamesListTest() {
 		Board realBoard = new Board();
@@ -25,7 +25,7 @@ public class BoardTest {
 		assertNull(nullBoard.getAllWords());
 	}
 
-	// Test to check the method Select25.
+	// Test to check the method select25.
 	@Test
 	public void Check_Select25() {
 		String file = "Dictionaries/GameWords.txt";
@@ -69,7 +69,7 @@ public class BoardTest {
 		assertNotEquals(testString, "RRRRRRRRRBBBBBBBBIIIIIIIA");
 	}
 	
-	// Test to check the method GameStart
+	// Test to check the method gameStart
 	@Test
 	public void Check_GameStart() {
 		Board board = new Board();
@@ -102,7 +102,7 @@ public class BoardTest {
 		assertEquals(1, board.getAssassinCount()); 
 	}
 	
-	// Test to check the method CheckClue
+	// Test to check the method checkClue
 	@Test
 	public void Check_CheckClue() {
 		Board x = new Board();
@@ -123,7 +123,7 @@ public class BoardTest {
 		Assert.assertTrue(x.checkClue(illegal));
 	}
 	
-	// Test to check the method UpdateLocation
+	// Test to check the method updateLocation(String)
 	@Test
 	public void Check_UpdateLocationString() {
 		Board board = new Board();
@@ -165,45 +165,7 @@ public class BoardTest {
 		assertEquals(0, board.getAssassinCount());
 	}
 	
-	// Test to check the method UpdateLocation
-	@Test
-	public void Check_UpdateLocationLoc() {
-		Board board = new Board();
-		board.gameStart();
-		board.setCount(2);
-		
-		Location location = board.getLocations().get(0);
-		location.setPerson("R");
-		assertTrue(board.updateLocation(location));
-		assertEquals(1, board.getCount());
-		assertTrue(location.getRevealed());
-		assertEquals(8, board.getRedCount());
-		
-		board.setRedTurn(false);
-		location = board.getLocations().get(1);
-		location.setPerson("R");
-		assertFalse(board.updateLocation(location));
-		assertEquals(0, board.getCount());
-		assertTrue(location.getRevealed());
-		assertEquals(7, board.getRedCount());
-		
-		location = board.getLocations().get(2);
-		location.setPerson("A");
-		assertFalse(board.updateLocation(location));
-		assertEquals(-1, board.getCount());
-		assertTrue(location.getRevealed());
-		assertEquals(0, board.getAssassinCount());
-		
-		board.gameStart();
-		
-		for (Location item : board.getLocations())
-			board.updateLocation(item);
-		assertEquals(0, board.getRedCount());
-		assertEquals(0, board.getBlueCount());
-		assertEquals(0, board.getAssassinCount());
-	}
-	
-	// Test to check the method CheckGameState
+	// Test to check the method checkGameState
 	@Test
 	public void Check_CheckGameState() {
 		Board TrueREDBoard = new Board();
@@ -227,7 +189,7 @@ public class BoardTest {
 		assertTrue(ASSASSINBoard.checkGameState());
 	}
 	
-	// Test to check the method WinTeam
+	// Test to check the method winTeam
 	@Test
 	public void Check_WinTeam() {
 		Board x = new Board();

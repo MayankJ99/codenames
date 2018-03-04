@@ -195,29 +195,6 @@ public class Board {
 		}
 		return false;
 	}
-
-	/**
-	 * Method defined which decrements the count, updates a Location when the Location's
-	 * codename was selected, and returns if the Location contained the current team's Agent
-	 * 
-	 * @param location a reference to the location selected by the current team
-	 * @return true if the location contains a spy for the current team
-	 */	
-	public boolean updateLocation(Location location) {
-		this.count -= 1;
-		switch (location.getPerson()) {
-			case "R" : this.redCount -= 1;
-			break;
-			case "B" : this.blueCount -= 1;
-			break;
-			case "A" : this.assassin -= 1;
-			break;
-		}
-		location.setRevealed(true);
-		if ((this.redTurn && (location.getPerson().equals("R"))) || (!this.redTurn && (location.getPerson().equals("B"))))
-			return true;
-		return false;
-	}
 	
 	/**
 	 * "Method defined which correctly returns whether or not the Board is in one of the winning states."
