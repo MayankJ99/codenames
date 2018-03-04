@@ -124,7 +124,12 @@ public class Board {
 		AllGameWords = codeNames;
 	}
 
-	public String getCodeNames(){
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public String codeNameFileString(){
 		String lines = " ";
 		try {
 			for(String line : Files.readAllLines(Paths.get(this.filename))) {
@@ -134,7 +139,7 @@ public class Board {
 			e.printStackTrace();
 		}
 
-		return lines ;
+		return lines;
 	}
 
 	/**Creates List containing 25 distinct codenames selected at random 

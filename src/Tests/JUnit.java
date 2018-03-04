@@ -26,12 +26,12 @@ public class JUnit {
 //		Board empty = new Board(emptyFile);
 		
 
-		assertNotNull(real.getCodeNames());
-		assertFalse(real.getCodeNames().isEmpty());
+		assertNotNull(real.codeNameFileString());
+		assertFalse(real.codeNameFileString().isEmpty());
 		//assertFalse(real.getCodeNames().equals(ints.getCodeNames()));
 	//	assertFalse(real.getCodeNames().equals(empty.getCodeNames()));
 //		assertFalse(realCodeNames.getCodeNames().equals(nullCodeNames.getCodeNames()));
-		assertEquals(expected.getCodeNames(), real.getCodeNames());
+		assertEquals(expected.codeNameFileString(), real.codeNameFileString());
 	}
 
 	
