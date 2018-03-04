@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-public class JUnit {
+public class BoardTest {
 	// Test to check the method ReadTextFile.
 	@Test
 	public void CodeNamesListTest() {
