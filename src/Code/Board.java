@@ -18,17 +18,17 @@ public class Board {
 	/**
 	 * Counter for number of red spies
 	 */
-	private int RedCount; 
+	private int redCount; 
 	
 	/**
 	 * Counter for number of blue spies
 	 */
-	private int BlueCount;
+	private int blueCount;
 	
 	/**
 	 * Assassin Counter
 	 */
-	private int Assassin;
+	private int assassin;
 	
 	/**
 	 * The count given by the Spymaster with a clue.
@@ -43,22 +43,22 @@ public class Board {
 	/**
 	 * ArrayList holding all the names from sample .txt file
 	 */
-	private ArrayList<String> AllGameWords;
+	private ArrayList<String> allGameWords;
 	
 	/**
 	 * ArrayList holding 25 randomly selected names.
 	 */
-	private ArrayList<String> NewGameWords;
+	private ArrayList<String> newGameWords;
 	
 	/**
 	 * ArrayList holding 25 randomized Persons (Red and Blue Agents, Bystanders, and Assassin);
 	 */
-	private ArrayList<String> Persons;
+	private ArrayList<String> persons;
 	
 	/**
 	 * ArrayList holding 25 Locations
 	 */
-	private ArrayList<Location> Locations;
+	private ArrayList<Location> locations;
 	
 	/**
 	 * String holding the path of the file.
@@ -73,6 +73,7 @@ public class Board {
 	 * 
 	 */
 	public Board() {
+		this.codeNamesFileReader("Dictionaries/GameWords2.txt");
 	}
 
 	/**
@@ -84,10 +85,7 @@ public class Board {
 	 * @author mayank
 	 */
 	public Board(String filename) {
-		this.CodeNamesFileReader(filename);
-		this.select25();
-		this.RandomAssign();
-		this.GameStart();
+		this.codeNamesFileReader(filename);
 	}
 	
 	/**
@@ -99,7 +97,7 @@ public class Board {
 	 * @param filename
 	 *            String of the name of the path of the file to be read.
 	 */
-	public void CodeNamesFileReader(String filename) {
+	public void codeNamesFileReader(String filename) {
 		this.filename = filename;
 
 		ArrayList<String> codeNames = new ArrayList<>();
@@ -121,13 +119,13 @@ public class Board {
 		finally {
 			reader.close();
 		}
-		AllGameWords = codeNames;
+		allGameWords = codeNames;
 	}
 
 	/**
+	 * Method for comparison of file content; aggregates all lines into a String, separated by spaces
 	 * 
-	 * 
-	 * @return
+	 * @return String consisting of code names from file
 	 */
 	public String codeNameFileString(){
 		String lines = " ";
@@ -148,10 +146,10 @@ public class Board {
 	 * 	
 	 */
 	public void select25(){
-		NewGameWords = new ArrayList<String>();
-		Collections.shuffle(AllGameWords);
+		newGameWords = new ArrayList<String>();
+		Collections.shuffle(allGameWords);
 		for(int i = 0 ; i < 25 ; i++){
-			NewGameWords.add(AllGameWords.get(i));
+			newGameWords.add(allGameWords.get(i));
 		}
 	}
 	
@@ -161,15 +159,15 @@ public class Board {
 	 *	  
 	 *  @author Dan
 	 */
-	public void RandomAssign() {
+	public void randomAssign() {
 		String[] initialData = {"R","R","R","R","R","R","R","R","R","B","B","B","B","B","B","B","B","I","I","I","I","I","I","I","A"};
-		this.Persons = new ArrayList<>();
+		this.persons = new ArrayList<>();
 		
 		for (int a = 0; a < 25; a++) {
-			this.Persons.add(initialData[a]);
+			this.persons.add(initialData[a]);
 		}
 		
-		Collections.shuffle(this.Persons);
+		Collections.shuffle(this.persons);
 	}
 	
 	/**
@@ -178,19 +176,18 @@ public class Board {
 	 * 
 	 * @author Dan
 	 */	
-	public void GameStart() {
-		this.CodeNamesFileReader("Dictionaries/GameWords2.txt");
+	public void gameStart() {
 		this.select25();
-		this.RandomAssign();
-		this.Locations = new ArrayList<Location>();
+		this.randomAssign();
+		this.locations = new ArrayList<Location>();
 		
 		for (int a = 0; a < 25; a++)
-			this.Locations.add(new Location(this.NewGameWords.get(a), this.Persons.get(a)));
+			this.locations.add(new Location(this.newGameWords.get(a), this.persons.get(a)));
 		
 		this.redTurn = true;
-		this.RedCount = 9;
-		this.BlueCount = 8;
-		this.Assassin = 1;
+		this.redCount = 9;
+		this.blueCount = 8;
+		this.assassin = 1;
 	}
 		
 	/**
@@ -199,9 +196,9 @@ public class Board {
 	 * @param String ; The clue that will be checked for validity
 	 * @return true if legal and false if not
 	 */
-	public boolean CheckClue(String clue) {
-		for (int i = 0; i < Locations.size(); i++)
-			if (Locations.get(i).getCodename().equals(clue) && !Locations.get(i).getRevealed())
+	public boolean checkClue(String clue) {
+		for (int i = 0; i < locations.size(); i++)
+			if (locations.get(i).getCodename().equals(clue) && !locations.get(i).getRevealed())
 				return false;
 		return true;
 	}
@@ -214,16 +211,16 @@ public class Board {
 	 * @return true if the location contains a spy for the current team
 	 * @author Dan
 	 */	
-	public boolean UpdateLocation(String guess) {
+	public boolean updateLocation(String guess) {
 		this.count -= 1;
-		for (Location location : this.Locations) {
+		for (Location location : this.locations) {
 			if (guess.equals(location.getCodename())) {
 				switch (location.getPerson()) {
-					case "R" : this.RedCount -= 1;
+					case "R" : this.redCount -= 1;
 					break;
-					case "B" : this.BlueCount -= 1;
+					case "B" : this.blueCount -= 1;
 					break;
-					case "A" : this.Assassin -= 1;
+					case "A" : this.assassin -= 1;
 					break;
 				}
 				location.setRevealed(true);
@@ -242,14 +239,14 @@ public class Board {
 	 * @return true if the location contains a spy for the current team
 	 * @author Dan
 	 */	
-	public boolean UpdateLocation(Location location) {
+	public boolean updateLocation(Location location) {
 		this.count -= 1;
 		switch (location.getPerson()) {
-			case "R" : this.RedCount -= 1;
+			case "R" : this.redCount -= 1;
 			break;
-			case "B" : this.BlueCount -= 1;
+			case "B" : this.blueCount -= 1;
 			break;
-			case "A" : this.Assassin -= 1;
+			case "A" : this.assassin -= 1;
 			break;
 		}
 		location.setRevealed(true);
@@ -265,7 +262,7 @@ public class Board {
 	 * @author Juan Mendoza
 	 */
 	public boolean checkGameState() {
-		if(this.RedCount == 0 || this.BlueCount == 0 || this.Assassin == 0) {
+		if(this.redCount == 0 || this.blueCount == 0 || this.assassin == 0) {
 			return true;
 		}else {
 			return false;
@@ -277,20 +274,20 @@ public class Board {
 	 * @return "Blue team won!" if the assassin gets revealed in Red Team's turn. 
 	 * @author Minseo Kim
 	 */
-	public String WinTeam() {
+	public String winTeam() {
 		String WT = "";
 		if(this.redTurn) {
-			if(Assassin==0) {
+			if(assassin==0) {
 				WT = "Blue Team Won"; }
 		}
 	
 		if(this.redTurn==false) {
-			if(Assassin == 0) {
+			if(assassin == 0) {
 				WT ="Red Team Won";
 			}
 		}
 	
-		if(Assassin > 0) {
+		if(assassin > 0) {
 			WT = "No Team Won yet";
 		}
 
@@ -303,28 +300,28 @@ public class Board {
 	 * 
 	 * @author mayank
 	 */
-	public ArrayList<String> getAllWords(){ return this.AllGameWords; }
+	public ArrayList<String> getAllWords(){ return this.allGameWords; }
 	
 	/**
 	 * Getter method for Persons
 	 * 
 	 * @author Dan
 	 */
-	public ArrayList<String> getPersons() {return this.Persons;}
+	public ArrayList<String> getPersons() {return this.persons;}
 	
 	/**
 	 * Getter method for Locations
 	 * 
 	 * @author Dan
 	 */	
-	public ArrayList<Location> getLocations() {return this.Locations;}
+	public ArrayList<Location> getLocations() {return this.locations;}
 
 	/**
 	 * Getter method for NewGameWords
 	 * 
 	 * @author Dan
 	 */
-	public ArrayList<String> getCodenames() {return this.NewGameWords;}
+	public ArrayList<String> getCodenames() {return this.newGameWords;}
 
 	/**
 	 * Getter method for redTurn
@@ -362,7 +359,7 @@ public class Board {
 	 * @author Juan Menodza
 	 */
 	public int getRedCount() {
-		return this.RedCount;
+		return this.redCount;
 	}
 	
 	/**
@@ -373,7 +370,7 @@ public class Board {
 	 * @author Juan Menodza
 	 */
 	public int getBlueCount() {
-		return this.BlueCount;
+		return this.blueCount;
 	}
 	
 	/**
@@ -384,7 +381,7 @@ public class Board {
 	 * @author Juan Menodza
 	 */
 	public int getAssassinCount() {
-		return this.Assassin;
+		return this.assassin;
 	}
 	
 	/**
@@ -393,7 +390,7 @@ public class Board {
 	 * @author mayank
 	 */
 	public void setRedCount(int x ) {
-		this.RedCount =x;
+		this.redCount =x;
 	}
 	
 	/**
@@ -402,7 +399,7 @@ public class Board {
 	 * @author mayank
 	 */
 	public void setBlueCount( int x ) {
-		this.BlueCount = x;
+		this.blueCount = x;
 	}
 	
 	/**
@@ -411,6 +408,6 @@ public class Board {
 	 * @author mayank
 	 */
 	public void setAssassinCount(int x ) {
-		this.Assassin=x;
+		this.assassin=x;
 	}
 }

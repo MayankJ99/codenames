@@ -34,14 +34,13 @@ public class JUnit {
 		assertEquals(expected.codeNameFileString(), real.codeNameFileString());
 	}
 
-	
-	
 	// Test to check the method Select25.
 	@Test
 	public void Check_Select25() {
 		String file = "Dictionaries/GameWords2.txt";
 		
 		Board x = new Board(file);
+		x.select25();
 		
 		Assert.assertEquals(25,x.getCodenames().size(),0);
 		Assert.assertNotNull(x.getCodenames());
@@ -58,25 +57,11 @@ public class JUnit {
 		}
 	}
 	
-	
-	/**
-	 * Tests the content of the ArrayList returned by RandomAssign() to verify correct CodeNames characters:
-	 *  - 9 Red Team spies
-	 *  - 8 Blue Team spies
-	 *  - 7 Innocent bystanders
-	 *  - 1 Assassin
-	 * 
-	 * Tests that the above characters are the only contents of roles.
-	 * 
-	 * Tests for random ordering by comparing to the initial ordering in RandomAssign. There is a 0.0000000005% chance that the randomized 
-	 * list of Persons will be the same as the initial value (1 in 200 billion).
-	 * 
-	 * @author Dan
-	 */
+	// Test to check the method randomAssign();
 	@Test
 	public void Check_RandomAssign() {
 		Board board = new Board();
-		board.RandomAssign();
+		board.randomAssign();
 		ArrayList<String> persons = board.getPersons();
 		String testString = new String();
 		
@@ -98,7 +83,7 @@ public class JUnit {
 	@Test
 	public void Check_GameStart() {
 		Board board = new Board();
-		board.GameStart();
+		board.gameStart();
 
 		boolean sameNames = true;
 		boolean samePersons = true;
@@ -126,31 +111,29 @@ public class JUnit {
 		assertEquals(1, board.getAssassinCount()); 
 	}
 	
-	
 	// Test to check the method CheckClue
 	@Test
 	public void Check_CheckClue() {
 		Board x = new Board();
-		x.GameStart();
+		x.gameStart();
 		
 		String legal = "Knox 104";
 		String illegal = x.getLocations().get(5).getCodename();
 		String nothing = null;
 		String empty = "";
 		
-		
-		Assert.assertTrue(x.CheckClue(legal));
-		Assert.assertTrue(x.CheckClue(nothing));	
-		Assert.assertTrue(x.CheckClue(empty));	
+		Assert.assertTrue(x.checkClue(legal));
+		Assert.assertTrue(x.checkClue(nothing));	
+		Assert.assertTrue(x.checkClue(empty));	
 		//Trick Test
 	
 		for(int i = 0; i < x.getLocations().size();i++) {
 			if(x.getLocations().get(i).getCodename().equals(illegal)) {
 				if(x.getLocations().get(i).getRevealed()==true) {
-					Assert.assertTrue(x.CheckClue(illegal));
+					Assert.assertTrue(x.checkClue(illegal));
 				}
 				if(x.getLocations().get(i).getRevealed()==false) {
-					Assert.assertFalse(x.CheckClue(illegal));
+					Assert.assertFalse(x.checkClue(illegal));
 				}
 			}
 		}
@@ -162,13 +145,13 @@ public class JUnit {
 		int randomIndex = (int) Math.floor(Math.random() * 25);
 		
 		Board board = new Board();
-		board.GameStart();
+		board.gameStart();
 		board.setCount(randomIndex);
 		
 		Location location = board.getLocations().get(randomIndex);
 		String codeName = location.getCodename();
 		
-		assertTrue(board.UpdateLocation(codeName) == (location.getPerson().equals("R")));
+		assertTrue(board.updateLocation(codeName) == (location.getPerson().equals("R")));
 		assertEquals(randomIndex - 1, board.getCount());
 		assertTrue(board.getLocations().get(randomIndex).getRevealed());
 	}
@@ -179,23 +162,25 @@ public class JUnit {
 		int randomIndex = (int) Math.floor(Math.random() * 25);
 		
 		Board board = new Board();
-		board.GameStart();
+		board.gameStart();
 		board.setCount(randomIndex);
 		
 		Location location = board.getLocations().get(randomIndex);
 		
-		assertTrue(board.UpdateLocation(location) == (location.getPerson().equals("R")));
+		assertTrue(board.updateLocation(location) == (location.getPerson().equals("R")));
 		assertEquals(randomIndex - 1, board.getCount());
 		assertTrue(board.getLocations().get(randomIndex).getRevealed());
 	}
-	
 	
 	// Test to check the method CheckGameState
 	@Test
 	public void Check_CheckGameState() {
 		Board TrueREDBoard = new Board("Dictionaries/GameWords2.txt");
+		TrueREDBoard.gameStart();
 		Board TrueBLUEBoard = new Board("Dictionaries/GameWords2.txt");
+		TrueBLUEBoard.gameStart();
 		Board ASSASSINBoard = new Board("Dictionaries/GameWords2.txt");
+		ASSASSINBoard.gameStart();
 		
 		assertFalse(TrueREDBoard.checkGameState());
 		TrueREDBoard.setRedCount(0);
@@ -211,8 +196,6 @@ public class JUnit {
 		assertTrue(ASSASSINBoard.checkGameState());
 	}
 	
-	
-	
 	// Test to check the method WinTeam
 	@Test
 	public void Check_WinTeam() {
@@ -220,16 +203,15 @@ public class JUnit {
 		String R = "Red Team Won";
 		String B = "Blue Team Won";
 		String empty = "";
-		x.GameStart();
+		x.gameStart();
 		
 		x.setRedTurn(true);
 		x.setAssassinCount(0);
-		Assert.assertTrue(x.WinTeam().equals(B));
+		Assert.assertTrue(x.winTeam().equals(B));
 		
 		x.setRedTurn(false);
-		Assert.assertTrue(x.WinTeam().equals(R));
+		Assert.assertTrue(x.winTeam().equals(R));
 		
-		Assert.assertFalse(x.WinTeam().equals(empty));
+		Assert.assertFalse(x.winTeam().equals(empty));
 	}
-
 }
