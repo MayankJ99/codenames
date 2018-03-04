@@ -125,7 +125,7 @@ public class BoardTest {
 	
 	// Test to check the method updateLocation(String)
 	@Test
-	public void Check_UpdateLocationString() {
+	public void Check_UpdateLocation() {
 		Board board = new Board();
 		board.gameStart();
 		board.setCount(2);
