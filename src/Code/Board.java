@@ -67,7 +67,7 @@ public class Board {
 	
 	/**
 	 * Default Constructor for Board class
-	 * Temporary use until code changes are made for proper construtor
+	 * Temporary use until code changes are made for proper constructor
 	 * 
 	 * @author mayank
 	 * 
@@ -161,7 +161,7 @@ public class Board {
 	 */
 	public void randomAssign() {
 		String[] initialData = {"R","R","R","R","R","R","R","R","R","B","B","B","B","B","B","B","B","I","I","I","I","I","I","I","A"};
-		this.persons = new ArrayList<>();
+		this.persons = new ArrayList<String>();
 		
 		for (int a = 0; a < 25; a++) {
 			this.persons.add(initialData[a]);

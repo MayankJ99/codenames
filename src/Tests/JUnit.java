@@ -14,24 +14,28 @@ public class JUnit {
 	// Test to check the method ReadTextFile.
 	@Test
 	public void CodeNamesListTest() {
-		String expectedFile = "Dictionaries/GameWords2.txt";
-//		String intFile = "Dictionaries/intFile";
-//		String emptyFile ="Dictionaries/emptyFile.txt";
-//		String nullFile = "";
-		
-		
-		Board real = new Board("Dictionaries/GameWords2.txt");
-//		Board ints = new Board(intFile);
-		Board expected = new Board(expectedFile);
-//		Board empty = new Board(emptyFile);
-		
-
-		assertNotNull(real.codeNameFileString());
-		assertFalse(real.codeNameFileString().isEmpty());
-		//assertFalse(real.getCodeNames().equals(ints.getCodeNames()));
-	//	assertFalse(real.getCodeNames().equals(empty.getCodeNames()));
-//		assertFalse(realCodeNames.getCodeNames().equals(nullCodeNames.getCodeNames()));
-		assertEquals(expected.codeNameFileString(), real.codeNameFileString());
+		Board real = new Board();
+		assertEquals(50, real.getAllWords().size());
+		assertTrue(real.getAllWords().get(0).equals("area"));
+		assertTrue(real.getAllWords().get(49).equals("year"));
+//		String expectedFile = "Dictionaries/GameWords2.txt";
+////		String intFile = "Dictionaries/intFile";
+////		String emptyFile ="Dictionaries/emptyFile.txt";
+////		String nullFile = "";
+//		
+//		
+//		Board real = new Board("Dictionaries/GameWords2.txt");
+////		Board ints = new Board(intFile);
+//		Board expected = new Board(expectedFile);
+////		Board empty = new Board(emptyFile);
+//		
+//
+//		assertNotNull(real.codeNameFileString());
+//		assertFalse(real.codeNameFileString().isEmpty());
+//		//assertFalse(real.getCodeNames().equals(ints.getCodeNames()));
+//	//	assertFalse(real.getCodeNames().equals(empty.getCodeNames()));
+////		assertFalse(realCodeNames.getCodeNames().equals(nullCodeNames.getCodeNames()));
+//		assertEquals(expected.codeNameFileString(), real.codeNameFileString());
 	}
 
 	// Test to check the method Select25.
@@ -133,7 +137,7 @@ public class JUnit {
 		
 //		for(int i = 0; i < x.getLocations().size();i++) {
 //			if(x.getLocations().get(i).getCodename().equals(illegal)) {
-//				if(x.getLocations().get(i).getRevealed()==true) {
+//				if(x.getLocations().get(i).getRevealed()==true) {        <-- this is never true without an updateLocation() call
 //					Assert.assertTrue(x.checkClue(illegal));
 //				}
 //				if(x.getLocations().get(i).getRevealed()==false) {
@@ -158,6 +162,14 @@ public class JUnit {
 		assertTrue(board.updateLocation(codeName) == (location.getPerson().equals("R")));
 		assertEquals(randomIndex - 1, board.getCount());
 		assertTrue(board.getLocations().get(randomIndex).getRevealed());
+		
+		board.gameStart();
+		
+		for (Location item : board.getLocations())
+			board.updateLocation(item.getCodename());
+		assertEquals(0, board.getRedCount());
+		assertEquals(0, board.getBlueCount());
+		assertEquals(0, board.getAssassinCount());
 	}
 	
 	// Test to check the method UpdateLocation
@@ -174,6 +186,14 @@ public class JUnit {
 		assertTrue(board.updateLocation(location) == (location.getPerson().equals("R")));
 		assertEquals(randomIndex - 1, board.getCount());
 		assertTrue(board.getLocations().get(randomIndex).getRevealed());
+		
+		board.gameStart();
+		
+		for (Location item : board.getLocations())
+			board.updateLocation(item);
+		assertEquals(0, board.getRedCount());
+		assertEquals(0, board.getBlueCount());
+		assertEquals(0, board.getAssassinCount());
 	}
 	
 	// Test to check the method CheckGameState
