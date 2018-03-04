@@ -1,0 +1,23 @@
+Meeting Minutes for March 3, 2018:
+
+Meeting Attendance: (list all students who were present) [1 minute]
+	Put an 'M' next to the name of the student taking minutes
+	
+	Mayank Jha	Juan Mendoza
+	Minseo Kim	Dan Walsh M
+	
+Tasks completed since last meeting [1-2 minutes]
+	* All methods and test methods are complete or close to completion
+
+Tasks worked upon but not completed since last meeting [2-4 minutes]
+	* Not all test cases are passing. Work is needed for file reading and game state tests. There is a question of
+	  what is fair game for testing.
+	  Final project details need to be finished
+
+Goals for the next meeting [20+ minutes]
+	* Have phase 1 complete, reviewed and submitted on time
+	  Go over all methods and test methods as a group so we all understand them
+
+Schedule for the next week's set of pair programming meetings [3-4 minutes]
+	* (Pair programming sessions should be two hours long (no more, no less))
+	  (Every team member should participate in two sessions each week, with each session including a different team member)
