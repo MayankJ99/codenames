@@ -127,16 +127,20 @@ public class JUnit {
 		Assert.assertTrue(x.checkClue(empty));	
 		//Trick Test
 	
-		for(int i = 0; i < x.getLocations().size();i++) {
-			if(x.getLocations().get(i).getCodename().equals(illegal)) {
-				if(x.getLocations().get(i).getRevealed()==true) {
-					Assert.assertTrue(x.checkClue(illegal));
-				}
-				if(x.getLocations().get(i).getRevealed()==false) {
-					Assert.assertFalse(x.checkClue(illegal));
-				}
-			}
-		}
+		Assert.assertFalse(x.checkClue(illegal));
+		x.updateLocation(illegal);
+		Assert.assertTrue(x.checkClue(illegal));
+		
+//		for(int i = 0; i < x.getLocations().size();i++) {
+//			if(x.getLocations().get(i).getCodename().equals(illegal)) {
+//				if(x.getLocations().get(i).getRevealed()==true) {
+//					Assert.assertTrue(x.checkClue(illegal));
+//				}
+//				if(x.getLocations().get(i).getRevealed()==false) {
+//					Assert.assertFalse(x.checkClue(illegal));
+//				}
+//			}
+//		}
 	}
 	
 	// Test to check the method UpdateLocation
@@ -203,7 +207,7 @@ public class JUnit {
 		String R = "Red Team Won";
 		String B = "Blue Team Won";
 		String N = "No Team Won yet";
-		//String empty = "";
+		
 		x.gameStart();
 		
 		Assert.assertTrue(x.winTeam().equals(N));
@@ -213,7 +217,5 @@ public class JUnit {
 		
 		x.setRedTurn(false);
 		Assert.assertTrue(x.winTeam().equals(R));
-		
-		//Assert.assertFalse(x.winTeam().equals(empty));
 	}
 }
