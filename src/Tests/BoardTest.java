@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class BoardTest {
 	// Test to check the method codeNamesFileReader.
 	@Test
-	public void CodeNamesListTest() {
+	public void CodeNamesFileReaderTest() {
 		Board realBoard = new Board();
 		assertEquals(50, realBoard.getAllWords().size());
 		assertEquals("area", realBoard.getAllWords().get(0));
