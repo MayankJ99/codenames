@@ -28,13 +28,10 @@ public class BoardTest {
 	// Test to check the method select25.
 	@Test
 	public void Check_Select25() {
-		String file = "Dictionaries/GameWords.txt";
-		
-		Board x = new Board(file);
+		Board x = new Board();
 		x.select25();
 		
 		Assert.assertEquals(25,x.getCodenames().size(),0);
-		Assert.assertNotNull(x.getCodenames());
 		
 		Assert.assertTrue(x.getAllWords().containsAll(x.getCodenames()));
 		
