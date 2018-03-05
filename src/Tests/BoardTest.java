@@ -110,14 +110,15 @@ public class BoardTest {
 		
 		String legal = "Knox 104";
 		String illegal = x.getLocations().get(5).getCodename();
+		String upperCase = x.getLocations().get(5).getCodename().toUpperCase();
 		String nothing = null;
 		String empty = "";
 		
 		Assert.assertTrue(x.checkClue(legal));
 		Assert.assertTrue(x.checkClue(nothing));	
-		Assert.assertTrue(x.checkClue(empty));	
+		Assert.assertTrue(x.checkClue(empty));
 		//Trick Test
-	
+		Assert.assertFalse(x.checkClue(upperCase));
 		Assert.assertFalse(x.checkClue(illegal));
 		x.updateLocation(illegal);
 		Assert.assertTrue(x.checkClue(illegal));

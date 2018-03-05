@@ -155,7 +155,7 @@ public class Board {
 	 */
 	public boolean checkClue(String clue) {
 		for (int i = 0; i < locations.size(); i++)
-			if (locations.get(i).getCodename().equals(clue) && !locations.get(i).getRevealed())
+			if (locations.get(i).getCodename().equalsIgnoreCase(clue) && !locations.get(i).getRevealed())
 				return false;
 		return true;
 	}
@@ -170,7 +170,7 @@ public class Board {
 	public boolean updateLocation(String guess) {
 		this.count -= 1;
 		for (Location location : this.locations) {
-			if (guess.equals(location.getCodename())) {
+			if (guess.equalsIgnoreCase(location.getCodename())) {
 				switch (location.getPerson()) {
 					case "R" : this.redCount -= 1;
 					break;
