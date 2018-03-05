@@ -9,7 +9,10 @@ import java.util.Scanner;
 /**
  * This class simulates the board game Code Names.
  * 
- * @author Mayank Jha, Minseo Kim, Juan Mendoza, Dan Walsh
+ * @author Mayank Jha
+ * @author Minseo Kim
+ * @author Juan Mendoza
+ * @author Daniel Walsh
  */
 
 public class Board {
@@ -164,8 +167,8 @@ public class Board {
 	 * Method defined which decrements the count, updates a Location when the Location's
 	 * codename was selected, and returns if the Location contained the current team's Agent
 	 * 
-	 * @param clue the location selected by the current team
-	 * @return true if the location contains a spy for the current team
+	 * @param guess the code name for the location selected by the current team
+	 * @return true if the code name's location contains a spy for the current team
 	 */	
 	public boolean updateLocation(String guess) {
 		this.count -= 1;

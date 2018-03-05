@@ -3,7 +3,10 @@ package Code;
 /**
  * This class is a model for each of the 25 locations in the game Code Words
  * 
- * @author Mayank Jha, Minseo Kim, Juan Mendoza, Daniel Walsh
+ * @author Mayank Jha
+ * @author Minseo Kim
+ * @author Juan Mendoza
+ * @author Daniel Walsh
  */
 
 public class Location {
