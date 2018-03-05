@@ -126,14 +126,14 @@ public class BoardTest {
 	public void Check_UpdateLocation() {
 		Board board = new Board();
 		board.gameStart();
-		board.setCount(2);
+		board.setCount(4);
 		
 		Location location = board.getLocations().get(0);
 		String codeName = location.getCodename();
 		location.setPerson("R");
 		
 		assertTrue(board.updateLocation(codeName));
-		assertEquals(1, board.getCount());
+		assertEquals(3, board.getCount());
 		assertTrue(location.getRevealed());
 		assertEquals(8, board.getRedCount());
 		
@@ -141,14 +141,35 @@ public class BoardTest {
 		location = board.getLocations().get(1);
 		codeName = location.getCodename();
 		location.setPerson("R");
+		
 		assertFalse(board.updateLocation(codeName));
-		assertEquals(0, board.getCount());
+		assertEquals(2, board.getCount());
 		assertTrue(location.getRevealed());
 		assertEquals(7, board.getRedCount());
 		
 		location = board.getLocations().get(2);
 		codeName = location.getCodename();
+		location.setPerson("B");
+		
+		assertTrue(board.updateLocation(codeName));
+		assertEquals(1, board.getCount());
+		assertTrue(location.getRevealed());
+		assertEquals(7, board.getBlueCount());
+		
+		board.setRedTurn(true);
+		location = board.getLocations().get(3);
+		codeName = location.getCodename();
+		location.setPerson("B");
+		
+		assertFalse(board.updateLocation(codeName));
+		assertEquals(0, board.getCount());
+		assertTrue(location.getRevealed());
+		assertEquals(6, board.getBlueCount());
+		
+		location = board.getLocations().get(4);
+		codeName = location.getCodename();
 		location.setPerson("A");
+		
 		assertFalse(board.updateLocation(codeName));
 		assertEquals(-1, board.getCount());
 		assertTrue(location.getRevealed());
