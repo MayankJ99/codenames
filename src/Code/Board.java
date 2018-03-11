@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+import GUI.Observer;
+
 /**
  * This class simulates the board game Code Names.
  * 
@@ -318,7 +320,25 @@ public class Board {
 	 * setter method for assassin
 	 * @param x integer value for new value of Assassin
 	 */
+	
 	public void setAssassinCount(int x ) {
 		this.assassin=x;
+	}
+	
+///////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////          PHASE 2 CONTENT          ///////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+	
+	private ArrayList<Observer> _observers = new ArrayList<>();
+	
+	public void addObserver(Observer obs) {
+		_observers.add(obs);
+		notifyObservers();
+	}
+
+	public void notifyObservers() {
+		for (Observer obs : _observers) {
+			obs.update();
+		}
 	}
 }
