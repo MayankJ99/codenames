@@ -68,6 +68,7 @@ public class Board {
 	 */
 	public Board() {
 		this.codeNamesFileReader("Dictionaries/GameWords.txt");
+		this._observers = new ArrayList<>();
 	}
 
 	/**
@@ -77,6 +78,7 @@ public class Board {
 	 */
 	public Board(String filename) {
 		this.codeNamesFileReader(filename);
+		this._observers = new ArrayList<>();
 	}
 	
 	/**
@@ -150,6 +152,11 @@ public class Board {
 		this.redCount = 9;
 		this.blueCount = 8;
 		this.assassin = 1;
+		this.count = -1;
+		
+		this.newTurn = true;
+		
+		this.notifyObservers();
 	}
 		
 	/**
@@ -174,6 +181,9 @@ public class Board {
 	 */	
 	public boolean updateLocation(String guess) {
 		this.count -= 1;
+		if (this.count == -1)
+			this.newTurn = true;
+		
 		for (Location location : this.locations) {
 			if (guess.equalsIgnoreCase(location.getCodename())) {
 				switch (location.getPerson()) {
@@ -329,11 +339,11 @@ public class Board {
 /////////////////////////          PHASE 2 CONTENT          ///////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 	
-	private ArrayList<Observer> _observers = new ArrayList<>();
+	private ArrayList<Observer> _observers;
 	
 	public void addObserver(Observer obs) {
 		_observers.add(obs);
-		notifyObservers();
+		//notifyObservers();
 	}
 
 	public void notifyObservers() {
@@ -341,4 +351,56 @@ public class Board {
 			obs.update();
 		}
 	}
+	
+	public boolean checkCount(String countString) {
+		try {
+			int count = new Integer(countString);
+			if (count < 0)
+				return false;
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Called when Submit button is pressed. Sets newTurn to false when a Spymaster submits a clue and count. This prevents 
+	 * the new turn dialog from being displayed between the end of the previous turn and the successful submission of a clue 
+	 * and count. That is, when the GUI is updated but count still equals -1. Then calls notifyObservers to update the GUI.
+	 */
+	public void entriesSubmitted(String submittedClue, String submittedCount) {
+		if (this.newTurn)
+			this.newTurn = false;
+		checkSubmission(submittedClue, submittedCount);
+		this.notifyObservers();
+	}
+	
+	/**
+	 * Called to check a submitted clue and count. If both are acceptable, the count is set to the submitted count and newTurn
+	 * is set to true so that the next time count = -1, a dialog will appear to announce the new turn.
+	 * 
+	 * @param submittedClue the String in GUI._clueField when the Submit button was pressed
+	 * @param submittedCount the String in GUI._countField when the Submit button was pressed
+	 */
+	public void checkSubmission(String submittedClue, String submittedCount) {
+		if (checkClue(submittedClue) && checkCount(submittedCount)) {
+			this.count = new Integer(submittedCount);
+			this.newTurn = true;
+		}
+	}
+	
+	/**
+	 * Variable to indicate whether or not the new turn dialog should be displayed when the Observers
+	 * are notified next.
+	 */
+	private boolean newTurn;
+	
+	public boolean getNewTurn() {return this.newTurn;}
+	
+	public static final String countError = "PLEASE ENTER A VALID COUNT";
+	public static final String clueError = "PLEASE ENTER A VALID CLUE";
+	public static final String redSpymasterMessage = "RED TEAM SPYMASTER, ENTER A CLUE AND COUNT";
+	public static final String blueSpymasterMessage = "BLUE TEAM SPYMASTER, ENTER A CLUE AND COUNT";
+	public static final String redTeamMessage = "RED TEAM, CHOOSE A LOCATION";
+	public static final String blueTeamMessage = "BLUE TEAM, CHOOSE A LOCATION";
 }

@@ -1,10 +1,12 @@
 package GUI;
 
-import java.awt.Dimension;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import java.awt.Dimension;
+
+import javax.swing.JDialog;
 
 import Code.Board;
 import GUI.GUI;
@@ -32,11 +34,18 @@ public class Driver implements Runnable {
 		
 		new GUI(_board, _mainPanel, this);
 		
-		_window.setMinimumSize(new Dimension(1600, 1000));
-		
 		_window.setVisible(true);
-		_window.pack();
 		_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+	}
+	
+	public JDialog newDialog(String message) {
+		JDialog dialog = new JDialog(_window, true);
+		dialog.setTitle(message);
+        return dialog;
+	}
+	
+	public void locateDialog(JDialog dialog) {
+		dialog.setLocationRelativeTo(_window);
 	}
 	
 	public void updateJFrame() {
