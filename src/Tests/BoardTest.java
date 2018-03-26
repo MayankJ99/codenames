@@ -132,10 +132,10 @@ public class BoardTest {
 		String codeName = location.getCodename();
 		location.setPerson("R");
 		
-		assertTrue(board.updateLocation(codeName));
-		assertEquals(3, board.getCount());
-		assertTrue(location.getRevealed());
-		assertEquals(8, board.getRedCount());
+		assertTrue(board.updateLocation(codeName)); //team correct check and method call
+		assertEquals(3, board.getCount()); //clue decrement
+		assertTrue(location.getRevealed()); //checks for reveal status update ; field check
+		assertEquals(8, board.getRedCount()); //field check for team count
 		
 		board.setRedTurn(false);
 		location = board.getLocations().get(1);

@@ -63,12 +63,14 @@ public class Board {
 	 */
 	private ArrayList<Location> locations;
 	
+	private int ResetCount;
 	/**
 	 * Constructor for Board class, default file is GameWords.txt
 	 */
 	public Board() {
 		this.codeNamesFileReader("Dictionaries/GameWords.txt");
 		this._observers = new ArrayList<>();
+		ResetCount = 0;
 	}
 
 	/**
@@ -389,6 +391,12 @@ public class Board {
 		}
 	}
 	
+	
+	public int ResetGame() {
+		ResetCount++;
+		return ResetCount;
+		
+	}
 	/**
 	 * Variable to indicate whether or not the new turn dialog should be displayed when the Observers
 	 * are notified next.
@@ -404,3 +412,4 @@ public class Board {
 	public static final String redTeamMessage = "RED TEAM, CHOOSE A LOCATION";
 	public static final String blueTeamMessage = "BLUE TEAM, CHOOSE A LOCATION";
 }
+

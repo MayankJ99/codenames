@@ -18,6 +18,9 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.text.AbstractDocument;
@@ -48,10 +51,13 @@ public class GUI implements Observer {
 	
 	private Board _board;
 	private Driver _windowHolder;
+	
 
 	public GUI(Board b, JPanel mp, Driver driver) {
 		_windowHolder = driver;
 		_board = b;
+		
+		
 		
 		_mainPanel = mp;
 		_mainPanel.addMouseListener(new MouseListener() {
@@ -74,6 +80,9 @@ public class GUI implements Observer {
 		});
 		
 		_mainPanel.setLayout(new BoxLayout(_mainPanel, BoxLayout.Y_AXIS));
+		
+		
+		
 		
 		_locationPanel = new JPanel();
 		_locationPanel.setLayout(new GridLayout(5, 5));

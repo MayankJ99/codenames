@@ -1,6 +1,9 @@
 package GUI;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -16,6 +19,9 @@ public class Driver implements Runnable {
 	private Board _board;
 	private JFrame _window;
 	private JPanel _mainPanel;
+	private JMenuBar _Main;
+	private JMenu _menu;
+	private JMenuItem _m1,_m2;
 	
 	public Driver(Board b) {
 		_board = b;
@@ -31,6 +37,21 @@ public class Driver implements Runnable {
 		_window = new JFrame("CodeNames");
 		_mainPanel = new JPanel();
 		_window.getContentPane().add(_mainPanel);
+		
+		_Main = new JMenuBar();
+		_menu = new JMenu("Actions");
+		_m1 = new JMenuItem("New Game");
+		_m2  = new JMenuItem("Close");
+		
+		
+		_Main.add(_menu);
+		_menu.add(_m1);
+		_menu.add(_m2);
+		_window.setJMenuBar(_Main);
+//		
+		_m1.addActionListener(new NewGameListener(this));
+		_m2.addActionListener(new CloseListener());
+
 		
 		new GUI(_board, _mainPanel, this);
 		
@@ -51,5 +72,9 @@ public class Driver implements Runnable {
 	public void updateJFrame() {
 		_window.pack();
 		_window.repaint();
+	}
+	
+	public void close() {
+		
 	}
 }
