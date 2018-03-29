@@ -146,8 +146,9 @@ public class GUI implements Observer {
 				submissionError();
 		else
 		{
-			_infoPanel.removeAll();
-			_infoPanel.add(new JLabel("Success Count: " + _board.getCount()));
+			//_infoPanel.removeAll();
+			_messagePanel.removeAll();
+			_messagePanel.add(new JLabel("Success Count: " + _board.getCount()));
 			
 			updateJFrameIfNotHeadless();
 		}
