@@ -1,0 +1,26 @@
+Meeting Minutes for 40mins meeting date 03.15:
+
+Meeting Attendance: (list all students who were present) [1 minute]
+	*(M) Juan Mendoza
+	* Daniel Walsh
+	* Mayank Jha
+    	* Minseo Kim
+	
+Tasks completed since last meeting [1-2 minutes]
+	* N/A
+
+Tasks worked upon but not completed since last meeting [2-4 minutes]
+	* N/A
+
+	
+Goals for the next meeting [20+ minutes]
+	* Talked about the menu bar
+	* Design/layout of the menu bar
+	* Talked about how to implement methods to buttons
+	* Assignd Tasked to everyone
+	* Discussed a dialog box to display whose turn it is
+	* Discussed ideas for how to input clues and clue counts
+	* Discussed methods to circumvent user input errors
+
+Schedule for the next week's set of pair programming meetings [3-4 minutes]
+	* Thursday, March 30th @ 5pm.

@@ -1,0 +1,30 @@
+Meeting Minutes for 46 mins meeting date 03.30:
+
+Meeting Attendance: (list all students who were present) [1 minute]
+	*(M) Juan Mendoza
+	* Daniel Walsh
+	* Mayank Jha
+   	* Minseo Kim
+	
+Tasks completed since last meeting [1-2 minutes]
+	* GUI class
+	* Driver class
+	* Listner classes
+	* Menu bar
+	* Play turn dialog box
+	* Board GUI
+
+
+Tasks worked upon but not completed since last meeting [2-4 minutes]
+	* Keylisteners for tiles
+	* Method to change turns 
+	* change button properties whenever tile is revealed
+	
+Goals for the next meeting [20+ minutes]
+	* Method to change player's turn
+	* Change tile colors whenever they're revealed
+	* Keylistners for choosing words
+	
+
+Schedule for the next week's set of pair programming meetings [3-4 minutes]
+	* Thursday, April 5th @ 5pm.
