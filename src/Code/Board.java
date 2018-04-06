@@ -1,4 +1,4 @@
-package Code;
+ package Code;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+import GUI.GUI;
 import GUI.Observer;
 
 /**
@@ -411,5 +412,28 @@ public class Board {
 	public static final String blueSpymasterMessage = "BLUE TEAM SPYMASTER, ENTER A CLUE AND COUNT";
 	public static final String redTeamMessage = "RED TEAM, CHOOSE A LOCATION";
 	public static final String blueTeamMessage = "BLUE TEAM, CHOOSE A LOCATION";
+	
+	public void buttonListnerEvent(String codename) {
+	//	String codename = getLocations().get(GUI.getIdx()).getCodename();
+		
+		if(updateLocation(codename) == true) {
+//			If statement calls method inside itself.
+			if(getCount() == -1) {
+				this.newTurn = true;
+
+				
+				
+			}
+			notifyObservers();
+			
+		}
+		else{
+			setCount(-1);
+			redTurn = !redTurn;
+			this.newTurn = true;
+			notifyObservers();
+		}
+		
+	}
 }
 

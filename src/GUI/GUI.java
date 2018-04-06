@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Random;
 import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
@@ -30,6 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.JDialog;
 
 import Code.Board;
+import Code.Location;
 
 public class GUI implements Observer {
 
@@ -51,6 +53,9 @@ public class GUI implements Observer {
 	
 	private Board _board;
 	private Driver _windowHolder;
+	
+	private Color buttonColor;
+	private static Integer idx;
 	
 
 	public GUI(Board b, JPanel mp, Driver driver) {
@@ -133,9 +138,14 @@ public class GUI implements Observer {
 	public void update() {
 		_locationPanel.removeAll();
 		
-		for (int a = 0; a < 25; a++) {
-			JButton b = new JButton("" + _board.getCodenames().get(a).toUpperCase());
-			setButtonProperties(b);
+		for (int idx = 0; idx< 25; idx++) {
+			this.idx = idx;
+
+			JButton b = new JButton("" + _board.getCodenames().get(idx).toUpperCase());
+			//b.setBackground(buttonColor);
+			//b.setForeground(Color.WHITE);
+			setButtonProperties(b, idx);
+			b.addActionListener(new ButtonListner(this._board, this, _board.getCodenames().get(idx)));
 			_locationPanel.add(b);
 		}
 		
@@ -163,13 +173,56 @@ public class GUI implements Observer {
 		}
 	}
 
-	public void setButtonProperties(JButton button) {
-		//button.setFont(new Font("Arial", Font.BOLD, 32));
+	public void setButtonProperties(JButton button, int idx) {
+		Color R = new Color(255, 0, 0);
+		Color B = new Color(0, 0, 225);
+		Color I = new Color(192,192,192);
+		Color A = new Color(128,128,0);
+		
+		
+
+		
+			if (_board.getLocations().get(idx).getRevealed() == true) {
+				switch (_board.getLocations().get(idx).getPerson()) {
+				case "R" : button.setBackground(R);
+				break;
+				case "B" : button.setBackground(B);
+				break;
+				case "I" : button.setBackground(I);
+				break;
+				case "A" : button.setBackground(A);
+				break;
+			}
+				
+				
+				button.setFont(new Font("Courier", Font.BOLD, (int) (screenHeight * 0.03)));
+				button.setOpaque(true);
+				button.setBorder(
+						BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+				
+
+			} else {
+				button.setFont(this.font);
+				button.setBackground(Color.WHITE);
+				button.setForeground(Color.BLACK);
+				button.setOpaque(true);
+				button.setBorder(
+						BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+
+			}
+	//	}
+		
+		
+		
+	}
+	
+	public void setButtonPropertiesSub(JButton button) {
 		button.setFont(this.font);
 		button.setBackground(Color.WHITE);
 		button.setForeground(Color.BLACK);
 		button.setOpaque(true);
-		button.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+		button.setBorder(
+				BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 	}
 
 	public void setLabelProperties(JLabel label) {
@@ -262,7 +315,7 @@ public class GUI implements Observer {
 		_countPanel.add(_countField);
 
 		JButton submitButton = new JButton("SUBMIT");
-		setButtonProperties(submitButton);
+		setButtonPropertiesSub(submitButton);
 		submitButton.addActionListener(new SubmitClueListener(_board, _clueField, _countField));
 		submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		_buttonPanel.add(submitButton);
@@ -285,5 +338,15 @@ public class GUI implements Observer {
 			_messagePanel.add(errorMessage);
 		}
 		updateJFrameIfNotHeadless();	
+	}
+	
+	public Color getButtonColor() {
+		return this.buttonColor;
+	}
+	public void setButtonColor(Color rgb) {
+		this.buttonColor = rgb;
+	}
+	public static int getIdx() {
+		return idx;
 	}
 }
