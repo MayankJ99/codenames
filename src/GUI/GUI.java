@@ -138,6 +138,7 @@ public class GUI implements Observer {
 	public void update() {
 		_locationPanel.removeAll();
 		
+		
 		for (int idx = 0; idx< 25; idx++) {
 			this.idx = idx;
 
@@ -149,11 +150,51 @@ public class GUI implements Observer {
 			_locationPanel.add(b);
 		}
 		
+		
+	
+		if(_board.checkGameState()==true) {
+			_messagePanel.removeAll();
+			_infoPanel.removeAll();
+			if(_board.getBlueCount()==0) {
+			JLabel x = new JLabel("Game over.  Blue Team Wins. ");
+				_infoPanel.add(x);
+				this.setLabelProperties(x);
+				}
+			
+			if(_board.getRedCount()==0) {
+				JLabel x = new JLabel("Game over.  Blue Team Wins.");
+				_infoPanel.add(x);
+				this.setLabelProperties(x);
+			}			
+			
+			if(_board.getAssassinCount()==0) {
+			JLabel x = new JLabel("Game over.  Blue Team Wins. ");
+			_infoPanel.add(x);
+			this.setLabelProperties(x);
+			}
+			
+//			JButton yes = new JButton("Yes.");
+//			yes.addActionListener(new NewGameListener(_board));
+//			setButtonPropertiesSub(yes);
+			
+			JButton no = new JButton("No.Close Game");
+			no.addActionListener(new CloseListener());
+			setButtonPropertiesSub(no);
+			
+			//_infoPanel.add(yes);
+			_infoPanel.add(no);
+			updateJFrameIfNotHeadless();
+		}
+		
+		
+		
 		if (_board.getCount() == -1)
 			if (_board.getNewTurn())
 				newTurn();
 			else
 				submissionError();
+		
+		
 		else
 		{
 			//_infoPanel.removeAll();

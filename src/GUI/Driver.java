@@ -49,7 +49,7 @@ public class Driver implements Runnable {
 		_menu.add(_m2);
 		_window.setJMenuBar(_Main);
 //		
-		_m1.addActionListener(new NewGameListener(this));
+		_m1.addActionListener(new NewGameListener(_board));
 		_m2.addActionListener(new CloseListener());
 
 		

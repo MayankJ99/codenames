@@ -64,14 +64,16 @@ public class Board {
 	 */
 	private ArrayList<Location> locations;
 	
-	private int ResetCount;
+	private boolean State;
+	
+	
 	/**
 	 * Constructor for Board class, default file is GameWords.txt
 	 */
 	public Board() {
 		this.codeNamesFileReader("Dictionaries/GameWords.txt");
 		this._observers = new ArrayList<>();
-		ResetCount = 0;
+		
 	}
 
 	/**
@@ -158,6 +160,7 @@ public class Board {
 		this.count = -1;
 		
 		this.newTurn = true;
+		this.State = false;
 		
 		this.notifyObservers();
 	}
@@ -212,10 +215,12 @@ public class Board {
 	 */
 	public boolean checkGameState() {
 		if(this.redCount == 0 || this.blueCount == 0 || this.assassin == 0) {
-			return true;
+		 State = true;
 		}else {
-			return false;
+			State = false;
 		}
+		return State;
+	
 	}
 	
 	/**
@@ -321,6 +326,7 @@ public class Board {
 		this.redCount =x;
 	}
 	
+	
 	/**
 	 * setter method for blueCount
 	 * @param x integer value for new value of blue spies
@@ -393,11 +399,7 @@ public class Board {
 	}
 	
 	
-	public int ResetGame() {
-		ResetCount++;
-		return ResetCount;
-		
-	}
+
 	/**
 	 * Variable to indicate whether or not the new turn dialog should be displayed when the Observers
 	 * are notified next.
