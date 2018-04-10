@@ -422,8 +422,7 @@ public class Board {
 //			If statement calls method inside itself.
 			if(getCount() == -1) {
 				this.newTurn = true;
-
-				
+				redTurn = !redTurn;
 				
 			}
 			notifyObservers();
