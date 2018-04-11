@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+import javax.swing.ImageIcon;
+
 import GUI.GUI;
 import GUI.Observer;
 
@@ -450,5 +452,12 @@ public class Board {
 	public String GetSubClue() {
 		return Clue;
 	}
+	
+	public static ImageIcon webPageIcon() {
+		
+		ImageIcon pageIcon = new ImageIcon ("src/MatthewSimpson.png");
+		
+		return pageIcon;
+}
 }
 
