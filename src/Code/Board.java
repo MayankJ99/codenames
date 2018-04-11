@@ -436,5 +436,12 @@ public class Board {
 		}
 		
 	}
+
+	public void passListenerEvent() {
+		setCount(-1);
+		this.newTurn = true;
+		redTurn = !redTurn;
+		notifyObservers();
+	}
 }
 

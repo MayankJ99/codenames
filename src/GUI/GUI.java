@@ -199,6 +199,9 @@ public class GUI implements Observer {
 		{
 			//_infoPanel.removeAll();
 			_messagePanel.removeAll();
+			_cluePanel.removeAll();
+			_countPanel.removeAll();
+			_buttonPanel.removeAll();
 			_messagePanel.add(new JLabel("Success Count: " + _board.getCount()));
 
 			_messagePanel.removeAll();
@@ -209,9 +212,7 @@ public class GUI implements Observer {
 			JLabel RCount = new JLabel(Integer.toString(_board.getRedCount()));
 					setLabelProperties(RCount);
 					
-			
-					_cluePanel.removeAll();
-					_cluePanel.add(RA);
+			_cluePanel.add(RA);
 			_cluePanel.add(RCount);
 			
 			JLabel BA = new JLabel("BLUE AGENTS: ");
@@ -220,7 +221,6 @@ public class GUI implements Observer {
 			JLabel BCount = new JLabel(Integer.toString(_board.getBlueCount()));
 					setLabelProperties(BCount);
 					
-					_countPanel.removeAll();
 			_countPanel.add(BA);
 			_countPanel.add(BCount);
 			
@@ -228,7 +228,6 @@ public class GUI implements Observer {
 			setButtonPropertiesSub(passButton);
 			passButton.addActionListener(new PassListener(this,_board));
 			passButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-			_buttonPanel.removeAll();
 			_buttonPanel.add(passButton);
 
 			updateJFrameIfNotHeadless();

@@ -17,8 +17,8 @@ public class PassListener implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		this.gui.newTurn();
-		this.board.setRedTurn(!this.board.getRedTurn());
+		this.board.passListenerEvent();
+//		this.board.setRedTurn(!this.board.getRedTurn());
 		
 		// TODO Auto-generated method stub
 		
