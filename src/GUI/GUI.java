@@ -136,6 +136,8 @@ public class GUI implements Observer {
 	
 	@Override
 	public void update() {
+		
+		
 		if(_board.getCount() == -1) {
 			this.SpymasterView();
 		}
@@ -160,39 +162,7 @@ public class GUI implements Observer {
 		else
 		{
 			//_infoPanel.removeAll();
-			_messagePanel.removeAll();
-			_cluePanel.removeAll();
-			_countPanel.removeAll();
-			_buttonPanel.removeAll();
-			_messagePanel.add(new JLabel("Success Count: " + _board.getCount()));
-
-			_messagePanel.removeAll();
-			_messagePanel.add(new JLabel("Success Count: " + _board.getCount()));
-			JLabel RA = new JLabel("RED AGENTS: ");
-					setLabelProperties(RA);
-					
-			JLabel RCount = new JLabel(Integer.toString(_board.getRedCount()));
-					setLabelProperties(RCount);
-					
-			_cluePanel.add(RA);
-			_cluePanel.add(RCount);
-			
-			JLabel BA = new JLabel("BLUE AGENTS: ");
-					setLabelProperties(BA);
-			
-			JLabel BCount = new JLabel(Integer.toString(_board.getBlueCount()));
-					setLabelProperties(BCount);
-					
-			_countPanel.add(BA);
-			_countPanel.add(BCount);
-			
-			JButton passButton = new JButton("PASS");
-			setButtonPropertiesSub(passButton);
-			passButton.addActionListener(new PassListener(this,_board));
-			passButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-			_buttonPanel.add(passButton);
-
-			updateJFrameIfNotHeadless();
+			this.CurrentTurn();
 		}
 		
 		// This should be last statement of this method:
@@ -493,4 +463,48 @@ public class GUI implements Observer {
 		}
 	}
 	
+	
+	public void CurrentTurn() {
+		_messagePanel.removeAll();
+		_cluePanel.removeAll();
+		_countPanel.removeAll();
+		_buttonPanel.removeAll();
+		
+	//	_messagePanel.add(new JLabel("Success Count: " + _board.getCount()));
+
+		_messagePanel.removeAll();
+		JLabel clueLabel = new JLabel("Success ! Clue is : " + "'"+_board.GetSubClue()+"'");
+		JLabel countLabel = new JLabel("and Count is : " + _board.getCount());
+		this.setLabelProperties(clueLabel);
+		this.setLabelProperties(countLabel);
+		_messagePanel.add(clueLabel);
+		_messagePanel.add(countLabel);
+		
+		JLabel RA = new JLabel("RED AGENTS: ");
+				setLabelProperties(RA);
+				
+		JLabel RCount = new JLabel(Integer.toString(_board.getRedCount()));
+				setLabelProperties(RCount);
+				
+		_cluePanel.add(RA);
+		_cluePanel.add(RCount);
+		
+		JLabel BA = new JLabel("BLUE AGENTS: ");
+				setLabelProperties(BA);
+		
+		JLabel BCount = new JLabel(Integer.toString(_board.getBlueCount()));
+				setLabelProperties(BCount);
+				
+		_countPanel.add(BA);
+		_countPanel.add(BCount);
+		
+		JButton passButton = new JButton("PASS");
+		setButtonPropertiesSub(passButton);
+		passButton.addActionListener(new PassListener(this,_board));
+		passButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		_buttonPanel.add(passButton);
+
+		updateJFrameIfNotHeadless();
+		
+	}
 }

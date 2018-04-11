@@ -66,6 +66,8 @@ public class Board {
 	
 	private boolean State;
 	
+	private String Clue;
+	
 	
 	/**
 	 * Constructor for Board class, default file is GameWords.txt
@@ -364,7 +366,7 @@ public class Board {
 	public boolean checkCount(String countString) {
 		try {
 			int count = new Integer(countString);
-			if (count < 0)
+			if (count <= 0)
 				return false;
 		} catch (NumberFormatException nfe) {
 			return false;
@@ -394,6 +396,7 @@ public class Board {
 	public void checkSubmission(String submittedClue, String submittedCount) {
 		if (checkClue(submittedClue) && checkCount(submittedCount)) {
 			this.count = new Integer(submittedCount);
+			this.Clue = submittedClue;
 			this.newTurn = true;
 		}
 	}
@@ -442,6 +445,10 @@ public class Board {
 		this.newTurn = true;
 		redTurn = !redTurn;
 		notifyObservers();
+	}
+	
+	public String GetSubClue() {
+		return Clue;
 	}
 }
 
