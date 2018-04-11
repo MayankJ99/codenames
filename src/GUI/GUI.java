@@ -126,10 +126,7 @@ public class GUI implements Observer {
 		if(_board.checkGameState()==true) {
 				this.GameEndScenario();
 		}
-		
-		else
-		
-		if (_board.getCount() == -1)
+		else if (_board.getCount() == -1) {
 			if (_board.getNewTurn()) {
 //				_messagePanel.removeAll();
 //				_cluePanel.removeAll();
@@ -139,12 +136,13 @@ public class GUI implements Observer {
 				updateJFrameIfNotHeadless();
 				displayDialog();
 			}
-			else if (_board.getEntryError())
+			else if (_board.getEntryError()) {
 				submissionError();
-			else
+			}
+			else {
 				newTurn();
-		
-		
+			}
+		}
 		else
 		{
 			//_infoPanel.removeAll();
@@ -167,45 +165,36 @@ public class GUI implements Observer {
 		Color I = new Color(192,192,192);
 		Color A = new Color(128,128,0);
 		
-		
-
-		
-			if (_board.getLocations().get(idx).getRevealed() == true) {
-				switch (_board.getLocations().get(idx).getPerson()) {
-				case "R" : button.setBackground(R);
-						button.setText("");
-							break;
-				case "B" : button.setBackground(B);
-						button.setText("");
-							break;
-				case "I" : button.setBackground(I);
-						button.setText("");
-						break;
-				case "A" : button.setBackground(A);
-						button.setText("");
-							break;
+		if (_board.getLocations().get(idx).getRevealed() == true) {
+			switch (_board.getLocations().get(idx).getPerson()) {
+			case "R" : button.setBackground(R);
+			button.setText("");
+			break;
+			case "B" : button.setBackground(B);
+			button.setText("");
+			break;
+			case "I" : button.setBackground(I);
+			button.setText("");
+			break;
+			case "A" : button.setBackground(A);
+			button.setText("");
+			break;
 			}
-				
-				
-				button.setFont(new Font("Courier", Font.BOLD, (int) (screenHeight * 0.03)));
-				button.setOpaque(true);
-				button.setBorder(
-						BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
-				
 
-			} else {
-				button.setFont(this.font);
-				button.setBackground(Color.WHITE);
-				button.setForeground(Color.BLACK);
-				button.setOpaque(true);
-				button.setBorder(
-						BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+			button.setFont(new Font("Courier", Font.BOLD, (int) (screenHeight * 0.03)));
+			button.setOpaque(true);
+			button.setBorder(
+					BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+		} else {
+			button.setFont(this.font);
+			button.setBackground(Color.WHITE);
+			button.setForeground(Color.BLACK);
+			button.setOpaque(true);
+			button.setBorder(
+					BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 
-			}
-	//	}
-		
-		
-		
+		}
+		//	}
 	}
 	
 	public void setButtonPropertiesSub(JButton button) {
@@ -369,7 +358,7 @@ public class GUI implements Observer {
 		JLabel x = new JLabel("Game over. Blue Team Wins. Would you like to play again ? ");
 			_messagePanel.add(x);
 			this.setLabelProperties(x);
-			}
+		}
 		
 		if(_board.getRedCount()==0) {
 			JLabel x = new JLabel("Game over. Red Team Wins. Would you like to play again ?");
@@ -397,12 +386,10 @@ public class GUI implements Observer {
 		_buttonPanel.add(yes);
 		_buttonPanel.add(no);
 		updateJFrameIfNotHeadless();
-		
 	}
 	
 	public void SpymasterView() {
-			_locationPanel.removeAll();
-		
+		_locationPanel.removeAll();
 		
 		for (int idx = 0; idx< 25; idx++) {
 			this.idx = idx;
@@ -418,10 +405,7 @@ public class GUI implements Observer {
 			Color B = new Color(0, 0, 225);
 			Color I = new Color(192,192,192);
 			Color A = new Color(128,128,0);
-			
-			
-
-			
+				
 			if (_board.getLocations().get(idx).getRevealed() == true) {
 					switch (_board.getLocations().get(idx).getPerson()) {
 					case "R" : b.setBackground(R);
@@ -437,20 +421,19 @@ public class GUI implements Observer {
 								b.setText("");
 								break;
 					}
-			}			else {
-						b.setFont(this.font);
-							b.setBackground(Color.WHITE);
-								b.setForeground(Color.BLACK);
-									b.setOpaque(true);
-										b.setBorder(
-											BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
-					}
-				}
+			}
+			else {
+				b.setFont(this.font);
+				b.setBackground(Color.WHITE);
+				b.setForeground(Color.BLACK);
+				b.setOpaque(true);
+				b.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+			}
+		}
 	}
 	
 	public void PlayerView() {
 		_locationPanel.removeAll();
-		
 		
 		for (int idx = 0; idx< 25; idx++) {
 			this.idx = idx;
@@ -507,6 +490,5 @@ public class GUI implements Observer {
 		_buttonPanel.add(passButton);
 
 		updateJFrameIfNotHeadless();
-		
 	}
 }
