@@ -60,34 +60,10 @@ public class GUI implements Observer {
 
 	public GUI(Board b, JPanel mp, Driver driver) {
 		_windowHolder = driver;
-		_board = b;
-		
-		
-		
+		_board = b;		
 		_mainPanel = mp;
-		_mainPanel.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent me) {
-				_board.gameStart();
-//				_mainPanel.removeMouseListener(this);
-				//System.out.println(_windowHolder.);
-//				System.out.println(_mainPanel.getSize());
-//				System.out.println(_locationPanel.getSize());
-//				System.out.println(_infoPanel.getSize());
-//				System.out.println(_messagePanel.getSize());
-//				System.out.println(_cluePanel.getSize());
-//				System.out.println(_countPanel.getSize());
-//				System.out.println(_buttonPanel.getSize() + "\n");
-			}
-			public void mouseExited(MouseEvent me) {}
-			public void mouseEntered(MouseEvent me) {}
-			public void mousePressed(MouseEvent me) {}
-			public void mouseReleased(MouseEvent me) {}
-		});
 		
 		_mainPanel.setLayout(new BoxLayout(_mainPanel, BoxLayout.Y_AXIS));
-		
-		
-		
 		
 		_locationPanel = new JPanel();
 		_locationPanel.setLayout(new GridLayout(5, 5));
@@ -138,7 +114,7 @@ public class GUI implements Observer {
 	public void update() {
 		
 		
-		if(_board.getCount() == -1) {
+		if(_board.getCount() == -1 && _board.getNewTurn() == false) {
 			this.SpymasterView();
 		}
 		else {
@@ -153,10 +129,19 @@ public class GUI implements Observer {
 		else
 		
 		if (_board.getCount() == -1)
-			if (_board.getNewTurn())
-				newTurn();
-			else
+			if (_board.getNewTurn()) {
+//				_messagePanel.removeAll();
+//				_cluePanel.removeAll();
+//				_countPanel.removeAll();
+//				_buttonPanel.removeAll();
+				
+				updateJFrameIfNotHeadless();
+				displayDialog();
+			}
+			else if (_board.getEntryError())
 				submissionError();
+			else
+				newTurn();
 		
 		
 		else
@@ -243,7 +228,7 @@ public class GUI implements Observer {
 	public void makeDialog(String message, String windowTitle) {
 		JDialog dialogWindow = _windowHolder.newDialog(windowTitle);
 		dialogWindow.setLayout(new BoxLayout(dialogWindow.getContentPane(), BoxLayout.Y_AXIS));
-		dialogWindow.addMouseListener(new DialogClickListener(dialogWindow));
+		dialogWindow.addMouseListener(new DialogClickListener(dialogWindow, _board));
 		
 		dialogWindow.setMinimumSize(new Dimension((int) this.screenWidth/4, (int) (screenHeight/4)));
 
@@ -327,6 +312,21 @@ public class GUI implements Observer {
 		_buttonPanel.add(submitButton);
 
 		updateJFrameIfNotHeadless();
+		
+//		makeDialog(dialogMessage, "New Turn");
+	}
+	
+	void displayDialog() {
+		String dialogMessage;
+
+		if (_board.getRedTurn()) {
+			dialogMessage = "RED TEAM'S TURN";
+//			message = new JLabel(Board.redSpymasterMessage);
+		}
+		else {
+			dialogMessage = "BLUE TEAM'S TURN";
+//			message = new JLabel(Board.blueSpymasterMessage);
+		}
 		
 		makeDialog(dialogMessage, "New Turn");
 	}

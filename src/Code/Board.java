@@ -164,6 +164,7 @@ public class Board {
 		this.count = -1;
 		
 		this.newTurn = true;
+		this.entryError = false;
 		this.State = false;
 		
 		this.notifyObservers();
@@ -365,10 +366,15 @@ public class Board {
 		}
 	}
 	
+	public void endNewTurn() {
+		this.newTurn = false;
+		this.notifyObservers();
+	}
+	
 	public boolean checkCount(String countString) {
 		try {
 			int count = new Integer(countString);
-			if (count <= 0)
+			if (count < 0)
 				return false;
 		} catch (NumberFormatException nfe) {
 			return false;
@@ -382,8 +388,8 @@ public class Board {
 	 * and count. That is, when the GUI is updated but count still equals -1. Then calls notifyObservers to update the GUI.
 	 */
 	public void entriesSubmitted(String submittedClue, String submittedCount) {
-		if (this.newTurn)
-			this.newTurn = false;
+//		if (this.newTurn)
+//			this.newTurn = false;
 		checkSubmission(submittedClue, submittedCount);
 		this.notifyObservers();
 	}
@@ -399,8 +405,11 @@ public class Board {
 		if (checkClue(submittedClue) && checkCount(submittedCount)) {
 			this.count = new Integer(submittedCount);
 			this.Clue = submittedClue;
-			this.newTurn = true;
+//			this.newTurn = true;   //newTurn is updated in buttonListenerEvent (updateLocation)
+			this.entryError = false;
 		}
+		else
+			this.entryError = true;
 	}
 	
 	
@@ -410,8 +419,10 @@ public class Board {
 	 * are notified next.
 	 */
 	private boolean newTurn;
+	private boolean entryError;
 	
 	public boolean getNewTurn() {return this.newTurn;}
+	public boolean getEntryError() {return this.entryError;}
 	
 	public static final String countError = "PLEASE ENTER A VALID COUNT";
 	public static final String clueError = "PLEASE ENTER A VALID CLUE";

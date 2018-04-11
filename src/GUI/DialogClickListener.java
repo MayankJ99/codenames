@@ -1,5 +1,7 @@
 package GUI;
 
+import Code.Board;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -9,9 +11,11 @@ import javax.swing.JDialog;
 
 public class DialogClickListener implements MouseListener {
 	private JDialog dialog;
+	private Board board;
 	
-	public DialogClickListener(JDialog dialog) {
+	public DialogClickListener(JDialog dialog, Board board) {
 		this.dialog = dialog;
+		this.board = board;
 	}
 	
 	public void mouseClicked(MouseEvent me) {
@@ -22,6 +26,7 @@ public class DialogClickListener implements MouseListener {
 //			e.printStackTrace();
 //		}
 		this.dialog.dispatchEvent(new WindowEvent(this.dialog, WindowEvent.WINDOW_CLOSING));
+		this.board.endNewTurn();
 	}
 	
 	public void mouseExited(MouseEvent me) {}
