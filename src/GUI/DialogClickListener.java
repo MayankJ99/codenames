@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JDialog;
+import javax.swing.WindowConstants;
 
 public class DialogClickListener implements MouseListener {
 	private JDialog dialog;
@@ -25,6 +26,7 @@ public class DialogClickListener implements MouseListener {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+		this.dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		this.dialog.dispatchEvent(new WindowEvent(this.dialog, WindowEvent.WINDOW_CLOSING));
 		this.board.endNewTurn();
 	}

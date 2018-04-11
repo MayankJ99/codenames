@@ -28,6 +28,7 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.Document;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.JDialog;
 
 import Code.Board;
@@ -67,12 +68,12 @@ public class GUI implements Observer {
 		
 		_locationPanel = new JPanel();
 		_locationPanel.setLayout(new GridLayout(5, 5));
-		_locationPanel.setPreferredSize(new Dimension((int) (this.screenWidth * .6), (int) (this.screenHeight * .6)));
+		_locationPanel.setPreferredSize(new Dimension((int) (this.screenWidth * .8), (int) (this.screenHeight * .6)));
 		_mainPanel.add(_locationPanel);
 		
 		_infoPanel = new JPanel();
 		_infoPanel.setLayout(new BoxLayout(_infoPanel, BoxLayout.Y_AXIS));
-		_infoPanel.setPreferredSize(new Dimension((int) (this.screenWidth * .6), (int) (this.screenHeight * .2)));
+		_infoPanel.setPreferredSize(new Dimension((int) (this.screenWidth * .8), (int) (this.screenHeight * .2)));
 		_infoPanel.setAlignmentX(Component.CENTER_ALIGNMENT);  	//When _infoPanel is assigned a BoxLayout, its alignment changes from CENTER to LEFT. Rhetorical WHY?????
 		_mainPanel.add(_infoPanel);								//Further, when a container (NOT component) is added, its alignment hanges back to CENTER. 
 		
@@ -80,23 +81,23 @@ public class GUI implements Observer {
 //	_messagePanel.setLayout(new BoxLayout(_messagePanel, BoxLayout.Y_AXIS));
 //		_messagePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 //		_messagePanel.setPreferredSize(new Dimension((int) (screenWidth * .6), (int) screenHeight)); //(screenHeight))); // * .05)));
-		_messagePanel.setMaximumSize(new Dimension((int) (screenWidth * .6), (int) (screenHeight))); // * .05)));
-		_messagePanel.setMinimumSize(new Dimension((int) (screenWidth * .6), (int) 0)); // screenWidth * .6 (screenHeight * .05))); //This is here to prevent *slight* realignment of the fields if the JLabel it contains is not as wide as the JFields below
+		_messagePanel.setMaximumSize(new Dimension((int) (screenWidth * .8), (int) (screenHeight))); // * .05)));
+		_messagePanel.setMinimumSize(new Dimension((int) (screenWidth * .8), (int) 0)); // screenWidth * .6 (screenHeight * .05))); //This is here to prevent *slight* realignment of the fields if the JLabel it contains is not as wide as the JFields below
 		_infoPanel.add(_messagePanel);
 		
 		_cluePanel = new JPanel();
 		_cluePanel.setLayout(new BoxLayout(_cluePanel, BoxLayout.X_AXIS));
-		_cluePanel.setMaximumSize(new Dimension((int) (screenWidth * .25), (int) (screenHeight))); // * .05)));
+		_cluePanel.setMaximumSize(new Dimension((int) (screenWidth * .4), (int) (screenHeight))); // * .05)));
 		_infoPanel.add(_cluePanel);
 		
 		_countPanel = new JPanel();
 		_countPanel.setLayout(new BoxLayout(_countPanel, BoxLayout.X_AXIS));
-		_countPanel.setMaximumSize(new Dimension((int) (screenWidth * .25), (int) (screenHeight))); // * .05)));
+		_countPanel.setMaximumSize(new Dimension((int) (screenWidth * .4), (int) (screenHeight))); // * .05)));
 		_infoPanel.add(_countPanel);
 		
 		_buttonPanel = new JPanel();
-		_buttonPanel.setLayout(new BoxLayout(_buttonPanel, BoxLayout.Y_AXIS));
-		_buttonPanel.setMaximumSize(new Dimension((int) (screenWidth * .6), (int) (screenHeight))); // * .05)));
+		//_buttonPanel.setLayout(new BoxLayout(_buttonPanel, BoxLayout.Y_AXIS));
+		_buttonPanel.setMaximumSize(new Dimension((int) (screenWidth * .8), (int) (screenHeight))); // * .05)));
 		//_buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		_infoPanel.add(_buttonPanel);
 				
@@ -229,6 +230,7 @@ public class GUI implements Observer {
 		JDialog dialogWindow = _windowHolder.newDialog(windowTitle);
 		dialogWindow.setLayout(new BoxLayout(dialogWindow.getContentPane(), BoxLayout.Y_AXIS));
 		dialogWindow.addMouseListener(new DialogClickListener(dialogWindow, _board));
+		dialogWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		
 		dialogWindow.setMinimumSize(new Dimension((int) this.screenWidth/4, (int) (screenHeight/4)));
 
@@ -280,7 +282,7 @@ public class GUI implements Observer {
 		setLabelProperties(clueLabel);
 
 		_clueField = new JTextField();
-		_clueField.setMaximumSize(new Dimension((int) (screenWidth * .25), (int) (screenHeight * .04)));
+		_clueField.setMaximumSize(new Dimension((int) (screenWidth * .4), (int) (screenHeight * .04)));
 		_clueField.setFont(this.font);
 		
 		_cluePanel.add(clueLabel);
@@ -290,7 +292,7 @@ public class GUI implements Observer {
 		setLabelProperties(countLabel);
 
 		_countField = new JTextField();
-		_countField.setMaximumSize(new Dimension((int) (screenWidth * .25), (int) (screenHeight * .04)));
+		_countField.setMaximumSize(new Dimension((int) (screenWidth * .4), (int) (screenHeight * .04)));
 		_countField.setFont(this.font);
 
 		//////////////////////////////////// DOCUMENT FILTER /////////////////////////////////////////////
@@ -376,12 +378,12 @@ public class GUI implements Observer {
 		}			
 		
 		if(_board.getAssassinCount()==0) {
-		JLabel x = new JLabel("Oops ! Assassin Revealed. Game over. ");
-		JLabel y = new JLabel(_board.winTeam() + ". Would you like to play again ?");
-		_messagePanel.add(x);
-		_messagePanel.add(y);
-		this.setLabelProperties(x);
-		this.setLabelProperties(y);
+			JLabel x = new JLabel("Oops ! Assassin Revealed. Game over. ");
+			JLabel y = new JLabel(_board.winTeam() + ". Would you like to play again ?");
+			_messagePanel.add(x);
+			_messagePanel.add(y);
+			this.setLabelProperties(x);
+			this.setLabelProperties(y);
 		}
 		
 		JButton yes = new JButton("Yes.");
