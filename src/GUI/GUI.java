@@ -101,7 +101,7 @@ public class GUI implements Observer {
 		_mainPanel.add(_infoPanel);								//Further, when a container (NOT component) is added, its alignment hanges back to CENTER. 
 		
 		_messagePanel = new JPanel();
-//		_messagePanel.setLayout(new BoxLayout(_messagePanel, BoxLayout.Y_AXIS));
+//	_messagePanel.setLayout(new BoxLayout(_messagePanel, BoxLayout.Y_AXIS));
 //		_messagePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 //		_messagePanel.setPreferredSize(new Dimension((int) (screenWidth * .6), (int) screenHeight)); //(screenHeight))); // * .05)));
 		_messagePanel.setMaximumSize(new Dimension((int) (screenWidth * .6), (int) (screenHeight))); // * .05)));
@@ -136,57 +136,19 @@ public class GUI implements Observer {
 	
 	@Override
 	public void update() {
-		_locationPanel.removeAll();
-		
-		
-		for (int idx = 0; idx< 25; idx++) {
-			this.idx = idx;
-
-			JButton b = new JButton("" + _board.getCodenames().get(idx).toUpperCase());
-			//b.setBackground(buttonColor);
-			//b.setForeground(Color.WHITE);
-			setButtonProperties(b, idx);
-			b.addActionListener(new ButtonListner(this._board, this, _board.getCodenames().get(idx)));
-			_locationPanel.add(b);
+		if(_board.getCount() == -1) {
+			this.SpymasterView();
 		}
-		
+		else {
+			this.PlayerView();
+		}
 		
 	
 		if(_board.checkGameState()==true) {
-			_messagePanel.removeAll();
-			_infoPanel.removeAll();
-			if(_board.getBlueCount()==0) {
-			JLabel x = new JLabel("Game over.  Blue Team Wins. ");
-				_infoPanel.add(x);
-				this.setLabelProperties(x);
-				}
-			
-			if(_board.getRedCount()==0) {
-				JLabel x = new JLabel("Game over.  Blue Team Wins.");
-				_infoPanel.add(x);
-				this.setLabelProperties(x);
-			}			
-			
-			if(_board.getAssassinCount()==0) {
-			JLabel x = new JLabel("Game over.  Blue Team Wins. ");
-			_infoPanel.add(x);
-			this.setLabelProperties(x);
-			}
-			
-//			JButton yes = new JButton("Yes.");
-//			yes.addActionListener(new NewGameListener(_board));
-//			setButtonPropertiesSub(yes);
-			
-			JButton no = new JButton("No.Close Game");
-			no.addActionListener(new CloseListener());
-			setButtonPropertiesSub(no);
-			
-			//_infoPanel.add(yes);
-			_infoPanel.add(no);
-			updateJFrameIfNotHeadless();
+				this.GameEndScenario();
 		}
 		
-		
+		else
 		
 		if (_board.getCount() == -1)
 			if (_board.getNewTurn())
@@ -255,13 +217,17 @@ public class GUI implements Observer {
 			if (_board.getLocations().get(idx).getRevealed() == true) {
 				switch (_board.getLocations().get(idx).getPerson()) {
 				case "R" : button.setBackground(R);
-				break;
+						button.setText("");
+							break;
 				case "B" : button.setBackground(B);
-				break;
+						button.setText("");
+							break;
 				case "I" : button.setBackground(I);
-				break;
+						button.setText("");
+						break;
 				case "A" : button.setBackground(A);
-				break;
+						button.setText("");
+							break;
 			}
 				
 				
@@ -419,4 +385,112 @@ public class GUI implements Observer {
 	public static int getIdx() {
 		return idx;
 	}
+	
+	public void GameEndScenario() {
+		_messagePanel.removeAll();
+		_cluePanel.removeAll();
+		_countPanel.removeAll();
+		_buttonPanel.removeAll();
+		
+		
+		if(_board.getBlueCount()==0) {
+		JLabel x = new JLabel("Game over. Blue Team Wins. Would you like to play again ? ");
+			_messagePanel.add(x);
+			this.setLabelProperties(x);
+			}
+		
+		if(_board.getRedCount()==0) {
+			JLabel x = new JLabel("Game over. Red Team Wins. Would you like to play again ?");
+			_messagePanel.add(x);
+			this.setLabelProperties(x);
+		}			
+		
+		if(_board.getAssassinCount()==0) {
+		JLabel x = new JLabel("Oops ! Assassin Revealed. Game over. ");
+		JLabel y = new JLabel(_board.winTeam() + ". Would you like to play again ?");
+		_messagePanel.add(x);
+		_messagePanel.add(y);
+		this.setLabelProperties(x);
+		this.setLabelProperties(y);
+		}
+		
+		JButton yes = new JButton("Yes.");
+		yes.addActionListener(new NewGameListener(_board));
+		setButtonPropertiesSub(yes);
+		
+		JButton no = new JButton("No.Close Game");
+		no.addActionListener(new CloseListener());
+		setButtonPropertiesSub(no);
+		
+		_buttonPanel.add(yes);
+		_buttonPanel.add(no);
+		updateJFrameIfNotHeadless();
+		
+	}
+	
+	public void SpymasterView() {
+			_locationPanel.removeAll();
+		
+		
+		for (int idx = 0; idx< 25; idx++) {
+			this.idx = idx;
+
+			JButton b = new JButton("" + _board.getCodenames().get(idx).toUpperCase() + "("+_board.getLocations().get(idx).getPerson()+")");
+			//b.setBackground(buttonColor);
+			//b.setForeground(Color.WHITE);
+			setButtonProperties(b, idx);
+		//	b.addActionListener(new ButtonListner(this._board, this, _board.getCodenames().get(idx)));
+			_locationPanel.add(b);
+			
+			Color R = new Color(255, 0, 0);
+			Color B = new Color(0, 0, 225);
+			Color I = new Color(192,192,192);
+			Color A = new Color(128,128,0);
+			
+			
+
+			
+			if (_board.getLocations().get(idx).getRevealed() == true) {
+					switch (_board.getLocations().get(idx).getPerson()) {
+					case "R" : b.setBackground(R);
+								b.setText("");
+								break;
+					case "B" : b.setBackground(B);
+								b.setText("");
+								break;
+					case "I" : b.setBackground(I);
+								b.setText("");	
+								break;
+					case "A" : b.setBackground(A);
+								b.setText("");
+								break;
+					}
+			}			else {
+						b.setFont(this.font);
+							b.setBackground(Color.WHITE);
+								b.setForeground(Color.BLACK);
+									b.setOpaque(true);
+										b.setBorder(
+											BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+					}
+				}
+	}
+	
+	public void PlayerView() {
+		_locationPanel.removeAll();
+		
+		
+		for (int idx = 0; idx< 25; idx++) {
+			this.idx = idx;
+		
+			JButton b = new JButton("" + _board.getCodenames().get(idx).toUpperCase());
+		//b.setBackground(buttonColor);
+		//b.setForeground(Color.WHITE);
+			setButtonProperties(b, idx);
+			if(_board.getLocations().get(idx).getRevealed()==false)
+				b.addActionListener(new ButtonListner(this._board, this, _board.getCodenames().get(idx)));
+			_locationPanel.add(b);
+		}
+	}
+	
 }
