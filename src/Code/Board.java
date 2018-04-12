@@ -237,12 +237,12 @@ public class Board {
 		String WT = "";
 		if(this.redTurn) {
 			if(assassin==0) {
-				WT = "Blue Team Won"; }
+				WT = "Red Team Won"; }
 		}
 	
 		if(this.redTurn==false) {
 			if(assassin == 0) {
-				WT ="Red Team Won";
+				WT ="Blue Team Won";
 			}
 		}
 	

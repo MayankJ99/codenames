@@ -55,8 +55,8 @@ public class GUI implements Observer {
 	private Board _board;
 	private Driver _windowHolder;
 	
-	private Color buttonColor;
-	private static Integer idx;
+//	private Color buttonColor;
+//	private static Integer idx;
 	
 
 	public GUI(Board b, JPanel mp, Driver driver) {
@@ -185,14 +185,14 @@ public class GUI implements Observer {
 			button.setOpaque(true);
 			button.setBorder(
 					BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
-		} else {
+		}
+		else {
 			button.setFont(this.font);
 			button.setBackground(Color.WHITE);
 			button.setForeground(Color.BLACK);
 			button.setOpaque(true);
 			button.setBorder(
 					BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
-
 		}
 		//	}
 	}
@@ -231,9 +231,9 @@ public class GUI implements Observer {
 		JLabel dialogText = new JLabel(message);
 		dialogText.setFont(this.font);
 
-		dialogMsg.add(Box.createRigidArea(new Dimension((int)(this.screenWidth/100),0)));
+//		dialogMsg.add(Box.createRigidArea(new Dimension((int)(this.screenWidth/100),0)));
 		dialogMsg.add(dialogText);
-		dialogMsg.add(Box.createRigidArea(new Dimension((int)(this.screenWidth/100),0)));
+//		dialogMsg.add(Box.createRigidArea(new Dimension((int)(this.screenWidth/100),0)));
 
 		dialogWindow.add(dialogMsg);
 		
@@ -337,15 +337,15 @@ public class GUI implements Observer {
 		updateJFrameIfNotHeadless();	
 	}
 	
-	public Color getButtonColor() {
-		return this.buttonColor;
-	}
-	public void setButtonColor(Color rgb) {
-		this.buttonColor = rgb;
-	}
-	public static int getIdx() {
-		return idx;
-	}
+//	public Color getButtonColor() {
+//		return this.buttonColor;
+//	}
+//	public void setButtonColor(Color rgb) {
+//		this.buttonColor = rgb;
+//	}
+//	public static int getIdx() {
+//		return idx;
+//	}
 	
 	public void GameEndScenario() {
 		_messagePanel.removeAll();
@@ -355,20 +355,20 @@ public class GUI implements Observer {
 		
 		
 		if(_board.getBlueCount()==0) {
-		JLabel x = new JLabel("Game over. Blue Team Wins. Would you like to play again ? ");
+		JLabel x = new JLabel("Game over. Blue Team Wins. Would you like to play again? ");
 			_messagePanel.add(x);
 			this.setLabelProperties(x);
 		}
 		
 		if(_board.getRedCount()==0) {
-			JLabel x = new JLabel("Game over. Red Team Wins. Would you like to play again ?");
+			JLabel x = new JLabel("Game over. Red Team Wins. Would you like to play again?");
 			_messagePanel.add(x);
 			this.setLabelProperties(x);
 		}			
 		
 		if(_board.getAssassinCount()==0) {
-			JLabel x = new JLabel("Oops ! Assassin Revealed. Game over. ");
-			JLabel y = new JLabel(_board.winTeam() + ". Would you like to play again ?");
+			JLabel x = new JLabel("Oops! Assassin Revealed. Game over. ");
+			JLabel y = new JLabel(_board.winTeam() + ". Would you like to play again?");
 			_messagePanel.add(x);
 			_messagePanel.add(y);
 			this.setLabelProperties(x);
@@ -379,7 +379,7 @@ public class GUI implements Observer {
 		yes.addActionListener(new NewGameListener(_board));
 		setButtonPropertiesSub(yes);
 		
-		JButton no = new JButton("No.Close Game");
+		JButton no = new JButton("No, Close Game");
 		no.addActionListener(new CloseListener());
 		setButtonPropertiesSub(no);
 		
@@ -392,7 +392,7 @@ public class GUI implements Observer {
 		_locationPanel.removeAll();
 		
 		for (int idx = 0; idx< 25; idx++) {
-			this.idx = idx;
+//			this.idx = idx;
 
 			JButton b = new JButton("" + _board.getCodenames().get(idx).toUpperCase() + "("+_board.getLocations().get(idx).getPerson()+")");
 			//b.setBackground(buttonColor);
@@ -436,7 +436,7 @@ public class GUI implements Observer {
 		_locationPanel.removeAll();
 		
 		for (int idx = 0; idx< 25; idx++) {
-			this.idx = idx;
+//			this.idx = idx;
 		
 			JButton b = new JButton("" + _board.getCodenames().get(idx).toUpperCase());
 		//b.setBackground(buttonColor);
@@ -455,11 +455,9 @@ public class GUI implements Observer {
 		_countPanel.removeAll();
 		_buttonPanel.removeAll();
 		
-	//	_messagePanel.add(new JLabel("Success Count: " + _board.getCount()));
-
 		_messagePanel.removeAll();
-		JLabel clueLabel = new JLabel("Success ! Clue is : " + "'"+_board.GetSubClue()+"'");
-		JLabel countLabel = new JLabel("and Count is : " + _board.getCount());
+		JLabel clueLabel = new JLabel("Success! Clue is: " + "'"+_board.GetSubClue()+"'");
+		JLabel countLabel = new JLabel(" and Count is: " + _board.getCount());
 		this.setLabelProperties(clueLabel);
 		this.setLabelProperties(countLabel);
 		_messagePanel.add(clueLabel);
