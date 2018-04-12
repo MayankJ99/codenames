@@ -66,7 +66,7 @@ public class Board {
 	 */
 	private ArrayList<Location> locations;
 	
-	private boolean State;
+//	private boolean State;
 	
 	private String Clue;
 	
@@ -165,7 +165,7 @@ public class Board {
 		
 		this.newTurn = true;
 		this.entryError = false;
-		this.State = false;
+//		this.State = false;
 		
 		this.notifyObservers();
 	}
@@ -219,6 +219,7 @@ public class Board {
 	 * @return true if blueCount or redCount or assassinCount equals 0 else it returns false
 	 */
 	public boolean checkGameState() {
+		boolean State;
 		if(this.redCount == 0 || this.blueCount == 0 || this.assassin == 0) {
 		 State = true;
 		}else {
