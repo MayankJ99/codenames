@@ -66,10 +66,16 @@ public class Board {
 	 */
 	private ArrayList<Location> locations;
 	
-//	private boolean State;
+	/**
+	 * The clue given by the spymaster
+	 */
 	
 	private String Clue;
 	
+	/**
+	 * easter eggs
+	 */
+	private boolean prof = false;
 	
 	/**
 	 * Constructor for Board class, default file is GameWords.txt
@@ -166,6 +172,7 @@ public class Board {
 		this.newTurn = true;
 		this.entryError = false;
 //		this.State = false;
+		this.prof = false;
 		
 		this.notifyObservers();
 	}
@@ -405,6 +412,9 @@ public class Board {
 	public void checkSubmission(String submittedClue, String submittedCount) {
 		if (checkClue(submittedClue) && checkCount(submittedCount)) {
 			this.count = new Integer(submittedCount);
+			if(submittedClue.equals("Hertz")) {
+				this.prof = true;
+			}
 			this.Clue = submittedClue;
 //			this.newTurn = true;   //newTurn is updated in buttonListenerEvent (updateLocation)
 			this.entryError = false;

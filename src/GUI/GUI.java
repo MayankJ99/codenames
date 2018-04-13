@@ -353,7 +353,7 @@ public class GUI implements Observer {
 		_countPanel.removeAll();
 		_buttonPanel.removeAll();
 		
-		
+		this.SpymasterView();
 		if(_board.getBlueCount()==0) {
 		JLabel x = new JLabel("Game over. Blue Team Wins. Would you like to play again? ");
 			_messagePanel.add(x);
@@ -489,4 +489,6 @@ public class GUI implements Observer {
 
 		updateJFrameIfNotHeadless();
 	}
+	
+	
 }
