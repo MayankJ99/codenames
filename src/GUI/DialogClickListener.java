@@ -20,15 +20,9 @@ public class DialogClickListener implements MouseListener {
 	}
 	
 	public void mouseClicked(MouseEvent me) {
-//		try {
-//			TimeUnit.SECONDS.sleep(3);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		this.dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		this.dialog.dispatchEvent(new WindowEvent(this.dialog, WindowEvent.WINDOW_CLOSING));
-		this.board.endNewTurn();
+		this.board.dialogClosed();
 	}
 	
 	public void mouseExited(MouseEvent me) {}

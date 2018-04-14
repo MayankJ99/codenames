@@ -4,14 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
 import java.awt.Font;
-import java.util.ArrayList;
-import java.util.Random;
 import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
@@ -19,9 +12,6 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.text.AbstractDocument;
@@ -32,7 +22,6 @@ import javax.swing.WindowConstants;
 import javax.swing.JDialog;
 
 import Code.Board;
-import Code.Location;
 
 public class GUI implements Observer {
 
@@ -55,9 +44,6 @@ public class GUI implements Observer {
 	private Board _board;
 	private Driver _windowHolder;
 	
-//	private Color buttonColor;
-//	private static Integer idx;
-	
 
 	public GUI(Board b, JPanel mp, Driver driver) {
 		_windowHolder = driver;
@@ -78,34 +64,23 @@ public class GUI implements Observer {
 		_mainPanel.add(_infoPanel);								//Further, when a container (NOT component) is added, its alignment hanges back to CENTER. 
 		
 		_messagePanel = new JPanel();
-//	_messagePanel.setLayout(new BoxLayout(_messagePanel, BoxLayout.Y_AXIS));
-//		_messagePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		_messagePanel.setPreferredSize(new Dimension((int) (screenWidth * .6), (int) screenHeight)); //(screenHeight))); // * .05)));
 		_messagePanel.setMaximumSize(new Dimension((int) (screenWidth * .8), (int) (screenHeight))); // * .05)));
 		_messagePanel.setMinimumSize(new Dimension((int) (screenWidth * .8), (int) 0)); // screenWidth * .6 (screenHeight * .05))); //This is here to prevent *slight* realignment of the fields if the JLabel it contains is not as wide as the JFields below
 		_infoPanel.add(_messagePanel);
 		
 		_cluePanel = new JPanel();
 		_cluePanel.setLayout(new BoxLayout(_cluePanel, BoxLayout.X_AXIS));
-		_cluePanel.setMaximumSize(new Dimension((int) (screenWidth * .4), (int) (screenHeight))); // * .05)));
+		_cluePanel.setMaximumSize(new Dimension((int) (screenWidth * .4), (int) (screenHeight)));
 		_infoPanel.add(_cluePanel);
 		
 		_countPanel = new JPanel();
 		_countPanel.setLayout(new BoxLayout(_countPanel, BoxLayout.X_AXIS));
-		_countPanel.setMaximumSize(new Dimension((int) (screenWidth * .4), (int) (screenHeight))); // * .05)));
+		_countPanel.setMaximumSize(new Dimension((int) (screenWidth * .4), (int) (screenHeight)));
 		_infoPanel.add(_countPanel);
 		
 		_buttonPanel = new JPanel();
-		//_buttonPanel.setLayout(new BoxLayout(_buttonPanel, BoxLayout.Y_AXIS));
-		_buttonPanel.setMaximumSize(new Dimension((int) (screenWidth * .8), (int) (screenHeight))); // * .05)));
-		//_buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		_buttonPanel.setMaximumSize(new Dimension((int) (screenWidth * .8), (int) (screenHeight)));
 		_infoPanel.add(_buttonPanel);
-				
-//		_messagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
-//		_infoPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-//		_cluePanel.setBorder(BorderFactory.createLineBorder(Color.black));
-//		_countPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-//		_buttonPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		_board.addObserver(this);
 		updateJFrameIfNotHeadless();
@@ -114,43 +89,33 @@ public class GUI implements Observer {
 	@Override
 	public void update() {
 		
-		
-		if(_board.getCount() == -1 && _board.getNewTurn() == false) {
+		if (_board.getNewTurn() || _board.checkGameState()) {
 			this.SpymasterView();
 		}
-		else {
+		else { 
 			this.PlayerView();
 		}
-		
 	
 		if(_board.checkGameState()==true) {
-				this.GameEndScenario();
+			this.GameEndScenario();
 		}
-		else if (_board.getCount() == -1) {
-			if (_board.getNewTurn()) {
-//				_messagePanel.removeAll();
-//				_cluePanel.removeAll();
-//				_countPanel.removeAll();
-//				_buttonPanel.removeAll();
-				
-				updateJFrameIfNotHeadless();
-				displayDialog();
-			}
-			else if (_board.getEntryError()) {
-				submissionError();
-			}
-			else {
-				newTurn();
-			}
+		else if (_board.getNewGame()) {
+			this.newGame();
+		}
+		else if (_board.getNewTurn()) {
+			if (_board.getEntryError())
+				this.submissionError();
+			else
+				this.newTurn();
 		}
 		else
 		{
-			//_infoPanel.removeAll();
 			this.CurrentTurn();
+			
+			if (_board.getEndTurn()) {
+				this.displayDialog();
+			}
 		}
-		
-		// This should be last statement of this method:
-//		updateJFrameIfNotHeadless();
 	}
 	
 	public void updateJFrameIfNotHeadless() {
@@ -194,7 +159,6 @@ public class GUI implements Observer {
 			button.setBorder(
 					BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 		}
-		//	}
 	}
 	
 	public void setButtonPropertiesSub(JButton button) {
@@ -208,11 +172,6 @@ public class GUI implements Observer {
 
 	public void setLabelProperties(JLabel label) {
 		label.setFont(this.font);
-		//label.setFont(new Font("Courier", Font.BOLD, 32));
-		//label.setBackground(Color.WHITE);
-		//label.setForeground(Color.BLACK);
-		//label.setOpaque(true);
-		//label.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 	}
 	
 	public void makeDialog(String message, String windowTitle) {
@@ -231,14 +190,9 @@ public class GUI implements Observer {
 		JLabel dialogText = new JLabel(message);
 		dialogText.setFont(this.font);
 
-//		dialogMsg.add(Box.createRigidArea(new Dimension((int)(this.screenWidth/100),0)));
 		dialogMsg.add(dialogText);
-//		dialogMsg.add(Box.createRigidArea(new Dimension((int)(this.screenWidth/100),0)));
 
 		dialogWindow.add(dialogMsg);
-		
-//		dialogWindow.getContentPane().setBackground(Color.BLUE);
-//		dialogMsg.setOpaque(false);
 		
 		dialogWindow.pack();
 		_windowHolder.locateDialog(dialogWindow);
@@ -253,14 +207,11 @@ public class GUI implements Observer {
 		_buttonPanel.removeAll();
 
 		JLabel message;
-		String dialogMessage;
 
 		if (_board.getRedTurn()) {
-			dialogMessage = "RED TEAM'S TURN";
 			message = new JLabel(Board.redSpymasterMessage);
 		}
 		else {
-			dialogMessage = "BLUE TEAM'S TURN";
 			message = new JLabel(Board.blueSpymasterMessage);
 		}
 
@@ -303,8 +254,6 @@ public class GUI implements Observer {
 		_buttonPanel.add(submitButton);
 
 		updateJFrameIfNotHeadless();
-		
-//		makeDialog(dialogMessage, "New Turn");
 	}
 	
 	void displayDialog() {
@@ -312,11 +261,9 @@ public class GUI implements Observer {
 
 		if (_board.getRedTurn()) {
 			dialogMessage = "RED TEAM'S TURN";
-//			message = new JLabel(Board.redSpymasterMessage);
 		}
 		else {
 			dialogMessage = "BLUE TEAM'S TURN";
-//			message = new JLabel(Board.blueSpymasterMessage);
 		}
 		
 		makeDialog(dialogMessage, "New Turn");
@@ -337,23 +284,13 @@ public class GUI implements Observer {
 		updateJFrameIfNotHeadless();	
 	}
 	
-//	public Color getButtonColor() {
-//		return this.buttonColor;
-//	}
-//	public void setButtonColor(Color rgb) {
-//		this.buttonColor = rgb;
-//	}
-//	public static int getIdx() {
-//		return idx;
-//	}
-	
 	public void GameEndScenario() {
 		_messagePanel.removeAll();
 		_cluePanel.removeAll();
 		_countPanel.removeAll();
 		_buttonPanel.removeAll();
 		
-		this.SpymasterView();
+//		this.SpymasterView();
 		if(_board.getBlueCount()==0) {
 		JLabel x = new JLabel("Game over. Blue Team Wins. Would you like to play again? ");
 			_messagePanel.add(x);
@@ -388,12 +325,21 @@ public class GUI implements Observer {
 		updateJFrameIfNotHeadless();
 	}
 	
+	public void newGame() {
+		_messagePanel.removeAll();
+		_cluePanel.removeAll();
+		_countPanel.removeAll();
+		_buttonPanel.removeAll();
+		
+		this.updateJFrameIfNotHeadless();
+		
+		this.displayDialog();
+	}
+	
 	public void SpymasterView() {
 		_locationPanel.removeAll();
 		
 		for (int idx = 0; idx< 25; idx++) {
-//			this.idx = idx;
-
 			JButton b = new JButton("" + _board.getCodenames().get(idx).toUpperCase() + "("+_board.getLocations().get(idx).getPerson()+")");
 			//b.setBackground(buttonColor);
 			//b.setForeground(Color.WHITE);
@@ -401,43 +347,41 @@ public class GUI implements Observer {
 		//	b.addActionListener(new ButtonListner(this._board, this, _board.getCodenames().get(idx)));
 			_locationPanel.add(b);
 			
-			Color R = new Color(255, 0, 0);
-			Color B = new Color(0, 0, 225);
-			Color I = new Color(192,192,192);
-			Color A = new Color(128,128,0);
-				
-			if (_board.getLocations().get(idx).getRevealed() == true) {
-					switch (_board.getLocations().get(idx).getPerson()) {
-					case "R" : b.setBackground(R);
-								b.setText("");
-								break;
-					case "B" : b.setBackground(B);
-								b.setText("");
-								break;
-					case "I" : b.setBackground(I);
-								b.setText("");	
-								break;
-					case "A" : b.setBackground(A);
-								b.setText("");
-								break;
-					}
-			}
-			else {
-				b.setFont(this.font);
-				b.setBackground(Color.WHITE);
-				b.setForeground(Color.BLACK);
-				b.setOpaque(true);
-				b.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
-			}
+//			Color R = new Color(255, 0, 0);
+//			Color B = new Color(0, 0, 225);
+//			Color I = new Color(192,192,192);
+//			Color A = new Color(128,128,0);
+//				
+//			if (_board.getLocations().get(idx).getRevealed() == true) {
+//					switch (_board.getLocations().get(idx).getPerson()) {
+//					case "R" : b.setBackground(R);
+//								b.setText("");
+//								break;
+//					case "B" : b.setBackground(B);
+//								b.setText("");
+//								break;
+//					case "I" : b.setBackground(I);
+//								b.setText("");	
+//								break;
+//					case "A" : b.setBackground(A);
+//								b.setText("");
+//								break;
+//					}
+//			}
+//			else {
+//				b.setFont(this.font);
+//				b.setBackground(Color.WHITE);
+//				b.setForeground(Color.BLACK);
+//				b.setOpaque(true);
+//				b.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+//			}
 		}
 	}
 	
 	public void PlayerView() {
 		_locationPanel.removeAll();
 		
-		for (int idx = 0; idx< 25; idx++) {
-//			this.idx = idx;
-		
+		for (int idx = 0; idx< 25; idx++) {		
 			JButton b = new JButton("" + _board.getCodenames().get(idx).toUpperCase());
 		//b.setBackground(buttonColor);
 		//b.setForeground(Color.WHITE);
@@ -448,14 +392,12 @@ public class GUI implements Observer {
 		}
 	}
 	
-	
 	public void CurrentTurn() {
 		_messagePanel.removeAll();
 		_cluePanel.removeAll();
 		_countPanel.removeAll();
 		_buttonPanel.removeAll();
 		
-		_messagePanel.removeAll();
 		JLabel clueLabel = new JLabel("Success! Clue is: " + "'"+_board.GetSubClue()+"'");
 		JLabel countLabel = new JLabel(" and Count is: " + _board.getCount());
 		this.setLabelProperties(clueLabel);
@@ -488,7 +430,5 @@ public class GUI implements Observer {
 		_buttonPanel.add(passButton);
 
 		updateJFrameIfNotHeadless();
-	}
-	
-	
+	}	
 }

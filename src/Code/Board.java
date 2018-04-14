@@ -169,7 +169,9 @@ public class Board {
 		this.assassin = 1;
 		this.count = -1;
 		
-		this.newTurn = true;
+		this.newGame = true;
+		this.newTurn = false;
+		this.endTurn =  false;
 		this.entryError = false;
 //		this.State = false;
 		this.prof = false;
@@ -199,8 +201,6 @@ public class Board {
 	 */	
 	public boolean updateLocation(String guess) {
 		this.count -= 1;
-		if (this.count == -1)
-			this.newTurn = true;
 		
 		for (Location location : this.locations) {
 			if (guess.equalsIgnoreCase(location.getCodename())) {
@@ -374,8 +374,10 @@ public class Board {
 		}
 	}
 	
-	public void endNewTurn() {
-		this.newTurn = false;
+	public void dialogClosed() {
+		this.newTurn = true;
+		this.endTurn = false;
+		this.newGame = false;
 		this.notifyObservers();
 	}
 	
@@ -396,8 +398,6 @@ public class Board {
 	 * and count. That is, when the GUI is updated but count still equals -1. Then calls notifyObservers to update the GUI.
 	 */
 	public void entriesSubmitted(String submittedClue, String submittedCount) {
-//		if (this.newTurn)
-//			this.newTurn = false;
 		checkSubmission(submittedClue, submittedCount);
 		this.notifyObservers();
 	}
@@ -416,15 +416,13 @@ public class Board {
 				this.prof = true;
 			}
 			this.Clue = submittedClue;
-//			this.newTurn = true;   //newTurn is updated in buttonListenerEvent (updateLocation)
 			this.entryError = false;
+			this.newTurn = false;
 		}
 		else
 			this.entryError = true;
 	}
 	
-	
-
 	/**
 	 * Variable to indicate whether or not the new turn dialog should be displayed when the Observers
 	 * are notified next.
@@ -442,31 +440,23 @@ public class Board {
 	public static final String redTeamMessage = "RED TEAM, CHOOSE A LOCATION";
 	public static final String blueTeamMessage = "BLUE TEAM, CHOOSE A LOCATION";
 	
-	public void buttonListnerEvent(String codename) {
-	//	String codename = getLocations().get(GUI.getIdx()).getCodename();
-		
+	public void buttonListnerEvent(String codename) {		
 		if(updateLocation(codename) == true) {
-//			If statement calls method inside itself.
 			if(getCount() == -1) {
-				this.newTurn = true;
-				redTurn = !redTurn;
-				
+				this.endTurn = true;
+				redTurn = !redTurn;				
 			}
 			notifyObservers();
-			
 		}
 		else{
-			setCount(-1);
 			redTurn = !redTurn;
-			this.newTurn = true;
+			this.endTurn = true;
 			notifyObservers();
 		}
-		
 	}
 
 	public void passListenerEvent() {
-		setCount(-1);
-		this.newTurn = true;
+		this.endTurn = true;
 		redTurn = !redTurn;
 		notifyObservers();
 	}
@@ -480,6 +470,12 @@ public class Board {
 		ImageIcon pageIcon = new ImageIcon ("src/MatthewSimpson.png");
 		
 		return pageIcon;
-}
+	}
+	
+	private boolean newGame;
+	public boolean getNewGame() {return this.newGame;}
+	
+	private boolean endTurn;
+	public boolean getEndTurn() {return this.endTurn;}
 }
 
