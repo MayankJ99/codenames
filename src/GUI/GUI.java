@@ -123,7 +123,14 @@ public class GUI implements Observer {
 			_windowHolder.updateJFrame();
 		}
 	}
-
+	
+	/**
+	 * Sets the button properties for all the buttons on the board. 
+	 * Checks if a button is revealed and updates the color of the button.
+	 * 
+	 * @param button JButton on the board.
+	 * @param idx its reference on the board from the GUI.
+	 */
 	public void setButtonProperties(JButton button, int idx) {
 		Color R = new Color(255, 0, 0);
 		Color B = new Color(0, 0, 225);
@@ -182,6 +189,11 @@ public class GUI implements Observer {
 		}
 	}
 	
+	/**
+	 * Sets the button properties for the submit button.
+	 * 
+	 * @param button JButton which will act as the submit button.
+	 */
 	public void setButtonPropertiesSub(JButton button) {
 		button.setFont(this.font);
 		button.setBackground(Color.WHITE);

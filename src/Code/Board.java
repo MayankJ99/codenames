@@ -459,6 +459,13 @@ public class Board {
 	private String errorMessage;
 	public String getErrorMessage() {return this.errorMessage;}
 	
+	
+	/**
+	 * Button Listener which reveals an agent's faction when clicked on.
+	 * Ends the player's turn if they click on an opposing faction's agent.
+	 * 
+	 * @param codename The String reference to the codename on the bored.
+	 */
 	public void buttonListnerEvent(String codename) {		
 		if(updateLocation(codename) == true) {
 			if(this.count == -1) {
@@ -484,6 +491,11 @@ public class Board {
 		return Clue;
 	}
 	
+	
+	/**
+	 * Sets the frame's icon at the top left corner and on the tool bar to a picture of Matthew Simpson.
+	 *
+	 */
 	public static ImageIcon webPageIcon() {
 		
 		ImageIcon pageIcon = new ImageIcon ("src/MatthewSimpson.png");
