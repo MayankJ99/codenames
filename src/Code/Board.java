@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 
-import GUI.GUI;
 import GUI.Observer;
 
 /**
@@ -403,14 +402,22 @@ public class Board {
 	}
 	
 	/**
-	 * Called to check a submitted clue and count. If both are acceptable, the count is set to the submitted count and newTurn
-	 * is set to true so that the next time count = -1, a dialog will appear to announce the new turn.
+	 * Called to check a submitted clue and count. If both are acceptable, the count and clue are set to the submitted values. entryError 
+	 * and newTurn are set to false to proceed to the guessing phase of the game.
 	 * 
 	 * @param submittedClue the String in GUI._clueField when the Submit button was pressed
 	 * @param submittedCount the String in GUI._countField when the Submit button was pressed
 	 */
 	public void checkSubmission(String submittedClue, String submittedCount) {
-		if (checkClue(submittedClue) && checkCount(submittedCount)) {
+		if (!checkCount(submittedCount)) {
+			this.entryError = true;
+			this.errorMessage = this.countError;
+		}
+		else if (!checkClue(submittedClue)) {
+			this.entryError = true;
+			this.errorMessage = this.clueError;
+		}
+		else {
 			this.count = new Integer(submittedCount);
 			if(submittedClue.equals("Hertz")) {
 				this.prof = true;
@@ -419,8 +426,6 @@ public class Board {
 			this.entryError = false;
 			this.newTurn = false;
 		}
-		else
-			this.entryError = true;
 	}
 	
 	/**
@@ -437,12 +442,13 @@ public class Board {
 	public static final String clueError = "PLEASE ENTER A VALID CLUE";
 	public static final String redSpymasterMessage = "RED TEAM SPYMASTER, ENTER A CLUE AND COUNT";
 	public static final String blueSpymasterMessage = "BLUE TEAM SPYMASTER, ENTER A CLUE AND COUNT";
-	public static final String redTeamMessage = "RED TEAM, CHOOSE A LOCATION";
-	public static final String blueTeamMessage = "BLUE TEAM, CHOOSE A LOCATION";
+	
+	private String errorMessage;
+	public String getErrorMessage() {return this.errorMessage;}
 	
 	public void buttonListnerEvent(String codename) {		
 		if(updateLocation(codename) == true) {
-			if(getCount() == -1) {
+			if(this.count == -1) {
 				this.endTurn = true;
 				redTurn = !redTurn;				
 			}

@@ -7,8 +7,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import java.awt.Dimension;
-
 import javax.swing.JDialog;
 
 import Code.Board;
@@ -41,7 +39,7 @@ public class Driver implements Runnable {
 		_window.getContentPane().add(_mainPanel);
 		
 		_Main = new JMenuBar();
-		_menu = new JMenu("Actions");
+		_menu = new JMenu("File");
 		_m1 = new JMenuItem("New Game");
 		_m2  = new JMenuItem("Close");
 		

@@ -235,14 +235,12 @@ public class GUI implements Observer {
 		_countField.setMaximumSize(new Dimension((int) (screenWidth * .4), (int) (screenHeight * .04)));
 		_countField.setFont(this.font);
 
-		//////////////////////////////////// DOCUMENT FILTER /////////////////////////////////////////////
 		Document countFieldDoc = _countField.getDocument();
 		AbstractDocument absDoc;
 		if (countFieldDoc instanceof AbstractDocument) {
 			absDoc = (AbstractDocument)countFieldDoc;
 			absDoc.setDocumentFilter(new CountFieldDocumentFilter());
 		}
-		//////////////////////////////////// DOCUMENT FILTER ////////////////////////////////////////////
 
 		_countPanel.add(countLabel);
 		_countPanel.add(_countField);
@@ -250,7 +248,7 @@ public class GUI implements Observer {
 		JButton submitButton = new JButton("SUBMIT");
 		setButtonPropertiesSub(submitButton);
 		submitButton.addActionListener(new SubmitClueListener(_board, _clueField, _countField));
-		submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		_buttonPanel.add(submitButton);
 
 		updateJFrameIfNotHeadless();
@@ -271,16 +269,11 @@ public class GUI implements Observer {
 	
 	public void submissionError() {
 		_messagePanel.removeAll();
-		if (!_board.checkCount(_countField.getText())) {
-			JLabel errorMessage = new JLabel(Board.countError);
-			setLabelProperties(errorMessage);
-			_messagePanel.add(errorMessage);
-		}
-		else if (!_board.checkClue(_clueField.getText())) {
-			JLabel errorMessage = new JLabel(Board.clueError);
-			setLabelProperties(errorMessage);
-			_messagePanel.add(errorMessage);
-		}
+
+		JLabel errorMessage = new JLabel(_board.getErrorMessage());
+		setLabelProperties(errorMessage);
+		_messagePanel.add(errorMessage);
+		
 		updateJFrameIfNotHeadless();	
 	}
 	
@@ -341,40 +334,8 @@ public class GUI implements Observer {
 		
 		for (int idx = 0; idx< 25; idx++) {
 			JButton b = new JButton("" + _board.getCodenames().get(idx).toUpperCase() + "("+_board.getLocations().get(idx).getPerson()+")");
-			//b.setBackground(buttonColor);
-			//b.setForeground(Color.WHITE);
 			setButtonProperties(b, idx);
-		//	b.addActionListener(new ButtonListner(this._board, this, _board.getCodenames().get(idx)));
 			_locationPanel.add(b);
-			
-//			Color R = new Color(255, 0, 0);
-//			Color B = new Color(0, 0, 225);
-//			Color I = new Color(192,192,192);
-//			Color A = new Color(128,128,0);
-//				
-//			if (_board.getLocations().get(idx).getRevealed() == true) {
-//					switch (_board.getLocations().get(idx).getPerson()) {
-//					case "R" : b.setBackground(R);
-//								b.setText("");
-//								break;
-//					case "B" : b.setBackground(B);
-//								b.setText("");
-//								break;
-//					case "I" : b.setBackground(I);
-//								b.setText("");	
-//								break;
-//					case "A" : b.setBackground(A);
-//								b.setText("");
-//								break;
-//					}
-//			}
-//			else {
-//				b.setFont(this.font);
-//				b.setBackground(Color.WHITE);
-//				b.setForeground(Color.BLACK);
-//				b.setOpaque(true);
-//				b.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
-//			}
 		}
 	}
 	
@@ -383,8 +344,6 @@ public class GUI implements Observer {
 		
 		for (int idx = 0; idx< 25; idx++) {		
 			JButton b = new JButton("" + _board.getCodenames().get(idx).toUpperCase());
-		//b.setBackground(buttonColor);
-		//b.setForeground(Color.WHITE);
 			setButtonProperties(b, idx);
 			if(_board.getLocations().get(idx).getRevealed()==false)
 				b.addActionListener(new ButtonListner(this._board, this, _board.getCodenames().get(idx)));
