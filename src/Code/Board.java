@@ -72,9 +72,9 @@ public class Board {
 	private String Clue;
 	
 	/**
-	 * easter eggs
+	 * Indicates whether the Easter Egg has been activated
 	 */
-	private boolean prof = false;
+	private boolean easterEgg;
 	
 	/**
 	 * Constructor for Board class, default file is GameWords.txt
@@ -82,7 +82,6 @@ public class Board {
 	public Board() {
 		this.codeNamesFileReader("Dictionaries/GameWords.txt");
 		this._observers = new ArrayList<>();
-		
 	}
 
 	/**
@@ -152,7 +151,8 @@ public class Board {
 	
 	/**
 	 * When game started, sets redTurn to true and assigns each of Board's 25 Location instances
-	 * a codename, Person, and is Not Revealed
+	 * a codename, Person, and is Not Revealed. Then sets game play flags to appropriate truth values
+	 * and updates observers.
 	 */	
 	public void gameStart() {
 		this.select25();
@@ -172,8 +172,8 @@ public class Board {
 		this.newTurn = false;
 		this.endTurn =  false;
 		this.entryError = false;
-//		this.State = false;
-		this.prof = false;
+
+		this.easterEgg = false;
 		
 		this.notifyObservers();
 	}
@@ -181,6 +181,7 @@ public class Board {
 	/**
 	 * Method defined which correctly returns if a clue is legal or illegal (clues cannot equal a current
 	 * codename unless that codename is in a locations that was already Revealed)
+	 * 
 	 * @param String ; The clue that will be checked for validity
 	 * @return true if legal and false if not
 	 */
@@ -338,7 +339,6 @@ public class Board {
 		this.redCount =x;
 	}
 	
-	
 	/**
 	 * setter method for blueCount
 	 * @param x integer value for new value of blue spies
@@ -366,13 +366,18 @@ public class Board {
 		_observers.add(obs);
 		//notifyObservers();
 	}
-
+	
+	
 	public void notifyObservers() {
 		for (Observer obs : _observers) {
 			obs.update();
 		}
 	}
 	
+	/**
+	 * Event handler for beginning-of-turn dialog windows. Sets game play flags to appropriate values 
+	 * and notifies observers.
+	 */
 	public void dialogClosed() {
 		this.newTurn = true;
 		this.endTurn = false;
@@ -380,6 +385,11 @@ public class Board {
 		this.notifyObservers();
 	}
 	
+	/**
+	 * 
+	 * @param countString String present in GUI._clueField when Submit button was pressed
+	 * @return Indicates whether countString 
+	 */
 	public boolean checkCount(String countString) {
 		try {
 			int count = new Integer(countString);
@@ -392,9 +402,8 @@ public class Board {
 	}
 	
 	/**
-	 * Called when Submit button is pressed. Sets newTurn to false when a Spymaster submits a clue and count. This prevents 
-	 * the new turn dialog from being displayed between the end of the previous turn and the successful submission of a clue 
-	 * and count. That is, when the GUI is updated but count still equals -1. Then calls notifyObservers to update the GUI.
+	 * Called when Submit button is pressed. Calls checkSubmission to verify the legality of the clue and count submitted
+	 * by the Spymaster. Notifies GUI after checks.
 	 */
 	public void entriesSubmitted(String submittedClue, String submittedCount) {
 		checkSubmission(submittedClue, submittedCount);
@@ -402,8 +411,9 @@ public class Board {
 	}
 	
 	/**
-	 * Called to check a submitted clue and count. If both are acceptable, the count and clue are set to the submitted values. entryError 
-	 * and newTurn are set to false to proceed to the guessing phase of the game.
+	 * Called to check a submitted clue and count. If both are acceptable, the count and clue are set to the submitted values.
+	 * entryError and newTurn are set to false to proceed to the guessing phase of the game. Otherwise entryError is set to 
+	 * true and errorMessage is assigned to the applicable error String.
 	 * 
 	 * @param submittedClue the String in GUI._clueField when the Submit button was pressed
 	 * @param submittedCount the String in GUI._countField when the Submit button was pressed
@@ -411,18 +421,21 @@ public class Board {
 	public void checkSubmission(String submittedClue, String submittedCount) {
 		if (!checkCount(submittedCount)) {
 			this.entryError = true;
-			this.errorMessage = this.countError;
+			this.errorMessage = Board.countError;
 		}
 		else if (!checkClue(submittedClue)) {
 			this.entryError = true;
-			this.errorMessage = this.clueError;
+			this.errorMessage = Board.clueError;
+		}
+		else if (submittedClue.equals("Dr. Hertz") && !this.easterEgg) {
+			this.entryError = true;
+			this.easterEgg = true;
+			this.errorMessage = "EASTER EGG ACTIVATED";
 		}
 		else {
 			this.count = new Integer(submittedCount);
-			if(submittedClue.equals("Hertz")) {
-				this.prof = true;
-			}
 			this.Clue = submittedClue;
+			
 			this.entryError = false;
 			this.newTurn = false;
 		}
@@ -483,5 +496,7 @@ public class Board {
 	
 	private boolean endTurn;
 	public boolean getEndTurn() {return this.endTurn;}
+	
+	public boolean getEasterEgg() {return this.easterEgg;}
 }
 

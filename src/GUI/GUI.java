@@ -132,18 +132,39 @@ public class GUI implements Observer {
 		
 		if (_board.getLocations().get(idx).getRevealed() == true) {
 			switch (_board.getLocations().get(idx).getPerson()) {
-			case "R" : button.setBackground(R);
-			button.setText("");
-			break;
-			case "B" : button.setBackground(B);
-			button.setText("");
-			break;
-			case "I" : button.setBackground(I);
-			button.setText("");
-			break;
-			case "A" : button.setBackground(A);
-			button.setText("");
-			break;
+			case "R" : 
+				button.setBackground(R);
+				button.setText("");
+				break;
+			case "B" : 
+				button.setBackground(B);
+				button.setText("");
+				break;
+			case "I" : 
+				button.setBackground(I);
+				button.setText("");
+				break;
+			case "A" : 
+				button.setBackground(A);
+				button.setText("");
+				break;
+			}
+			
+			if (_board.getEasterEgg()) {
+				switch (_board.getLocations().get(idx).getPerson()) {
+				case "R" :
+					button.setIcon(new ImageIcon("src/RedHat.png"));
+					break;
+				case "B" :
+					button.setIcon(new ImageIcon("src/BlueHat.png"));
+					break;
+				case "I" :
+					button.setIcon(new ImageIcon("src/GrayHat.png"));
+					break;
+				case "A" :
+					button.setIcon(new ImageIcon("src/GreenHat.png"));
+					break;
+				}
 			}
 
 			button.setFont(new Font("Courier", Font.BOLD, (int) (screenHeight * 0.03)));
@@ -283,7 +304,6 @@ public class GUI implements Observer {
 		_countPanel.removeAll();
 		_buttonPanel.removeAll();
 		
-//		this.SpymasterView();
 		if(_board.getBlueCount()==0) {
 		JLabel x = new JLabel("Game over. Blue Team Wins. Would you like to play again? ");
 			_messagePanel.add(x);
