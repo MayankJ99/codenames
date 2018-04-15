@@ -167,7 +167,7 @@ public class GUI implements Observer {
 				}
 			}
 
-			button.setFont(new Font("Courier", Font.BOLD, (int) (screenHeight * 0.03)));
+			button.setFont(this.font);
 			button.setOpaque(true);
 			button.setBorder(
 					BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
