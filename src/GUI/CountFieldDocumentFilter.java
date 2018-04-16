@@ -12,7 +12,6 @@ public class CountFieldDocumentFilter extends DocumentFilter {
 	@Override
 	public void insertString(FilterBypass fb, int offset, String str, AttributeSet attr) throws BadLocationException {
 		String newString = new String();
-		System.out.println("In insertString");
 		for (int i = 0; i < str.length(); i++)
 			if (str.charAt(i) >= 48 && str.charAt(i) <= 57)
 				newString += String.valueOf(str.charAt(i));

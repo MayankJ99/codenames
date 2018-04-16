@@ -125,8 +125,7 @@ public class GUI implements Observer {
 	}
 	
 	/**
-	 * Sets the button properties for all the buttons on the board. 
-	 * Checks if a button is revealed and updates the color of the button.
+	 * Sets the properties for Locations on the board. Color of the button is determined by a Location's revealed status.
 	 * 
 	 * @param button JButton on the board.
 	 * @param idx its reference on the board from the GUI.
@@ -190,7 +189,7 @@ public class GUI implements Observer {
 	}
 	
 	/**
-	 * Sets the button properties for the submit button.
+	 * Sets the button properties on the user interface.
 	 * 
 	 * @param button JButton which will act as the submit button.
 	 */

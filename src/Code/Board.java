@@ -46,6 +46,17 @@ public class Board {
 	private boolean redTurn;
 	
 	/**
+	 * Indicates whether the Easter Egg has been activated
+	 */
+	private boolean easterEgg;
+	
+	/**
+	 * Variable to indicate whether or not the new turn dialog should be displayed when the Observers
+	 * are notified next.
+	 */
+	private boolean newTurn;
+	
+	/**
 	 * ArrayList holding all the names from sample .txt file
 	 */
 	private ArrayList<String> allGameWords;
@@ -66,15 +77,14 @@ public class Board {
 	private ArrayList<Location> locations;
 	
 	/**
-	 * The clue given by the spymaster
+	 * Arraylist containing Observers. For a game of CodeNames this is the GUI object.
 	 */
-	
-	private String Clue;
+	private ArrayList<Observer> _observers;
 	
 	/**
-	 * Indicates whether the Easter Egg has been activated
+	 * The clue given by the spymaster
 	 */
-	private boolean easterEgg;
+	private String Clue;
 	
 	/**
 	 * Constructor for Board class, default file is GameWords.txt
@@ -150,7 +160,7 @@ public class Board {
 	}
 	
 	/**
-	 * When game started, sets redTurn to true and assigns each of Board's 25 Location instances
+	 * Starts a new game. When game started, sets redTurn to true and assigns each of Board's 25 Location instances
 	 * a codename, Person, and is Not Revealed. Then sets game play flags to appropriate truth values
 	 * and updates observers.
 	 */	
@@ -360,14 +370,19 @@ public class Board {
 /////////////////////////          PHASE 2 CONTENT          ///////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 	
-	private ArrayList<Observer> _observers;
-	
+
+	/**
+	 * Adds Observers to the ArrayList _observer
+	 * 
+	 * @param obs the Observer to be added
+	 */
 	public void addObserver(Observer obs) {
 		_observers.add(obs);
-		//notifyObservers();
 	}
 	
-	
+	/**
+	 * Calls the update() method for each Observer in _observers. Redraws all elements of the GUI to reflect changes in game state.
+	 */
 	public void notifyObservers() {
 		for (Observer obs : _observers) {
 			obs.update();
@@ -411,7 +426,7 @@ public class Board {
 	}
 	
 	/**
-	 * Called to check a submitted clue and count. If both are acceptable, the count and clue are set to the submitted values.
+	 * Checks the validity of a submitted clue and count. If both are acceptable, the count and clue are set to the submitted values.
 	 * entryError and newTurn are set to false to proceed to the guessing phase of the game. Otherwise entryError is set to 
 	 * true and errorMessage is assigned to the applicable error String.
 	 * 
@@ -441,11 +456,6 @@ public class Board {
 		}
 	}
 	
-	/**
-	 * Variable to indicate whether or not the new turn dialog should be displayed when the Observers
-	 * are notified next.
-	 */
-	private boolean newTurn;
 	private boolean entryError;
 	
 	public boolean getNewTurn() {return this.newTurn;}
