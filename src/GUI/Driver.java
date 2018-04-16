@@ -127,8 +127,4 @@ public class Driver implements Runnable {
 		_window.pack();
 		_window.repaint();
 	}
-	
-//	public void close() {
-//		
-//	}
 }
