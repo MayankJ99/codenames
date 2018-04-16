@@ -9,6 +9,14 @@ import java.awt.event.WindowEvent;
 import javax.swing.JDialog;
 import javax.swing.WindowConstants;
 
+/**
+ * This class is a mouse click listener for JDialogs that display during Codenames gameplay.
+ * 
+ * @author Mayank Jha
+ * @author Minseo Kim
+ * @author Juan Mendoza
+ * @author Daniel Walsh
+ */
 public class DialogClickListener implements MouseListener {
 	
 	/**

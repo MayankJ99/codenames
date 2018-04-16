@@ -23,6 +23,14 @@ import javax.swing.JDialog;
 
 import Code.Board;
 
+/**
+ * This class creates a user interface for the Board class.
+ * 
+ * @author Mayank Jha
+ * @author Minseo Kim
+ * @author Juan Mendoza
+ * @author Daniel Walsh
+ */
 public class GUI implements Observer {
 
 	/**
