@@ -61,6 +61,16 @@ public class Board {
 	private boolean entryError;
 	
 	/**
+	 * Indicates whether a new game has been started.
+	 */
+	private boolean newGame;
+	
+	/**
+	 * Indicates whether a turn is over during game play.
+	 */
+	private boolean endTurn;
+	
+	/**
 	 * ArrayList holding all the names from sample .txt file
 	 */
 	private ArrayList<String> allGameWords;
@@ -460,7 +470,7 @@ public class Board {
 		}
 	}
 	
-	public boolean getEntryError() {return this.entryError;}
+
 	
 	public static final String countError = "PLEASE ENTER A VALID COUNT";
 	public static final String clueError = "PLEASE ENTER A VALID CLUE";
@@ -501,10 +511,13 @@ public class Board {
 		notifyObservers();
 	}
 	
+	/**
+	 * Getter for Clue, the latest valid clue entered by a Spymaster.
+	 * @return the value of Clue
+	 */
 	public String GetSubClue() {
 		return Clue;
 	}
-	
 	
 	/**
 	 * Sets the frame's icon at the top left corner and on the tool bar to a picture of Matthew Simpson.
@@ -517,14 +530,20 @@ public class Board {
 		return pageIcon;
 	}
 	
-	private boolean newGame;
+	/**
+	 * Returns newGame, which indicates whether a new game has been started.
+	 * @return the value of newGame
+	 */
 	public boolean getNewGame() {return this.newGame;}
 	
-	private boolean endTurn;
+	/**
+	 * Returns endTurn, which indicates whether a turn is over.
+	 * @return the value of endTurn
+	 */
 	public boolean getEndTurn() {return this.endTurn;}
 	
 	/**
-	 * Returns easterEgg, which indicates whether the Easter Egg has been activated
+	 * Returns easterEgg, which indicates whether the Easter Egg has been activated.
 	 * @return the value of easterEgg
 	 */
 	public boolean getEasterEgg() {return this.easterEgg;}
@@ -534,5 +553,11 @@ public class Board {
 	 * @return the value of newTurn
 	 */
 	public boolean getNewTurn() {return this.newTurn;}
+	
+	/**
+	 * Getter for entryError, a String indicating an invalid submission by the Spymaster
+	 * @return the value of entryError
+	 */
+	public boolean getEntryError() {return this.entryError;}
 }
 
