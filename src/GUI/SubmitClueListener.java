@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 public class SubmitClueListener implements ActionListener {
 	
 	/**
-	 * The model for the current game.
+	 * The model for the current game which contains the handler method.
 	 */
 	private Board board;
 	

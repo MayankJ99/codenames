@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 public class PassListener implements ActionListener {
 	
 	/**
-	 * The model for the current game
+	 * The model for the current game which contains the handler method.
 	 */
 	private Board board;
 
