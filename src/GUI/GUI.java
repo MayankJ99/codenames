@@ -143,6 +143,9 @@ public class GUI implements Observer {
 		updateJFrameIfNotHeadless();
 	}
 	
+	/**
+	 * update method for Observer interface. Builds the GUI and determines how GUI will display based on information from _board.
+	 */
 	@Override
 	public void update() {
 		
@@ -175,6 +178,9 @@ public class GUI implements Observer {
 		}
 	}
 	
+	/**
+	 * Repaints the GUI
+	 */
 	public void updateJFrameIfNotHeadless() {
 		if (_windowHolder != null) {
 			_windowHolder.updateJFrame();
@@ -259,10 +265,20 @@ public class GUI implements Observer {
 				BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 	}
 
+	/**
+	 * Sets the font for JLabels.
+	 * @param label The JLabel to have its font set
+	 */
 	public void setLabelProperties(JLabel label) {
 		label.setFont(this.font);
 	}
 	
+	/**
+	 * Creates a JDialog to indicate turn changes during game play and act as an event listener. 
+	 * 
+	 * @param message The text to display on the JDialog.
+	 * @param windowTitle The title of the JDialog.
+	 */
 	public void makeDialog(String message, String windowTitle) {
 		JDialog dialogWindow = _windowHolder.newDialog(windowTitle);
 		dialogWindow.setLayout(new BoxLayout(dialogWindow.getContentPane(), BoxLayout.Y_AXIS));
@@ -289,6 +305,9 @@ public class GUI implements Observer {
 		dialogWindow.setVisible(true);
 	}
 	
+	/**
+	 * Builds the GUI for the Spymaster portion of a turn. Includes an instructional message and fields for text entry.
+	 */
 	public void newTurn() {			
 		_messagePanel.removeAll();
 		_cluePanel.removeAll();
@@ -343,6 +362,9 @@ public class GUI implements Observer {
 		updateJFrameIfNotHeadless();
 	}
 	
+	/**
+	 * Determines information to display in JDialogs during gameplay and calls makeDialog to create them. 
+	 */
 	void displayDialog() {
 		String dialogMessage;
 
@@ -356,6 +378,9 @@ public class GUI implements Observer {
 		makeDialog(dialogMessage, "New Turn");
 	}
 	
+	/**
+	 * Displays an error message for invalid inputs during the Spymaster's turn.
+	 */
 	public void submissionError() {
 		_messagePanel.removeAll();
 
@@ -366,6 +391,9 @@ public class GUI implements Observer {
 		updateJFrameIfNotHeadless();	
 	}
 	
+	/**
+	 * Builds the GUI when a game is over. Displays winning team information and allows users to start a new game or exit.
+	 */
 	public void GameEndScenario() {
 		_messagePanel.removeAll();
 		_cluePanel.removeAll();
@@ -406,6 +434,9 @@ public class GUI implements Observer {
 		updateJFrameIfNotHeadless();
 	}
 	
+	/**
+	 * Builds the GUI when a new game is started.
+	 */
 	public void newGame() {
 		_messagePanel.removeAll();
 		_cluePanel.removeAll();
@@ -417,6 +448,9 @@ public class GUI implements Observer {
 		this.displayDialog();
 	}
 	
+	/**
+	 * Displays Locations during the Spymaster's turn. Shows characters for unrevealed Locations and has no action listeners.
+	 */
 	public void SpymasterView() {
 		_locationPanel.removeAll();
 		
@@ -427,6 +461,9 @@ public class GUI implements Observer {
 		}
 	}
 	
+	/**
+	 * Displays Locations during a team's turn. Does not show unrevealed characters and adds action listeners for Locations to be revealed.
+	 */
 	public void PlayerView() {
 		_locationPanel.removeAll();
 		
@@ -439,6 +476,9 @@ public class GUI implements Observer {
 		}
 	}
 	
+	/**
+	 * Builds GUI for a team's turn. Displays the current count, clue, numbers of unrevealed spies, and allows players to end the turn.
+	 */
 	public void CurrentTurn() {
 		_messagePanel.removeAll();
 		_cluePanel.removeAll();
