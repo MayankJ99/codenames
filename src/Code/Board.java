@@ -96,9 +96,34 @@ public class Board {
 	private ArrayList<Observer> _observers;
 	
 	/**
-	 * The clue given by the spymaster
+	 * The valid clue given by the Spymaster during a turn.
 	 */
 	private String Clue;
+	
+	/**
+	 * A String indicating the reason for an invalid submission by a Spymaster, i.e. a illegal clue or count.
+	 */
+	private String errorMessage;
+	
+	/**
+	 * A human-readable message that corresponds to an invalid count entry by a Spymaster.
+	 */
+	public static final String countError = "PLEASE ENTER A VALID COUNT";
+	
+	/**
+	 * A human-readable message that corresponds to an invalid clue entry by a Spymaster.
+	 */
+	public static final String clueError = "PLEASE ENTER A VALID CLUE";
+	
+	/**
+	 * A human-readable message that indicates the Red Spymaster's turn to enter a clue and count.
+	 */
+	public static final String redSpymasterMessage = "RED TEAM SPYMASTER, ENTER A CLUE AND COUNT";
+	
+	/**
+	 * A human-readable message that indicates the Blue Spymaster's turn to enter a clue and count.
+	 */
+	public static final String blueSpymasterMessage = "BLUE TEAM SPYMASTER, ENTER A CLUE AND COUNT";
 	
 	/**
 	 * Constructor for Board class, default file is GameWords.txt
@@ -331,7 +356,7 @@ public class Board {
 	/**
 	 * Getter method for redCount
 	 * 
-	 * @return the number of red spys left
+	 * @return the number of red spies left
 	 */
 	public int getRedCount() {
 		return this.redCount;
@@ -340,7 +365,7 @@ public class Board {
 	/**
 	 * Getter method for blueCount
 	 * 
-	 * @return the number of blue spys left
+	 * @return the number of blue spies left
 	 */
 	public int getBlueCount() {
 		return this.blueCount;
@@ -375,15 +400,9 @@ public class Board {
 	 * setter method for assassin
 	 * @param x integer value for new value of Assassin
 	 */
-	
 	public void setAssassinCount(int x ) {
 		this.assassin=x;
 	}
-	
-///////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////          PHASE 2 CONTENT          ///////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-	
 
 	/**
 	 * Adds Observers to the ArrayList _observer
@@ -415,9 +434,10 @@ public class Board {
 	}
 	
 	/**
+	 * Checks the validity of the count submitted by the Spymaster for the current turn.
 	 * 
-	 * @param countString String present in GUI._clueField when Submit button was pressed
-	 * @return Indicates whether countString 
+	 * @param countString String present in _clueField when Submit button was pressed
+	 * @return Whether the count is valid
 	 */
 	public boolean checkCount(String countString) {
 		try {
@@ -470,22 +490,11 @@ public class Board {
 		}
 	}
 	
-
-	
-	public static final String countError = "PLEASE ENTER A VALID COUNT";
-	public static final String clueError = "PLEASE ENTER A VALID CLUE";
-	public static final String redSpymasterMessage = "RED TEAM SPYMASTER, ENTER A CLUE AND COUNT";
-	public static final String blueSpymasterMessage = "BLUE TEAM SPYMASTER, ENTER A CLUE AND COUNT";
-	
-	private String errorMessage;
-	public String getErrorMessage() {return this.errorMessage;}
-	
-	
 	/**
 	 * Button Listener which reveals an agent's faction when clicked on.
 	 * Ends the player's turn if they click on an opposing faction's agent.
 	 * 
-	 * @param codename The String reference to the codename on the bored.
+	 * @param codename The String reference to the codename on the board.
 	 */
 	public void buttonListnerEvent(String codename) {		
 		if(updateLocation(codename) == true) {
@@ -521,7 +530,6 @@ public class Board {
 	
 	/**
 	 * Sets the frame's icon at the top left corner and on the tool bar to a picture of Matthew Simpson.
-	 *
 	 */
 	public static ImageIcon webPageIcon() {
 		
@@ -531,33 +539,40 @@ public class Board {
 	}
 	
 	/**
-	 * Returns newGame, which indicates whether a new game has been started.
+	 * Indicates whether a new game has been started.
 	 * @return the value of newGame
 	 */
 	public boolean getNewGame() {return this.newGame;}
 	
 	/**
-	 * Returns endTurn, which indicates whether a turn is over.
+	 * Indicates whether a turn is over.
 	 * @return the value of endTurn
 	 */
 	public boolean getEndTurn() {return this.endTurn;}
 	
 	/**
-	 * Returns easterEgg, which indicates whether the Easter Egg has been activated.
+	 * Indicates whether the Easter Egg has been activated.
 	 * @return the value of easterEgg
 	 */
 	public boolean getEasterEgg() {return this.easterEgg;}
 	
 	/**
-	 * Getter for newTurn, which indicates whether it is the Spymaster's portion of the game play.
+	 * Indicates whether it is the Spymaster's portion of the game play.
 	 * @return the value of newTurn
 	 */
 	public boolean getNewTurn() {return this.newTurn;}
 	
 	/**
-	 * Getter for entryError, a String indicating an invalid submission by the Spymaster
+	 * Indicates whether there is an error in the latest clue and count submission
+	 * by a Spymaster
 	 * @return the value of entryError
 	 */
 	public boolean getEntryError() {return this.entryError;}
+	
+	/**
+	 * Indicates an error in a Spymaster's entry.
+	 * @return the value of errorMessage
+	 */
+	public String getErrorMessage() {return this.errorMessage;}
 }
 
