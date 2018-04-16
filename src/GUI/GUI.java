@@ -25,26 +25,83 @@ import Code.Board;
 
 public class GUI implements Observer {
 
+	/**
+	 * The width of the screen in pixels.
+	 */
 	private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+	
+	/**
+	 * The height of the screen in pixels.
+	 */
 	private int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+	
+	/**
+	 * The font to be used for text in the GUI.
+	 */
 	private Font font = new Font("Courier", Font.BOLD, (int) (screenHeight * 0.03));
 	
+	/**
+	 * The JPanel added to the JFrame in Driver.
+	 */
 	private JPanel _mainPanel;
+	
+	/**
+	 * The JPanel containing Locations.
+	 */
 	private JPanel _locationPanel;
+	
+	/**
+	 * The JPanel containing game play I/O.
+	 */
 	private JPanel _infoPanel;
 	
+	/**
+	 * The JPanel for messages to users.
+	 */
 	private JPanel _messagePanel;
+	
+	/**
+	 * The JPanel for the clue submission JTextField.
+	 */
 	private JPanel _cluePanel;
+	
+	/**
+	 * The JPanel for the count submission JTextField.
+	 */
 	private JPanel _countPanel;
+	
+	/**
+	 * The JPanel for buttons.
+	 */
 	private JPanel _buttonPanel;
 	
+	/**
+	 * The JTextField in which clues are entered.
+	 */
 	private JTextField _clueField;
+	
+	/**
+	 * The JTextField in which counts are entered.
+	 */
 	private JTextField _countField;
 	
+	/**
+	 * The Board which serves as the model for a game of CodeNames.
+	 */
 	private Board _board;
+	
+	/**
+	 * The Driver which started the GUI.
+	 */
 	private Driver _windowHolder;
 	
-
+	/**
+	 * Constructor for GUI. Creates JPanels in which content will be drawn. Sets attributes for a particular appearance.
+	 * 
+	 * @param b The Board which is the model for the GUI
+	 * @param mp The JPanel in the JFrame on which the GUI will be drawn
+	 * @param driver The Driver which created the GUI
+	 */
 	public GUI(Board b, JPanel mp, Driver driver) {
 		_windowHolder = driver;
 		_board = b;		
@@ -60,12 +117,12 @@ public class GUI implements Observer {
 		_infoPanel = new JPanel();
 		_infoPanel.setLayout(new BoxLayout(_infoPanel, BoxLayout.Y_AXIS));
 		_infoPanel.setPreferredSize(new Dimension((int) (this.screenWidth * .8), (int) (this.screenHeight * .2)));
-		_infoPanel.setAlignmentX(Component.CENTER_ALIGNMENT);  	//When _infoPanel is assigned a BoxLayout, its alignment changes from CENTER to LEFT. Rhetorical WHY?????
-		_mainPanel.add(_infoPanel);								//Further, when a container (NOT component) is added, its alignment hanges back to CENTER. 
+		_infoPanel.setAlignmentX(Component.CENTER_ALIGNMENT); 
+		_mainPanel.add(_infoPanel);	
 		
 		_messagePanel = new JPanel();
-		_messagePanel.setMaximumSize(new Dimension((int) (screenWidth * .8), (int) (screenHeight))); // * .05)));
-		_messagePanel.setMinimumSize(new Dimension((int) (screenWidth * .8), (int) 0)); // screenWidth * .6 (screenHeight * .05))); //This is here to prevent *slight* realignment of the fields if the JLabel it contains is not as wide as the JFields below
+		_messagePanel.setMaximumSize(new Dimension((int) (screenWidth * .8), (int) (screenHeight)));
+		_messagePanel.setMinimumSize(new Dimension((int) (screenWidth * .8), (int) 0));
 		_infoPanel.add(_messagePanel);
 		
 		_cluePanel = new JPanel();
