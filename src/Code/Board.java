@@ -51,10 +51,14 @@ public class Board {
 	private boolean easterEgg;
 	
 	/**
-	 * Variable to indicate whether or not the new turn dialog should be displayed when the Observers
-	 * are notified next.
+	 * Variable to indicate the Spymaster's portion of a turn during game play.
 	 */
 	private boolean newTurn;
+	
+	/**
+	 * Indicates whether the last entered clue and count were valid.
+	 */
+	private boolean entryError;
 	
 	/**
 	 * ArrayList holding all the names from sample .txt file
@@ -456,9 +460,6 @@ public class Board {
 		}
 	}
 	
-	private boolean entryError;
-	
-	public boolean getNewTurn() {return this.newTurn;}
 	public boolean getEntryError() {return this.entryError;}
 	
 	public static final String countError = "PLEASE ENTER A VALID COUNT";
@@ -491,6 +492,9 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Event handler for the Pass button. Ends the current turn during game play.
+	 */
 	public void passListenerEvent() {
 		this.endTurn = true;
 		redTurn = !redTurn;
@@ -519,6 +523,16 @@ public class Board {
 	private boolean endTurn;
 	public boolean getEndTurn() {return this.endTurn;}
 	
+	/**
+	 * Returns easterEgg, which indicates whether the Easter Egg has been activated
+	 * @return the value of easterEgg
+	 */
 	public boolean getEasterEgg() {return this.easterEgg;}
+	
+	/**
+	 * Getter for newTurn, which indicates whether it is the Spymaster's portion of the game play.
+	 * @return the value of newTurn
+	 */
+	public boolean getNewTurn() {return this.newTurn;}
 }
 
