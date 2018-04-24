@@ -33,7 +33,7 @@ public class NewGameListener implements ActionListener{
 	  */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		_b.gameStart();
+		_b.gameStart_2Team();
 	}
 
 }

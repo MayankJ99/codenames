@@ -126,6 +126,16 @@ public class Board {
 	public static final String blueSpymasterMessage = "BLUE TEAM SPYMASTER, ENTER A CLUE AND COUNT";
 	
 	/**
+	 * the current team entry. Similar to head of a linked list
+	 */
+	public Entry currentTeam;
+	
+	/**
+	 * green count for green team
+	 */
+	public int greenCount;
+	
+	/**
 	 * Constructor for Board class, default file is GameWords.txt
 	 */
 	public Board() {
@@ -203,19 +213,28 @@ public class Board {
 	 * a codename, Person, and is Not Revealed. Then sets game play flags to appropriate truth values
 	 * and updates observers.
 	 */	
-	public void gameStart() {
+	public void gameStart_2Team() {
 		this.select25();
+		
+		//random assign must edit 
 		this.randomAssign();
+		
+		
 		this.locations = new ArrayList<Location>();
 		
 		for (int a = 0; a < 25; a++)
 			this.locations.add(new Location(this.newGameWords.get(a), this.persons.get(a)));
 		
+	
+		//not needed anymore. Must be removed when code for implementing turns are replaced
 		this.redTurn = true;
+		
+		
 		this.redCount = 9;
 		this.blueCount = 8;
 		this.assassin = 1;
 		this.count = -1;
+		this.greenCount = 10;
 		
 		this.newGame = true;
 		this.newTurn = false;
@@ -224,9 +243,63 @@ public class Board {
 
 		this.easterEgg = false;
 		
+		Entry red = new Entry("R", "Red Team");
+		Entry blue = new Entry("B", "Blue Team");
+		
+		
+		red.setNext(blue);
+		blue.setNext(red);
+		
+		
+		currentTeam = red;
 		this.notifyObservers();
 	}
 		
+
+	public void gameStart_3Team() {
+		this.select25();
+		
+	// random assign must edit	
+		this.randomAssign();
+		
+		
+		this.locations = new ArrayList<Location>();
+		
+		for (int a = 0; a < 25; a++)
+			this.locations.add(new Location(this.newGameWords.get(a), this.persons.get(a)));
+		
+		
+		//not needed anymore. Must be removed when code for implementing turns are replaced
+		this.redTurn = true;
+		
+		this.redCount = 6;
+		this.blueCount = 5;
+		this.assassin = 2;
+		this.count = -1;
+		this.greenCount = 5;
+		
+		this.newGame = true;
+		this.newTurn = false;
+		this.endTurn =  false;
+		this.entryError = false;
+
+		this.easterEgg = false;
+		
+		Entry red = new Entry("R", "Red Team");
+		Entry blue = new Entry("B", "Blue Team");
+		Entry green = new Entry("G", "Green Team");
+		
+		red.setNext(blue);
+		blue.setNext(green);
+		green.setNext(red);
+		
+		currentTeam = red;
+		
+		this.notifyObservers();
+	}
+	
+	
+	
 	/**
 	 * Method defined which correctly returns if a clue is legal or illegal (clues cannot equal a current
 	 * codename unless that codename is in a locations that was already Revealed)
@@ -574,5 +647,13 @@ public class Board {
 	 * @return the value of errorMessage
 	 */
 	public String getErrorMessage() {return this.errorMessage;}
+	
+	public void changeTurn() {
+		this.currentTeam = currentTeam.getNext();
+	}
+	
+	public Entry getCurrentTurn() {
+		return this.currentTeam;
+	}
 }
 
