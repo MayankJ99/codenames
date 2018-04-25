@@ -254,10 +254,10 @@ public class Board {
 		Entry red = new Entry("R", "Red Team");
 		Entry blue = new Entry("B", "Blue Team");
 		
-		
 		red.setNext(blue);
+		red.setPrev(blue);
 		blue.setNext(red);
-		
+		blue.setPrev(red);
 		
 		currentTeam = red;
 		this.notifyObservers();
@@ -297,14 +297,16 @@ public class Board {
 		Entry green = new Entry("G", "Green Team");
 		
 		red.setNext(blue);
+		red.setPrev(green);
 		blue.setNext(green);
+		blue.setPrev(red);
 		green.setNext(red);
+		green.setPrev(blue);
 		
 		currentTeam = red;
 		
 		this.notifyObservers();
 	}
-	
 	
 	
 	/**
