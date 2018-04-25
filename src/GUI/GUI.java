@@ -322,14 +322,7 @@ public class GUI implements Observer {
 		_countPanel.removeAll();
 		_buttonPanel.removeAll();
 
-		JLabel message;
-
-		if (_board.getRedTurn()) {
-			message = new JLabel(Board.redSpymasterMessage);
-		}
-		else {
-			message = new JLabel(Board.blueSpymasterMessage);
-		}
+		JLabel message = new JLabel(_board.getSpymasterMessage());
 
 		setLabelProperties(message);
 		_messagePanel.add(message);
@@ -374,14 +367,7 @@ public class GUI implements Observer {
 	 * Determines information to display in JDialogs during gameplay and calls makeDialog to create them. 
 	 */
 	void displayDialog() {
-		String dialogMessage;
-
-		if (_board.getRedTurn()) {
-			dialogMessage = "RED TEAM'S TURN";
-		}
-		else {
-			dialogMessage = "BLUE TEAM'S TURN";
-		}
+		String dialogMessage = _board.getDialogMessage();
 		
 		makeDialog(dialogMessage, "New Turn");
 	}

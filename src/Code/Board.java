@@ -115,15 +115,15 @@ public class Board {
 	 */
 	public static final String clueError = "PLEASE ENTER A VALID CLUE";
 	
-	/**
-	 * A human-readable message that indicates the Red Spymaster's turn to enter a clue and count.
-	 */
-	public static final String redSpymasterMessage = "RED TEAM SPYMASTER, ENTER A CLUE AND COUNT";
-	
-	/**
-	 * A human-readable message that indicates the Blue Spymaster's turn to enter a clue and count.
-	 */
-	public static final String blueSpymasterMessage = "BLUE TEAM SPYMASTER, ENTER A CLUE AND COUNT";
+//	/**
+//	 * A human-readable message that indicates the Red Spymaster's turn to enter a clue and count.
+//	 */
+//	public static final String redSpymasterMessage = "RED TEAM SPYMASTER, ENTER A CLUE AND COUNT";
+//	
+//	/**
+//	 * A human-readable message that indicates the Blue Spymaster's turn to enter a clue and count.
+//	 */
+//	public static final String blueSpymasterMessage = "BLUE TEAM SPYMASTER, ENTER A CLUE AND COUNT";
 	
 	/**
 	 * the current team entry. Similar to head of a linked list
@@ -519,7 +519,7 @@ public class Board {
 	public boolean checkCount(String countString) {
 		try {
 			int count = new Integer(countString);
-			if (count < 0)
+			if (count <= 0)
 				return false;
 		} catch (NumberFormatException nfe) {
 			return false;
@@ -658,6 +658,14 @@ public class Board {
 	
 	public Entry getCurrentTurn() {
 		return this.currentTeam;
+	}
+	
+	public String getSpymasterMessage() {
+		return (this.currentTeam.getTeam() + " SPYMASTER, ENTER A CLUE AND COUNT");
+	}
+	
+	public String getDialogMessage() {
+		return (this.currentTeam.getTeam() + "'S TURN");
 	}
 }
 
