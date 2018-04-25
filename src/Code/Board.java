@@ -561,7 +561,7 @@ public class Board {
 		else if (submittedClue.equals("Dr. Hertz") && !this.easterEgg) {
 			this.entryError = true;
 			this.easterEgg = true;
-			this.errorMessage = "EASTER EGG ACTIVATED";
+			this.errorMessage = "EASTER EGG ACTIVATED. " + this.getSpymasterMessage();
 		}
 		else {
 			this.count = new Integer(submittedCount);
