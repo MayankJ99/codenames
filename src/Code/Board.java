@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.ImageIcon;
@@ -128,12 +129,12 @@ public class Board {
 	/**
 	 * the current team entry. Similar to head of a linked list
 	 */
-	public Entry currentTeam;
+	private Entry currentTeam;
 	
 	/**
 	 * green count for green team
 	 */
-	public int greenCount;
+	private int greenCount;
 	
 	/**
 	 * Constructor for Board class, default file is GameWords.txt
@@ -198,6 +199,8 @@ public class Board {
 	 */
 	public void randomAssign(int teams) {
 		String[] initialData;
+		this.persons = new ArrayList<String>();
+		
 		if (teams == 2) {
 			String[] tempData = {"R","R","R","R","R","R","R","R","R","B","B","B","B","B","B","B","B","I","I","I","I","I","I","I","A"};
 			initialData = tempData;
@@ -658,6 +661,16 @@ public class Board {
 	
 	public Entry getCurrentTurn() {
 		return this.currentTeam;
+	}
+	
+	public void removeTeamChangeTurn() {
+		Entry prior = this.currentTeam.getPrev();
+		Entry follower = this.currentTeam.getNext();
+		
+		prior.setNext(follower);
+		follower.setPrev(prior);
+		
+		this.currentTeam = follower;
 	}
 	
 	public String getSpymasterMessage() {
