@@ -663,6 +663,9 @@ public class Board {
 		return this.currentTeam;
 	}
 	
+	/**
+	 * Removes an assassinated team from the rotation/linked list and advances currentTeam to the next team in line
+	 */
 	public void removeTeamChangeTurn() {
 		Entry prior = this.currentTeam.getPrev();
 		Entry follower = this.currentTeam.getNext();
@@ -673,10 +676,18 @@ public class Board {
 		this.currentTeam = follower;
 	}
 	
+	/**
+	 * Generates a message for the Spymaster, specific to the current team
+	 * @return String containing the message to the Spymaster
+	 */
 	public String getSpymasterMessage() {
 		return (this.currentTeam.getTeam() + " SPYMASTER, ENTER A CLUE AND COUNT");
 	}
 	
+	/**
+	 * Generates the message displayed in the dialog at the start of a new turn, specific to the current team
+	 * @return String containing the message to the upcoming team
+	 */
 	public String getDialogMessage() {
 		return (this.currentTeam.getTeam() + "'S TURN");
 	}
