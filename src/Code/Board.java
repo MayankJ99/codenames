@@ -3,6 +3,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -204,10 +205,12 @@ public class Board {
 		if (teams == 2) {
 			String[] tempData = {"R","R","R","R","R","R","R","R","R","B","B","B","B","B","B","B","B","I","I","I","I","I","I","I","A"};
 			initialData = tempData;
+//			this.persons = new ArrayList<String>(Arrays.asList("R","R","R","R","R","R","R","R","R","B","B","B","B","B","B","B","B","I","I","I","I","I","I","I","A"));
 		}
 		else {
 			String[] tempData = {"R","R","R","R","R","R","B","B","B","B","B","G","G","G","G","G","I","I","I","I","I","I","I","A","A"};
 			initialData = tempData;
+//			this.persons = new ArrayList<String>(Arrays.asList("R","R","R","R","R","R","B","B","B","B","B","G","G","G","G","G","I","I","I","I","I","I","I","A","A"));
 		}
 		
 		for (int a = 0; a < 25; a++) {
