@@ -194,12 +194,18 @@ public class Board {
 	}
 	
 	/**
-	 *  Creates List containing randomly generated assignments for each of the 9 Red Agents, 
-	 *  8 Blue Agents, 7 Innocent Bystanders, and 1 Assassin
+	 *  Creates List containing randomly generated assignments for the Red, Blue, and Green agents; innocent bystanders; and assassins.
 	 */
-	public void randomAssign() {
-		String[] initialData = {"R","R","R","R","R","R","R","R","R","B","B","B","B","B","B","B","B","I","I","I","I","I","I","I","A"};
-		this.persons = new ArrayList<String>();
+	public void randomAssign(int teams) {
+		String[] initialData;
+		if (teams == 2) {
+			String[] tempData = {"R","R","R","R","R","R","R","R","R","B","B","B","B","B","B","B","B","I","I","I","I","I","I","I","A"};
+			initialData = tempData;
+		}
+		else {
+			String[] tempData = {"R","R","R","R","R","R","B","B","B","B","B","G","G","G","G","G","I","I","I","I","I","I","I","A","A"};
+			initialData = tempData;
+		}
 		
 		for (int a = 0; a < 25; a++) {
 			this.persons.add(initialData[a]);
@@ -216,8 +222,7 @@ public class Board {
 	public void gameStart_2Team() {
 		this.select25();
 		
-		//random assign must edit 
-		this.randomAssign();
+		this.randomAssign(2);
 		
 		
 		this.locations = new ArrayList<Location>();
@@ -258,9 +263,8 @@ public class Board {
 
 	public void gameStart_3Team() {
 		this.select25();
-		
-	// random assign must edit	
-		this.randomAssign();
+			
+		this.randomAssign(3);
 		
 		
 		this.locations = new ArrayList<Location>();
