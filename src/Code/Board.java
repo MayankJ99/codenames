@@ -701,7 +701,7 @@ public class Board {
 	 * @return String containing the message to the Spymaster
 	 */
 	public String getSpymasterMessage() {
-		return (this.currentTeam.getTeam() + " SPYMASTER, ENTER A CLUE AND COUNT");
+		return (this.currentTeam.getTeam().toUpperCase() + " SPYMASTER, ENTER A CLUE AND COUNT");
 	}
 	
 	/**
@@ -709,7 +709,7 @@ public class Board {
 	 * @return String containing the message to the upcoming team
 	 */
 	public String getDialogMessage() {
-		return (this.currentTeam.getTeam() + "'S TURN");
+		return (this.currentTeam.getTeam().toUpperCase() + "'S TURN");
 	}
 }
 
