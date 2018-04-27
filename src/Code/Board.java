@@ -361,13 +361,28 @@ public class Board {
 	 */
 	public boolean checkGameState() {
 		boolean State;
-		if(this.redCount == 0 || this.blueCount == 0 || this.assassin == 0) {
+		if ((this.redCount == 0 && this.teamStillActive("R")) || (this.blueCount == 0 && this.teamStillActive("B")) || (this.greenCount == 0 && this.teamStillActive("G")) || this.assassin == 0) {
 		 State = true;
 		}else {
 			State = false;
 		}
 		return State;
+	}
 	
+	/**
+	 * Returns whether a specified team has not been assassinated.
+	 * 
+	 * @param team A single-character String representing the team to be checked; is compared to Entry variable TeamInitial
+	 * @return whether specified team is still active in the current game
+	 */
+	public boolean teamStillActive(String team) {
+		Entry trav = this.currentTeam.getNext();
+		while (trav != this.currentTeam) {
+			if (trav.getInitial().equals(team))
+				return true;
+			trav = trav.getNext();
+		}
+		return (trav.getInitial().equals(team));
 	}
 	
 	/**
