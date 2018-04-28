@@ -616,12 +616,12 @@ public class Board {
 		if(updateLocation(codename) == true) {
 			if(this.count == -1) {
 				this.endTurn = true;
-				redTurn = !redTurn;				
+				changeTurn();			
 			}
 			notifyObservers();
 		}
 		else{
-			redTurn = !redTurn;
+			changeTurn();
 			this.endTurn = true;
 			notifyObservers();
 		}
