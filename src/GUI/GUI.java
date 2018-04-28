@@ -205,7 +205,7 @@ public class GUI implements Observer {
 		Color R = new Color(255, 0, 0);
 		Color B = new Color(0, 0, 225);
 		Color I = new Color(192,192,192);
-		Color A = new Color(225,225,225);
+		Color A = new Color(0,0,0);
 		Color G = new Color(128,128,0);
 		
 		
