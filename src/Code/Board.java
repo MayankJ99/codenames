@@ -137,6 +137,9 @@ public class Board {
 	 */
 	private int greenCount;
 	
+	private boolean _2PlayerGame = false;
+	private boolean _3PlayerGame = false;
+	
 	/**
 	 * Constructor for Board class, default file is GameWords.txt
 	 */
@@ -226,6 +229,8 @@ public class Board {
 	 * and updates observers.
 	 */	
 	public void gameStart_2Team() {
+		_2PlayerGame = true;
+		
 		this.select25();
 		
 		this.randomAssign(2);
@@ -268,6 +273,8 @@ public class Board {
 		
 
 	public void gameStart_3Team() {
+		_3PlayerGame = true;
+		
 		this.select25();
 			
 		this.randomAssign(3);
@@ -345,9 +352,11 @@ public class Board {
 					break;
 					case "A" : this.assassin -= 1;
 					break;
+					case "G" : this.greenCount -= 1;
+					break;
 				}
 				location.setRevealed(true);
-				if ((this.redTurn && (location.getPerson().equals("R"))) || (!this.redTurn && (location.getPerson().equals("B"))))
+				if ((this.redTurn && (location.getPerson().equals("R"))) || (!this.redTurn && (location.getPerson().equals("G"))) || (!this.redTurn && (location.getPerson().equals("B"))))
 					return true;
 			}
 		}
@@ -711,5 +720,14 @@ public class Board {
 	public String getDialogMessage() {
 		return (this.currentTeam.getTeam().toUpperCase() + "'S TURN");
 	}
+	
+	public boolean get2PlayerGame() {
+		return this._2PlayerGame;
+	}
+	
+	public boolean get3PlayerGame() {
+		return this._3PlayerGame;
+	}
+	
 }
 

@@ -205,26 +205,54 @@ public class GUI implements Observer {
 		Color R = new Color(255, 0, 0);
 		Color B = new Color(0, 0, 225);
 		Color I = new Color(192,192,192);
-		Color A = new Color(128,128,0);
+		Color A = new Color(225,225,225);
+		Color G = new Color(128,128,0);
+		
 		
 		if (_board.getLocations().get(idx).getRevealed() == true) {
-			switch (_board.getLocations().get(idx).getPerson()) {
-			case "R" : 
-				button.setBackground(R);
-				button.setText("");
-				break;
-			case "B" : 
-				button.setBackground(B);
-				button.setText("");
-				break;
-			case "I" : 
-				button.setBackground(I);
-				button.setText("");
-				break;
-			case "A" : 
-				button.setBackground(A);
-				button.setText("");
-				break;
+			if(_board.get2PlayerGame() != false) {
+				switch (_board.getLocations().get(idx).getPerson()) {
+				case "R" : 
+					button.setBackground(R);
+					button.setText("");
+					break;
+				case "B" : 
+					button.setBackground(B);
+					button.setText("");
+					break;
+					case "I" : 
+					button.setBackground(I);
+					button.setText("");
+					break;
+				case "A" : 
+					button.setBackground(A);
+					button.setText("");
+					break;
+			}	
+		}
+			else{
+					switch (_board.getLocations().get(idx).getPerson()) {
+					case "R" : 
+						button.setBackground(R);
+						button.setText("");
+						break;
+					case "B" : 
+						button.setBackground(B);
+						button.setText("");
+						break;
+					case "I" : 
+						button.setBackground(I);
+						button.setText("");
+						break;
+					case "A" : 
+						button.setBackground(A);
+						button.setText("");
+						break;
+					case "G" : 
+						button.setBackground(G);
+						button.setText("");
+						break;
+					
 			}
 			
 			if (_board.getEasterEgg()) {
@@ -248,7 +276,8 @@ public class GUI implements Observer {
 			button.setOpaque(true);
 			button.setBorder(
 					BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
-		}
+			}
+			}
 		else {
 			button.setFont(this.font);
 			button.setBackground(Color.WHITE);
