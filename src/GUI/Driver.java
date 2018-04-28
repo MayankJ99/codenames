@@ -50,7 +50,7 @@ public class Driver implements Runnable {
 	/**
 	 * Menu items to appear in _menu
 	 */
-	private JMenuItem _m1,_m2;
+	private JMenuItem _m1,_m2,_m3;
 	
 	/**
 	 * Constructor
@@ -85,15 +85,19 @@ public class Driver implements Runnable {
 		_menu = new JMenu("File");
 		_m1 = new JMenuItem("New Game");
 		_m2  = new JMenuItem("Close");
+		_m3 = new JMenuItem("New Game: 3 Teams");
+
 		
 		
 		_Main.add(_menu);
 		_menu.add(_m1);
 		_menu.add(_m2);
+		_menu.add(_m3);
 		_window.setJMenuBar(_Main);
 	
 		_m1.addActionListener(new NewGameListener(_board));
 		_m2.addActionListener(new CloseListener());
+		_m3.addActionListener(new NewGame3PlayerListener(_board));
 		
 		new GUI(_board, _mainPanel, this);
 		
