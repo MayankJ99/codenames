@@ -246,6 +246,9 @@ public class GUI implements Observer {
 					button.setIcon(new ImageIcon("src/GrayHat.png"));
 					break;
 				case "A" :
+					button.setIcon(new ImageIcon("src/BlackHat.png"));
+					break;
+				case "G" :
 					button.setIcon(new ImageIcon("src/GreenHat.png"));
 					break;
 				}
