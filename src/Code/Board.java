@@ -137,14 +137,7 @@ public class Board {
 	 */
 	private int greenCount;
 	
-	/**
-	 * indicates whether board is in a 2 player game.
-	 */
 	private boolean _2PlayerGame = false;
-	
-	/**
-	 * indicates whether board is in a 3 player game.
-	 */
 	private boolean _3PlayerGame = false;
 	
 	/**
@@ -363,7 +356,7 @@ public class Board {
 					break;
 				}
 				location.setRevealed(true);
-				if ((this.redTurn && (location.getPerson().equals("R"))) || (!this.redTurn && (location.getPerson().equals("G"))) || (!this.redTurn && (location.getPerson().equals("B"))))
+				if (( this.getCurrentTurn().getInitial().equals(location.getPerson()) ))
 					return true;
 			}
 		}
@@ -613,10 +606,11 @@ public class Board {
 	 * @param codename The String reference to the codename on the board.
 	 */
 	public void buttonListnerEvent(String codename) {		
+		int numOfAssassins = 2;
 		if(updateLocation(codename) == true) {
 			if(this.count == -1) {
 				this.endTurn = true;
-				changeTurn();			
+				changeTurn();	
 			}
 			notifyObservers();
 		}
@@ -728,18 +722,10 @@ public class Board {
 		return (this.currentTeam.getTeam().toUpperCase() + "'S TURN");
 	}
 	
-	/**
-	 * Indicates whether board is in a 2 player game.
-	 * @return returns true if the board is in a 2 player game state
-	 */
 	public boolean get2PlayerGame() {
 		return this._2PlayerGame;
 	}
 	
-	/**
-	 * Indicates whether board is in a 3 player game.
-	 * @return returns true if the board is in a 3 player game state
-	 */
 	public boolean get3PlayerGame() {
 		return this._3PlayerGame;
 	}
