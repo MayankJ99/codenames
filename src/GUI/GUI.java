@@ -210,50 +210,29 @@ public class GUI implements Observer {
 		
 		
 		if (_board.getLocations().get(idx).getRevealed() == true) {
-			if(_board.get2PlayerGame() != false) {
-				switch (_board.getLocations().get(idx).getPerson()) {
-				case "R" : 
-					button.setBackground(R);
-					button.setText("");
-					break;
-				case "B" : 
-					button.setBackground(B);
-					button.setText("");
-					break;
-					case "I" : 
-					button.setBackground(I);
-					button.setText("");
-					break;
-				case "A" : 
-					button.setBackground(A);
-					button.setText("");
-					break;
-			}	
+			switch (_board.getLocations().get(idx).getPerson()) {
+			case "R" : 
+				button.setBackground(R);
+				button.setText("");
+				break;
+			case "B" : 
+				button.setBackground(B);
+				button.setText("");
+				break;
+			case "I" : 
+				button.setBackground(I);
+				button.setText("");
+				break;
+			case "A" : 
+				button.setBackground(A);
+				button.setText("");
+				break;
+			case "G" : 
+				button.setBackground(G);
+				button.setText("");
+				break;
 		}
-			else{
-					switch (_board.getLocations().get(idx).getPerson()) {
-					case "R" : 
-						button.setBackground(R);
-						button.setText("");
-						break;
-					case "B" : 
-						button.setBackground(B);
-						button.setText("");
-						break;
-					case "I" : 
-						button.setBackground(I);
-						button.setText("");
-						break;
-					case "A" : 
-						button.setBackground(A);
-						button.setText("");
-						break;
-					case "G" : 
-						button.setBackground(G);
-						button.setText("");
-						break;
-					
-			}
+
 			
 			if (_board.getEasterEgg()) {
 				switch (_board.getLocations().get(idx).getPerson()) {
@@ -277,8 +256,7 @@ public class GUI implements Observer {
 			button.setBorder(
 					BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 			}
-			}
-		else {
+		else{
 			button.setFont(this.font);
 			button.setBackground(Color.WHITE);
 			button.setForeground(Color.BLACK);
@@ -286,6 +264,7 @@ public class GUI implements Observer {
 			button.setBorder(
 					BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
 		}
+		
 	}
 	
 	/**
