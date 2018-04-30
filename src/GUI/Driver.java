@@ -83,11 +83,9 @@ public class Driver implements Runnable {
 		
 		_Main = new JMenuBar();
 		_menu = new JMenu("File");
-		_m1 = new JMenuItem("New Game");
-		_m2  = new JMenuItem("Close");
-		_m3 = new JMenuItem("New Game: 3 Teams");
-
-		
+		_m1 = new JMenuItem("New 2 Player Game");
+		_m2 = new JMenuItem("New 3 Player Game");
+		_m3  = new JMenuItem("Close");
 		
 		_Main.add(_menu);
 		_menu.add(_m1);
@@ -96,8 +94,8 @@ public class Driver implements Runnable {
 		_window.setJMenuBar(_Main);
 	
 		_m1.addActionListener(new NewGameListener(_board));
-		_m2.addActionListener(new CloseListener());
-		_m3.addActionListener(new NewGame3PlayerListener(_board));
+		_m2.addActionListener(new NewGame3PlayerListener(_board));
+		_m3.addActionListener(new CloseListener());
 		
 		new GUI(_board, _mainPanel, this);
 		
