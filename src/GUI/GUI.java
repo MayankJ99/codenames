@@ -426,7 +426,17 @@ public class GUI implements Observer {
 			this.setLabelProperties(y);
 		}
 		
-		JButton yes = new JButton("Yes.");
+		if(_board.getGreenCount()==0) {
+			JLabel x = new JLabel("Game over. Green Team Wins. Would you like to play again?");
+			_messagePanel.add(x);
+			this.setLabelProperties(x);
+		}
+		
+		JButton yes_3 = new JButton("Yes. 3 Team.");
+		this.setButtonPropertiesSub(yes_3);
+		yes_3.addActionListener(new New3GameListener(_board));
+		
+		JButton yes = new JButton("Yes. 2 Team");
 		yes.addActionListener(new NewGameListener(_board));
 		setButtonPropertiesSub(yes);
 		
@@ -435,6 +445,7 @@ public class GUI implements Observer {
 		setButtonPropertiesSub(no);
 		
 		_buttonPanel.add(yes);
+		_buttonPanel.add(yes_3);
 		_buttonPanel.add(no);
 		updateJFrameIfNotHeadless();
 	}

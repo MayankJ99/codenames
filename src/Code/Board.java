@@ -731,5 +731,8 @@ public class Board {
 		return (this.currentTeam.getTeam().toUpperCase() + "'S TURN");
 	}
 	
+	public int getGreenCount() {
+		return this.greenCount;
+	}
 }
 
