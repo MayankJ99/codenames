@@ -396,21 +396,28 @@ public class Board {
 	 */
 	public String winTeam() {
 		String WT = "";
-		if(this.redTurn) {
-			if(assassin==0) {
-				WT = "Red Team Won"; }
-		}
-	
-		if(this.redTurn==false) {
-			if(assassin == 0) {
-				WT ="Blue Team Won";
-			}
-		}
-	
-		if(assassin > 0) {
-			WT = "No Team Won yet";
+		int teamsRemaining = 1;
+		Entry trav = this.currentTeam.getNext();
+		while(!trav.getInitial().equals(currentTeam.getInitial())) {
+			teamsRemaining++;
 		}
 
+		if(teamsRemaining == 2) {
+			if(assassin == 0) {
+				WT = currentTeam.getNext().getTeam() + " won";
+			}
+			else {
+				WT = "No Team Won yet";
+			}
+		}
+		else {
+			if(assassin == 1) {
+				WT = currentTeam.getTeam() + " got eliminated";
+			}
+			else {
+				WT = "No Team Won yet";
+			}
+		}
 		return WT;
 	}	
 	
@@ -628,7 +635,7 @@ public class Board {
 	 */
 	public void passListenerEvent() {
 		this.endTurn = true;
-		redTurn = !redTurn;
+		this.currentTeam = this.currentTeam.getNext();
 		notifyObservers();
 	}
 	
