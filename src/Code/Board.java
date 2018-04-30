@@ -606,7 +606,7 @@ public class Board {
 	 * @param codename The String reference to the codename on the board.
 	 */
 	public void buttonListnerEvent(String codename) {		
-		int numOfAssassins = 2;
+		int numOfAssassins = assassin;
 		if(updateLocation(codename) == true) {
 			if(this.count == -1) {
 				this.endTurn = true;
@@ -615,9 +615,16 @@ public class Board {
 			notifyObservers();
 		}
 		else{
-			changeTurn();
+			if(numOfAssassins != assassin) {
+			removeTeamChangeTurn();
 			this.endTurn = true;
 			notifyObservers();
+		}
+			else {
+				changeTurn();
+				this.endTurn = true;
+				notifyObservers();
+			}
 		}
 	}
 
