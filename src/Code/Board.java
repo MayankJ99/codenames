@@ -400,6 +400,7 @@ public class Board {
 		Entry trav = this.currentTeam.getNext();
 		while(!trav.getInitial().equals(currentTeam.getInitial())) {
 			teamsRemaining++;
+			trav = trav.getNext(); //Was infinite loop here
 		}
 
 		if(teamsRemaining == 2) {
@@ -452,7 +453,11 @@ public class Board {
 	 * setterMethod for redTurn	
 	 * @param x boolean value
 	 */
-	public void setRedTurn(boolean x) {this.redTurn = x;}
+	public void setTurn(String teamInitial) {
+		if (this.teamStillActive(teamInitial))
+			while (this.currentTeam.getInitial() != teamInitial)
+				this.currentTeam = this.currentTeam.getNext();
+	}
 
 	/**
 	 * Setter method for count

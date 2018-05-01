@@ -14,9 +14,9 @@ public class BoardTest {
 	@Test
 	public void Check_CodeNamesFileReader() {
 		Board realBoard = new Board();
-		assertEquals(50, realBoard.getAllWords().size());
-		assertEquals("area", realBoard.getAllWords().get(0));
-		assertEquals("year", realBoard.getAllWords().get(49));
+		assertEquals(400, realBoard.getAllWords().size());
+		assertEquals("AFRICA", realBoard.getAllWords().get(0));
+		assertEquals("YARD", realBoard.getAllWords().get(399));
 		
 		Board emptyBoard = new Board("Dictionaries/emptyFile.txt");
 		assertTrue(emptyBoard.getAllWords().isEmpty());
@@ -48,7 +48,7 @@ public class BoardTest {
 	@Test
 	public void Check_RandomAssign() {
 		Board board = new Board();
-		board.randomAssign();
+		board.randomAssign(2);
 		ArrayList<String> persons = board.getPersons();
 		String testString = new String();
 		
@@ -70,7 +70,7 @@ public class BoardTest {
 	@Test
 	public void Check_GameStart() {
 		Board board = new Board();
-		board.gameStart();
+		board.gameStart_2Team();
 
 		boolean sameNames = true;
 		boolean samePersons = true;
@@ -103,7 +103,7 @@ public class BoardTest {
 	@Test
 	public void Check_CheckClue() {
 		Board x = new Board();
-		x.gameStart();
+		x.gameStart_2Team();
 		
 		String legal = "Knox 104";
 		String illegal = x.getLocations().get(5).getCodename();
@@ -125,7 +125,7 @@ public class BoardTest {
 	@Test
 	public void Check_UpdateLocation() {
 		Board board = new Board();
-		board.gameStart();
+		board.gameStart_2Team();
 		board.setCount(4);
 		
 		Location location = board.getLocations().get(0);
@@ -137,7 +137,8 @@ public class BoardTest {
 		assertTrue(location.getRevealed()); //checks for reveal status update ; field check
 		assertEquals(8, board.getRedCount()); //field check for team count
 		
-		board.setRedTurn(false);
+		board.setTurn("B");
+		
 		location = board.getLocations().get(1);
 		codeName = location.getCodename();
 		location.setPerson("R");
@@ -156,7 +157,7 @@ public class BoardTest {
 		assertTrue(location.getRevealed());
 		assertEquals(7, board.getBlueCount());
 		
-		board.setRedTurn(true);
+		board.setTurn("R");
 		location = board.getLocations().get(3);
 		codeName = location.getCodename();
 		location.setPerson("B");
@@ -175,7 +176,7 @@ public class BoardTest {
 		assertTrue(location.getRevealed());
 		assertEquals(0, board.getAssassinCount());
 		
-		board.gameStart();
+		board.gameStart_2Team();
 		
 		for (Location item : board.getLocations())
 			board.updateLocation(item.getCodename());
@@ -191,9 +192,9 @@ public class BoardTest {
 		Board TrueBLUEBoard = new Board();
 		Board ASSASSINBoard = new Board();
 		
-		TrueREDBoard.gameStart();
-		TrueBLUEBoard.gameStart();
-		ASSASSINBoard.gameStart();
+		TrueREDBoard.gameStart_2Team();
+		TrueBLUEBoard.gameStart_2Team();
+		ASSASSINBoard.gameStart_2Team();
 		
 		assertFalse(TrueREDBoard.checkGameState());
 		assertFalse(TrueBLUEBoard.checkGameState());
@@ -216,14 +217,14 @@ public class BoardTest {
 		String B = "Blue Team Won";
 		String N = "No Team Won yet";
 		
-		x.gameStart();
+		x.gameStart_2Team();
 		
 		Assert.assertEquals(N, x.winTeam());
 		
 		x.setAssassinCount(0);
 		Assert.assertEquals(B, x.winTeam());
 		
-		x.setRedTurn(false);
+		x.setTurn("B");
 		Assert.assertEquals(R, x.winTeam());
 	}
 }
