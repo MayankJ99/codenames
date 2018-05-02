@@ -396,30 +396,14 @@ public class Board {
 	 */
 	public String winTeam() {
 		String WT = "";
-		int teamsRemaining = 1;
-		Entry trav = this.currentTeam.getNext();
-		while(!trav.getInitial().equals(currentTeam.getInitial())) {
-			teamsRemaining++;
-			trav = trav.getNext(); //Was infinite loop here
+		if(assassin == 0) {
+			WT = currentTeam.getNext().getTeam() + " Won";
 		}
-
-		if(teamsRemaining == 2) {
-			if(assassin == 0) {
-				WT = currentTeam.getNext().getTeam() + " won";
-			}
-			else {
-				WT = "No Team Won yet";
-			}
-		}
+		
 		else {
-			if(assassin == 1) {
-				WT = currentTeam.getTeam() + " got eliminated";
-			}
-			else {
-				WT = "No Team Won yet";
-			}
+			WT = "No Team Won yet";
 		}
-		return WT;
+			return WT;
 	}	
 	
 	/**

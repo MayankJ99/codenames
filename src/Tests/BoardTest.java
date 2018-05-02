@@ -211,7 +211,7 @@ public class BoardTest {
 	
 	// Test to check the method winTeam
 	@Test
-	public void Check_WinTeam() {
+	public void Check_WinTeam2Team() {
 		Board x = new Board();
 		String R = "Red Team Won";
 		String B = "Blue Team Won";
@@ -227,4 +227,41 @@ public class BoardTest {
 		x.setTurn("B");
 		Assert.assertEquals(R, x.winTeam());
 	}
+
+	@Test
+	public void Check_WinTeam3Team() {
+		Board x = new Board();
+		String R = "Red Team Won";
+		String B = "Blue Team Won";
+		String G = "Green Team Won";
+		String N = "No Team Won yet";
+		
+		x.gameStart_3Team();
+		
+		assertEquals(N, x.winTeam());
+		
+		x.setAssassinCount(1);
+		assertEquals(N, x.winTeam());
+		x.removeTeamChangeTurn();
+		
+		x.setAssassinCount(0);
+		assertEquals(G, x.winTeam());
+		
+		x.gameStart_3Team();
+		x.setAssassinCount(1);
+		x.removeTeamChangeTurn();
+		
+		x.setTurn("G");
+		x.setAssassinCount(0);
+		assertEquals(B, x.winTeam());
+		
+		x.gameStart_3Team();
+		x.setTurn("B");
+		x.setAssassinCount(1);
+		x.removeTeamChangeTurn();
+		
+		x.setAssassinCount(0);
+		assertEquals(R, x.winTeam());
+	}
+
 }
