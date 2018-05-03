@@ -264,4 +264,18 @@ public class BoardTest {
 		assertEquals(R, x.winTeam());
 	}
 
+	@Test
+	public void Check_RandomAssign3Team() {
+		
+	}
+	
+	@Test
+	public void Check_CheckGameState3Team() {
+		
+	}
+	
+	@Test
+	public void Check_GetNextTeam() {
+		
+	}
 }
