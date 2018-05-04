@@ -542,7 +542,7 @@ public class Board {
 	public boolean checkCount(String countString) {
 		try {
 			int count = new Integer(countString);
-			if (count <= 0)
+			if (count <= 0 || count >25)
 				return false;
 		} catch (NumberFormatException nfe) {
 			return false;
