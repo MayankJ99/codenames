@@ -289,7 +289,30 @@ public class BoardTest {
 	
 	@Test
 	public void Check_CheckGameState3Team() {
+		Board TrueREDBoard = new Board();
+		Board TrueBLUEBoard = new Board();
+		Board TrueGREENBoard = new Board();
+		Board ASSASSINBoard = new Board();
 		
+		TrueREDBoard.gameStart_3Team();
+		TrueBLUEBoard.gameStart_3Team();
+		TrueGREENBoard.gameStart_3Team();
+		ASSASSINBoard.gameStart_3Team();
+		
+		assertFalse(TrueREDBoard.checkGameState());
+		assertFalse(TrueBLUEBoard.checkGameState());
+		assertFalse(TrueGREENBoard.checkGameState());
+		assertFalse(ASSASSINBoard.checkGameState());
+		
+		TrueREDBoard.setRedCount(0);
+		TrueBLUEBoard.setBlueCount(0);
+		TrueGREENBoard.setGreenCount(0);
+		ASSASSINBoard.setAssassinCount(0);
+
+		assertTrue(TrueREDBoard.checkGameState());
+		assertTrue(TrueBLUEBoard.checkGameState());
+		assertTrue(TrueGREENBoard.checkGameState());
+		assertTrue(ASSASSINBoard.checkGameState());
 	}
 	
 	@Test
