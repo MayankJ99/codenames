@@ -723,5 +723,9 @@ public class Board {
 	public int getGreenCount() {
 		return this.greenCount;
 	}
+	
+	public void setGreenCount(int GC) {
+		greenCount = GC;
+	}
 }
 
