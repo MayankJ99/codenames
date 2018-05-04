@@ -266,7 +266,25 @@ public class BoardTest {
 
 	@Test
 	public void Check_RandomAssign3Team() {
+		Board board = new Board();
+		board.randomAssign(3);
+		ArrayList<String> persons = board.getPersons();
+		String testString = new String();
 		
+		for (int a = 0; a < persons.size(); a++) {
+			testString += persons.get(a);
+		}
+		
+		assertTrue(testString.matches("(.*R.*){6}"));
+		assertTrue(testString.matches("(.*B.*){5}"));
+		assertTrue(testString.matches("(.*G.*){5}"));
+
+		assertTrue(testString.matches("(.*I.*){7}"));
+		assertTrue(testString.matches("(.*A.*){2}"));
+		
+		assertEquals(25, testString.length());
+		
+		assertNotEquals(testString, "RRRRRRBBBBBGGGGGIIIIIIIAA");
 	}
 	
 	@Test

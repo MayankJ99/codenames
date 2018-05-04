@@ -405,19 +405,19 @@ public class GUI implements Observer {
 		_countPanel.removeAll();
 		_buttonPanel.removeAll();
 		
-		if(_board.getBlueCount()==0) {
+		if(_board.getBlueCount()==0 && _board.teamStillActive("B")) {
 		JLabel x = new JLabel("Game over. Blue Team Wins. Would you like to play again? ");
 			_messagePanel.add(x);
 			this.setLabelProperties(x);
 		}
 		
-		if(_board.getRedCount()==0) {
+		if(_board.getRedCount()==0 && _board.teamStillActive("R")) {
 			JLabel x = new JLabel("Game over. Red Team Wins. Would you like to play again?");
 			_messagePanel.add(x);
 			this.setLabelProperties(x);
 		}			
 		
-		if(_board.getAssassinCount()==0) {
+		if(_board.getAssassinCount()==0 ) {
 			JLabel x = new JLabel("Oops! Assassin Revealed. Game over. ");
 			JLabel y = new JLabel(_board.winTeam() + ". Would you like to play again?");
 			_messagePanel.add(x);
@@ -426,7 +426,7 @@ public class GUI implements Observer {
 			this.setLabelProperties(y);
 		}
 		
-		if(_board.getGreenCount()==0) {
+		if(_board.getGreenCount()==0 && _board.teamStillActive("G")) {
 			JLabel x = new JLabel("Game over. Green Team Wins. Would you like to play again?");
 			_messagePanel.add(x);
 			this.setLabelProperties(x);
