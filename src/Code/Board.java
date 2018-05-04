@@ -434,8 +434,8 @@ public class Board {
 	public boolean getRedTurn() {return this.redTurn;}
 	
 	/**
-	 * setterMethod for redTurn	
-	 * @param x boolean value
+	 * Setter method for currentTeam	
+	 * @param teamInitial a single-character string representing a character (R, B, G, I, or A)
 	 */
 	public void setTurn(String teamInitial) {
 		if (this.teamStillActive(teamInitial))
