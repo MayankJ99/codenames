@@ -83,8 +83,8 @@ public class Driver implements Runnable {
 		
 		_Main = new JMenuBar();
 		_menu = new JMenu("File");
-		_m1 = new JMenuItem("New 2 Player Game");
-		_m2 = new JMenuItem("New 3 Player Game");
+		_m1 = new JMenuItem("New 2-Team Game");
+		_m2 = new JMenuItem("New 3-Team Game");
 		_m3  = new JMenuItem("Close");
 		
 		_Main.add(_menu);
