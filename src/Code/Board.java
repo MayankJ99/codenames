@@ -626,10 +626,17 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Determines the next team when a turn is over
+	 * @return the next team's Entry
+	 */
 	public Entry getNextTeam() {
 		return currentTeam.getNext();
 	}
 	
+	/**
+	 * Removes an assassinated team from the game
+	 */
 	public void removePriorTeam() {
 		Entry prior = this.currentTeam.getPrev().getPrev();
 		Entry follower = this.currentTeam;
@@ -707,10 +714,18 @@ public class Board {
 //		this.currentTeam = currentTeam.getNext();
 //	}
 	
+	/**
+	 * Getter method for currentTeam
+	 * @return Current team Entry
+	 */
 	public Entry getCurrentTeam() {
 		return this.currentTeam;
 	}
 	
+	/**
+	 * Setter method for currentTeam
+	 * @param e a reference to an active Entry in an ongoing game
+	 */
 	public void setCurrentTeam(Entry e) {this.currentTeam = e;}
 	
 	/**
@@ -742,10 +757,18 @@ public class Board {
 		return (this.currentTeam.getTeam().toUpperCase() + "'S TURN");
 	}
 	
+	/**
+	 * Getter method for greenCount
+	 * @return greenCount
+	 */
 	public int getGreenCount() {
 		return this.greenCount;
 	}
 	
+	/**
+	 * Setter method for greenCount
+	 * @param GC the desired number of unrevealed Green agents
+	 */
 	public void setGreenCount(int GC) {
 		greenCount = GC;
 	}
