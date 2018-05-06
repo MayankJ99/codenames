@@ -776,8 +776,15 @@ public class Board {
 		greenCount = GC;
 	}
 	
+	/**
+	 * Message indicating a team has just been assassinated
+	 */
 	private String assassinationMessage;
 	
+	/**
+	 * Generates messages for GUI indicating a newly-assassinated team or the counts of agents and assassins (for 3-team games)
+	 * @return a String[] containing two Strings, one each for _cluePanel and _countPanel
+	 */
 	public String[] getInfoPanelMessages() {
 		if (this.assassinationMessage != null) {
 			String[] retVal = {"     " + this.assassinationMessage, " "};
