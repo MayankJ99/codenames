@@ -46,7 +46,6 @@ public class DialogClickListener implements MouseListener {
 	public void mouseClicked(MouseEvent me) {
 		this.dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		this.dialog.dispatchEvent(new WindowEvent(this.dialog, WindowEvent.WINDOW_CLOSING));
-//		this.dialog.setVisible(false);
 		this.board.dialogClosed();
 	}
 	

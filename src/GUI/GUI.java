@@ -523,23 +523,6 @@ public class GUI implements Observer {
 		
 		_cluePanel.add(firstLine);
 		_countPanel.add(secondLine);
-//		JLabel RA = new JLabel("RED AGENTS: ");
-//				setLabelProperties(RA);
-//				
-//		JLabel RCount = new JLabel(Integer.toString(_board.getRedCount()));
-//				setLabelProperties(RCount);
-//				
-//		_cluePanel.add(RA);
-//		_cluePanel.add(RCount);
-//		
-//		JLabel BA = new JLabel("BLUE AGENTS: ");
-//				setLabelProperties(BA);
-//		
-//		JLabel BCount = new JLabel(Integer.toString(_board.getBlueCount()));
-//				setLabelProperties(BCount);
-//				
-//		_countPanel.add(BA);
-//		_countPanel.add(BCount);
 		
 		JButton passButton = new JButton("PASS");
 		setButtonPropertiesSub(passButton);
@@ -550,6 +533,9 @@ public class GUI implements Observer {
 		updateJFrameIfNotHeadless();
 	}
 	
+	/**
+	 * Creates 25 "NOPE" tiles of varying fonts for the Phase 3 Easter egg
+	 */
 	public void nopeView() {
 		this._locationPanel.removeAll();
 		for (int a = 0; a < 25; a++) {
@@ -579,6 +565,9 @@ public class GUI implements Observer {
 		}
 	}
 	
+	/**
+	 * Creates a "NOPE" message and two "NOPE" buttons in the _infoPanel for the Phase 3 Easter egg
+	 */
 	public void nopeScreen() {
 		_messagePanel.removeAll();
 		_cluePanel.removeAll();

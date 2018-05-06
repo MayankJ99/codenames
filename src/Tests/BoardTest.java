@@ -240,12 +240,6 @@ public class BoardTest {
 		
 		x.buttonListnerEvent(codename);
 		assertEquals(R, x.winTeam());
-		
-//		x.setAssassinCount(0);
-//		Assert.assertEquals(B, x.winTeam());
-//		
-//		x.setTurn("B");
-//		Assert.assertEquals(R, x.winTeam());
 	}
 
 	@Test
@@ -300,29 +294,6 @@ public class BoardTest {
 		location.setRevealed(false);
 		x.buttonListnerEvent(codename);
 		assertEquals(B, x.winTeam());
-		
-//		x.setAssassinCount(1);
-//		assertEquals(N, x.winTeam());
-//		x.removeTeamChangeTurn();
-//		
-//		x.setAssassinCount(0);
-//		assertEquals(G, x.winTeam());
-//		
-//		x.gameStart_3Team();
-//		x.setAssassinCount(1);
-//		x.removeTeamChangeTurn();
-//		
-//		x.setTurn("G");
-//		x.setAssassinCount(0);
-//		assertEquals(B, x.winTeam());
-//		
-//		x.gameStart_3Team();
-//		x.setTurn("B");
-//		x.setAssassinCount(1);
-//		x.removeTeamChangeTurn();
-//		
-//		x.setAssassinCount(0);
-//		assertEquals(R, x.winTeam());
 	}
 
 	@Test

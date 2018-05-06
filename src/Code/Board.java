@@ -3,7 +3,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -51,6 +50,11 @@ public class Board {
 	 * Indicates whether the Easter Egg has been activated
 	 */
 	private boolean easterEgg;
+	
+	/**
+	 * Indicates whether the Phase 3 Easter egg has been activated
+	 */
+	public boolean easterEgg2;
 	
 	/**
 	 * Variable to indicate the Spymaster's portion of a turn during game play.
@@ -116,16 +120,6 @@ public class Board {
 	 * A human-readable message that corresponds to an invalid clue entry by a Spymaster.
 	 */
 	public static final String clueError = "PLEASE ENTER A VALID CLUE";
-	
-//	/**
-//	 * A human-readable message that indicates the Red Spymaster's turn to enter a clue and count.
-//	 */
-//	public static final String redSpymasterMessage = "RED TEAM SPYMASTER, ENTER A CLUE AND COUNT";
-//	
-//	/**
-//	 * A human-readable message that indicates the Blue Spymaster's turn to enter a clue and count.
-//	 */
-//	public static final String blueSpymasterMessage = "BLUE TEAM SPYMASTER, ENTER A CLUE AND COUNT";
 	
 	/**
 	 * the current team entry. Similar to head of a linked list
@@ -205,12 +199,10 @@ public class Board {
 		if (teams == 2) {
 			String[] tempData = {"R","R","R","R","R","R","R","R","R","B","B","B","B","B","B","B","B","I","I","I","I","I","I","I","A"};
 			initialData = tempData;
-//			this.persons = new ArrayList<String>(Arrays.asList("R","R","R","R","R","R","R","R","R","B","B","B","B","B","B","B","B","I","I","I","I","I","I","I","A"));
 		}
 		else {
 			String[] tempData = {"R","R","R","R","R","R","B","B","B","B","B","G","G","G","G","G","I","I","I","I","I","I","I","A","A"};
 			initialData = tempData;
-//			this.persons = new ArrayList<String>(Arrays.asList("R","R","R","R","R","R","B","B","B","B","B","G","G","G","G","G","I","I","I","I","I","I","I","A","A"));
 		}
 		
 		for (int a = 0; a < 25; a++) {
@@ -231,16 +223,10 @@ public class Board {
 		
 		this.randomAssign(2);
 		
-		
 		this.locations = new ArrayList<Location>();
 		
 		for (int a = 0; a < 25; a++)
 			this.locations.add(new Location(this.newGameWords.get(a), this.persons.get(a)));
-		
-	
-		//not needed anymore. Must be removed when code for implementing turns are replaced
-		this.redTurn = true;
-		
 		
 		this.redCount = 9;
 		this.blueCount = 8;
@@ -269,22 +255,20 @@ public class Board {
 		this.notifyObservers();
 	}
 		
-
+	/**
+	 * Starts a new 3-Team game. Generates an appropriate List of 25 agents, creates the linked list of teams, and sets booleans
+	 * and variables as appropriate.
+	 */
 	public void gameStart_3Team() {
 		
 		this.select25();
 			
 		this.randomAssign(3);
 		
-		
 		this.locations = new ArrayList<Location>();
 		
 		for (int a = 0; a < 25; a++)
 			this.locations.add(new Location(this.newGameWords.get(a), this.persons.get(a)));
-		
-		
-		//not needed anymore. Must be removed when code for implementing turns are replaced
-		this.redTurn = true;
 		
 		this.redCount = 6;
 		this.blueCount = 5;
@@ -401,7 +385,6 @@ public class Board {
 	public String winTeam() {
 		String WT = "";
 		if(assassin == 0) {
-//			WT = currentTeam.getNext().getTeam() + " Won";
 			WT = currentTeam.getTeam() + " Won";
 		}
 		
@@ -445,7 +428,6 @@ public class Board {
 	public void setTurn(String teamInitial) {
 		if (this.teamStillActive(teamInitial))
 			while (this.currentTeam.getInitial() != teamInitial) {
-//				this.currentTeam = this.currentTeam.getNext();
 				this.currentTeam = this.getNextTeam();
 			}
 	}
@@ -614,8 +596,7 @@ public class Board {
 		if(updateLocation(codename) == true) {
 			if(this.count == -1) {
 				this.endTurn = true;
-				this.currentTeam = this.getNextTeam();
-//				changeTurn();	
+				this.currentTeam = this.getNextTeam();	
 			}
 			notifyObservers();
 		}
@@ -624,13 +605,11 @@ public class Board {
 				this.assassinationMessage = this.currentTeam.getTeam().toUpperCase() + " HAS BEEN ASSASSINATED.";
 				this.currentTeam = this.getNextTeam();
 				this.removePriorTeam();
-//				removeTeamChangeTurn();
 				this.endTurn = true;
 				notifyObservers();
 			}
 			else {
 				this.currentTeam = this.getNextTeam();
-//				changeTurn();
 				this.endTurn = true;
 				notifyObservers();
 			}
@@ -662,7 +641,6 @@ public class Board {
 	public void passListenerEvent() {
 		this.endTurn = true;
 		this.easterEgg2 = false;
-//		this.currentTeam = this.currentTeam.getNext();
 		this.currentTeam = this.getNextTeam();
 		notifyObservers();
 	}
@@ -722,10 +700,6 @@ public class Board {
 	 */
 	public String getErrorMessage() {return this.errorMessage;}
 	
-//	public void changeTurn() {
-//		this.currentTeam = currentTeam.getNext();
-//	}
-	
 	/**
 	 * Getter method for currentTeam
 	 * @return Current team Entry
@@ -739,19 +713,6 @@ public class Board {
 	 * @param e a reference to an active Entry in an ongoing game
 	 */
 	public void setCurrentTeam(Entry e) {this.currentTeam = e;}
-	
-	/**
-	 * Removes an assassinated team from the rotation/linked list and advances currentTeam to the next team in line
-	 */
-//	public void removeTeamChangeTurn() {
-//		Entry prior = this.currentTeam.getPrev();
-//		Entry follower = this.currentTeam.getNext();
-//		
-//		prior.setNext(follower);
-//		follower.setPrev(prior);
-//		
-//		this.currentTeam = follower;
-//	}
 	
 	/**
 	 * Generates a message for the Spymaster, specific to the current team
@@ -791,7 +752,7 @@ public class Board {
 	private String assassinationMessage;
 	
 	/**
-	 * Generates messages for GUI indicating a newly-assassinated team or the counts of agents and assassins (for 3-team games)
+	 * Generates messages for GUI: a newly-assassinated team or the counts of agents and assassins, as applicable
 	 * @return a String[] containing two Strings, one each for _cluePanel and _countPanel
 	 */
 	public String[] getInfoPanelMessages() {
@@ -809,7 +770,5 @@ public class Board {
 			return retVal;
 		}
 	}
-	
-	public boolean easterEgg2;
 }
 
