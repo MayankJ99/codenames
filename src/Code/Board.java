@@ -351,7 +351,7 @@ public class Board {
 					break;
 				}
 				location.setRevealed(true);
-				if (( this.getCurrentTurn().getInitial().equals(location.getPerson()) ))
+				if (( this.currentTeam.getInitial().equals(location.getPerson()) ))
 					return true;
 			}
 		}
@@ -397,7 +397,8 @@ public class Board {
 	public String winTeam() {
 		String WT = "";
 		if(assassin == 0) {
-			WT = currentTeam.getNext().getTeam() + " Won";
+//			WT = currentTeam.getNext().getTeam() + " Won";
+			WT = currentTeam.getTeam() + " Won";
 		}
 		
 		else {
@@ -439,8 +440,10 @@ public class Board {
 	 */
 	public void setTurn(String teamInitial) {
 		if (this.teamStillActive(teamInitial))
-			while (this.currentTeam.getInitial() != teamInitial)
-				this.currentTeam = this.currentTeam.getNext();
+			while (this.currentTeam.getInitial() != teamInitial) {
+//				this.currentTeam = this.currentTeam.getNext();
+				this.currentTeam = this.getNextTeam();
+			}
 	}
 
 	/**
@@ -601,22 +604,38 @@ public class Board {
 		if(updateLocation(codename) == true) {
 			if(this.count == -1) {
 				this.endTurn = true;
-				changeTurn();	
+				this.currentTeam = this.getNextTeam();
+//				changeTurn();	
 			}
 			notifyObservers();
 		}
 		else{
 			if(numOfAssassins != assassin) {
-			removeTeamChangeTurn();
-			this.endTurn = true;
-			notifyObservers();
-		}
+				this.currentTeam = this.getNextTeam();
+				this.removePriorTeam();
+//				removeTeamChangeTurn();
+				this.endTurn = true;
+				notifyObservers();
+			}
 			else {
-				changeTurn();
+				this.currentTeam = this.getNextTeam();
+//				changeTurn();
 				this.endTurn = true;
 				notifyObservers();
 			}
 		}
+	}
+	
+	public Entry getNextTeam() {
+		return currentTeam.getNext();
+	}
+	
+	public void removePriorTeam() {
+		Entry prior = this.currentTeam.getPrev().getPrev();
+		Entry follower = this.currentTeam;
+
+		prior.setNext(follower);
+		follower.setPrev(prior);
 	}
 
 	/**
@@ -624,7 +643,8 @@ public class Board {
 	 */
 	public void passListenerEvent() {
 		this.endTurn = true;
-		this.currentTeam = this.currentTeam.getNext();
+//		this.currentTeam = this.currentTeam.getNext();
+		this.currentTeam = this.getNextTeam();
 		notifyObservers();
 	}
 	
@@ -683,26 +703,28 @@ public class Board {
 	 */
 	public String getErrorMessage() {return this.errorMessage;}
 	
-	public void changeTurn() {
-		this.currentTeam = currentTeam.getNext();
-	}
+//	public void changeTurn() {
+//		this.currentTeam = currentTeam.getNext();
+//	}
 	
-	public Entry getCurrentTurn() {
+	public Entry getCurrentTeam() {
 		return this.currentTeam;
 	}
+	
+	public void setCurrentTeam(Entry e) {this.currentTeam = e;}
 	
 	/**
 	 * Removes an assassinated team from the rotation/linked list and advances currentTeam to the next team in line
 	 */
-	public void removeTeamChangeTurn() {
-		Entry prior = this.currentTeam.getPrev();
-		Entry follower = this.currentTeam.getNext();
-		
-		prior.setNext(follower);
-		follower.setPrev(prior);
-		
-		this.currentTeam = follower;
-	}
+//	public void removeTeamChangeTurn() {
+//		Entry prior = this.currentTeam.getPrev();
+//		Entry follower = this.currentTeam.getNext();
+//		
+//		prior.setNext(follower);
+//		follower.setPrev(prior);
+//		
+//		this.currentTeam = follower;
+//	}
 	
 	/**
 	 * Generates a message for the Spymaster, specific to the current team

@@ -1,6 +1,7 @@
 package Tests;
 
 import Code.Board;
+import Code.Entry;
 import Code.Location;
 
 import static org.junit.Assert.*;
@@ -219,13 +220,32 @@ public class BoardTest {
 		
 		x.gameStart_2Team();
 		
+		Location location = x.getLocations().get(0);
+		String codename = location.getCodename();
+		location.setPerson("A");
+		
 		Assert.assertEquals(N, x.winTeam());
 		
-		x.setAssassinCount(0);
-		Assert.assertEquals(B, x.winTeam());
+		x.buttonListnerEvent(codename);
+		assertEquals(B, x.winTeam());
 		
+		x.gameStart_2Team();
+		
+		location = x.getLocations().get(0);
+		codename = location.getCodename();
+		location.setPerson("A");
 		x.setTurn("B");
-		Assert.assertEquals(R, x.winTeam());
+		
+		Assert.assertEquals(N, x.winTeam());
+		
+		x.buttonListnerEvent(codename);
+		assertEquals(R, x.winTeam());
+		
+//		x.setAssassinCount(0);
+//		Assert.assertEquals(B, x.winTeam());
+//		
+//		x.setTurn("B");
+//		Assert.assertEquals(R, x.winTeam());
 	}
 
 	@Test
@@ -240,28 +260,69 @@ public class BoardTest {
 		
 		assertEquals(N, x.winTeam());
 		
-		x.setAssassinCount(1);
-		assertEquals(N, x.winTeam());
-		x.removeTeamChangeTurn();
+		Location location = x.getLocations().get(0);
+		String codename = location.getCodename();
+		location.setPerson("A");
 		
-		x.setAssassinCount(0);
+		x.buttonListnerEvent(codename);
+		assertEquals(N, x.winTeam());
+		
+		location.setRevealed(false);
+		x.buttonListnerEvent(codename);
 		assertEquals(G, x.winTeam());
 		
 		x.gameStart_3Team();
-		x.setAssassinCount(1);
-		x.removeTeamChangeTurn();
+		assertEquals(N, x.winTeam());
 		
-		x.setTurn("G");
-		x.setAssassinCount(0);
-		assertEquals(B, x.winTeam());
+		location = x.getLocations().get(0);
+		codename = location.getCodename();
+		location.setPerson("A");
+		x.setTurn("B");
+		
+		x.buttonListnerEvent(codename);
+		assertEquals(N, x.winTeam());
+		
+		location.setRevealed(false);
+		x.buttonListnerEvent(codename);
+		assertEquals(R, x.winTeam());
 		
 		x.gameStart_3Team();
-		x.setTurn("B");
-		x.setAssassinCount(1);
-		x.removeTeamChangeTurn();
+		assertEquals(N, x.winTeam());
 		
-		x.setAssassinCount(0);
-		assertEquals(R, x.winTeam());
+		location = x.getLocations().get(0);
+		codename = location.getCodename();
+		location.setPerson("A");
+		x.setTurn("G");
+		
+		x.buttonListnerEvent(codename);
+		assertEquals(N, x.winTeam());
+		
+		location.setRevealed(false);
+		x.buttonListnerEvent(codename);
+		assertEquals(B, x.winTeam());
+		
+//		x.setAssassinCount(1);
+//		assertEquals(N, x.winTeam());
+//		x.removeTeamChangeTurn();
+//		
+//		x.setAssassinCount(0);
+//		assertEquals(G, x.winTeam());
+//		
+//		x.gameStart_3Team();
+//		x.setAssassinCount(1);
+//		x.removeTeamChangeTurn();
+//		
+//		x.setTurn("G");
+//		x.setAssassinCount(0);
+//		assertEquals(B, x.winTeam());
+//		
+//		x.gameStart_3Team();
+//		x.setTurn("B");
+//		x.setAssassinCount(1);
+//		x.removeTeamChangeTurn();
+//		
+//		x.setAssassinCount(0);
+//		assertEquals(R, x.winTeam());
 	}
 
 	@Test
@@ -313,10 +374,95 @@ public class BoardTest {
 		assertTrue(TrueBLUEBoard.checkGameState());
 		assertTrue(TrueGREENBoard.checkGameState());
 		assertTrue(ASSASSINBoard.checkGameState());
+		
+		TrueREDBoard.setAssassinCount(1);
+		TrueREDBoard.setCurrentTeam(TrueREDBoard.getNextTeam());
+		TrueREDBoard.removePriorTeam();
+		assertFalse(TrueREDBoard.checkGameState());
+		
+		TrueREDBoard.setBlueCount(0);
+		assertTrue(TrueREDBoard.checkGameState());
+		
+		TrueREDBoard.setBlueCount(5);
+		TrueREDBoard.setAssassinCount(0);
+		TrueREDBoard.setCurrentTeam(TrueREDBoard.getNextTeam());
+		TrueREDBoard.removePriorTeam();
+		assertTrue(TrueREDBoard.checkGameState());
 	}
 	
 	@Test
 	public void Check_GetNextTeam() {
+		Board board = new Board();
 		
+		board.gameStart_3Team();
+		Entry red = board.getCurrentTeam();
+		Entry blue = red.getNext();
+		Entry green = blue.getNext();
+		Location location = board.getLocations().get(0);
+		
+		assertEquals(blue, board.getNextTeam());
+		
+		board.passListenerEvent();
+		assertEquals(green, board.getNextTeam());
+		
+		board.passListenerEvent();
+		assertEquals(red, board.getNextTeam());
+		
+		board.setCount(0);
+		location.setPerson("G");
+		board.updateLocation(location.getCodename());
+		assertEquals(red, board.getNextTeam());
+		board.setCurrentTeam(board.getNextTeam());
+		
+		board.setCount(1);
+		location.setRevealed(false);
+		board.updateLocation(location.getCodename());
+		assertEquals(blue, board.getNextTeam());
+		board.setCurrentTeam(board.getNextTeam());
+		
+		board.setCount(1);
+		location.setPerson("A");
+		location.setRevealed(false);
+		board.updateLocation(location.getCodename());
+		assertEquals(green, board.getNextTeam());
+		board.setCurrentTeam(board.getNextTeam());
+		board.removePriorTeam();
+		
+		assertEquals(red, board.getNextTeam());
+		board.passListenerEvent();
+		assertEquals(green, board.getNextTeam());
+		
+		board.setCount(1);
+		location.setRevealed(false);
+		board.updateLocation(location.getCodename());
+		assertEquals(green, board.getNextTeam());
+		
+		board.gameStart_2Team();
+		red = board.getCurrentTeam();
+		blue = red.getNext();
+		location = board.getLocations().get(0);
+		
+		assertEquals(blue, board.getNextTeam());
+		
+		board.passListenerEvent();
+		assertEquals(red, board.getNextTeam());
+		
+		board.setCount(0);
+		location.setPerson("B");
+		board.updateLocation(location.getCodename());
+		assertEquals(red, board.getNextTeam());
+		board.setCurrentTeam(board.getNextTeam());
+		
+		board.setCount(1);
+		location.setRevealed(false);
+		board.updateLocation(location.getCodename());
+		assertEquals(blue, board.getNextTeam());
+		board.setCurrentTeam(board.getNextTeam());
+		
+		board.setCount(1);
+		location.setPerson("A");
+		location.setRevealed(false);
+		board.updateLocation(location.getCodename());
+		assertEquals(red, board.getNextTeam());
 	}
 }
