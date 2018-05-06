@@ -254,6 +254,7 @@ public class Board {
 		this.entryError = false;
 
 		this.easterEgg = false;
+		this.easterEgg2 = false;
 		this.assassinationMessage = null;
 		
 		Entry red = new Entry("R", "Red Team");
@@ -297,6 +298,7 @@ public class Board {
 		this.entryError = false;
 
 		this.easterEgg = false;
+		this.easterEgg2 = false;
 		this.assassinationMessage = null;
 		
 		Entry red = new Entry("R", "Red Team");
@@ -586,6 +588,12 @@ public class Board {
 			this.easterEgg = true;
 			this.errorMessage = "EASTER EGG ACTIVATED. " + this.getSpymasterMessage();
 		}
+		else if (submittedClue.equals("NOPE")) {
+			this.easterEgg2 = true;
+			this.entryError = false;
+			this.newTurn = false;
+			this.Clue = submittedClue;
+		}
 		else {
 			this.count = new Integer(submittedCount);
 			this.Clue = submittedClue;
@@ -653,6 +661,7 @@ public class Board {
 	 */
 	public void passListenerEvent() {
 		this.endTurn = true;
+		this.easterEgg2 = false;
 //		this.currentTeam = this.currentTeam.getNext();
 		this.currentTeam = this.getNextTeam();
 		notifyObservers();
@@ -800,5 +809,7 @@ public class Board {
 			return retVal;
 		}
 	}
+	
+	public boolean easterEgg2;
 }
 

@@ -157,14 +157,18 @@ public class GUI implements Observer {
 	@Override
 	public void update() {
 		
-		if (_board.getNewTurn() || _board.checkGameState()) {
+		if (_board.easterEgg2)
+			this.nopeView();
+		else if (_board.getNewTurn() || _board.checkGameState()) {
 			this.SpymasterView();
 		}
 		else { 
 			this.PlayerView();
 		}
 	
-		if(_board.checkGameState()==true) {
+		if (_board.easterEgg2)
+			this.nopeScreen();
+		else if(_board.checkGameState()==true) {
 			this.GameEndScenario();
 		}
 		else if (_board.getNewGame()) {
@@ -501,12 +505,14 @@ public class GUI implements Observer {
 		_countPanel.removeAll();
 		_buttonPanel.removeAll();
 		
-		JLabel clueLabel = new JLabel("Success! Clue is: " + "'"+_board.GetSubClue()+"'");
-		JLabel countLabel = new JLabel(" and Count is: " + _board.getCount());
-		this.setLabelProperties(clueLabel);
-		this.setLabelProperties(countLabel);
-		_messagePanel.add(clueLabel);
-		_messagePanel.add(countLabel);
+		if (!this._board.GetSubClue().equals("NOPE")) {
+			JLabel clueLabel = new JLabel("Success! Clue is: " + "'"+_board.GetSubClue()+"'");
+			JLabel countLabel = new JLabel(" and Count is: " + _board.getCount());
+			this.setLabelProperties(clueLabel);
+			this.setLabelProperties(countLabel);
+			_messagePanel.add(clueLabel);
+			_messagePanel.add(countLabel);
+		}
 		
 		String[] labels = _board.getInfoPanelMessages();
 		JLabel firstLine = new JLabel(labels[0]);
@@ -542,5 +548,42 @@ public class GUI implements Observer {
 		_buttonPanel.add(passButton);
 
 		updateJFrameIfNotHeadless();
-	}	
+	}
+	
+	public void nopeView() {
+		this._locationPanel.removeAll();
+		for (int a = 0; a < 25; a++) {
+			JButton b = new JButton("NOPE");
+			b.setFont(this.font);
+			b.setBackground(Color.WHITE);
+			b.setForeground(Color.BLACK);
+			b.setOpaque(true);
+			b.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.LIGHT_GRAY));
+			this._locationPanel.add(b);
+		}
+	}
+	
+	public void nopeScreen() {
+		_messagePanel.removeAll();
+		_cluePanel.removeAll();
+		_countPanel.removeAll();
+		_buttonPanel.removeAll();
+		
+		JLabel nopeMsg = new JLabel("NOPE");
+		this.setLabelProperties(nopeMsg);
+		this._messagePanel.add(nopeMsg);
+		
+		JButton nopeLeft = new JButton("NOPE");
+		this.setButtonPropertiesSub(nopeLeft);
+		nopeLeft.addActionListener(new PassListener(this, this._board));
+		
+		JButton nopeRight = new JButton("NOPE");
+		this.setButtonPropertiesSub(nopeRight);
+		nopeRight.addActionListener(new CloseListener());
+		
+		this._buttonPanel.add(nopeLeft);
+		this._buttonPanel.add(nopeRight);
+		
+		this.updateJFrameIfNotHeadless();
+	}
 }
