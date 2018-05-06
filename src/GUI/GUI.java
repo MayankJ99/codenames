@@ -508,23 +508,32 @@ public class GUI implements Observer {
 		_messagePanel.add(clueLabel);
 		_messagePanel.add(countLabel);
 		
-		JLabel RA = new JLabel("RED AGENTS: ");
-				setLabelProperties(RA);
-				
-		JLabel RCount = new JLabel(Integer.toString(_board.getRedCount()));
-				setLabelProperties(RCount);
-				
-		_cluePanel.add(RA);
-		_cluePanel.add(RCount);
+		String[] labels = _board.getInfoPanelMessages();
+		JLabel firstLine = new JLabel(labels[0]);
+		this.setLabelProperties(firstLine);
 		
-		JLabel BA = new JLabel("BLUE AGENTS: ");
-				setLabelProperties(BA);
+		JLabel secondLine = new JLabel(labels[1]);
+		this.setLabelProperties(secondLine);
 		
-		JLabel BCount = new JLabel(Integer.toString(_board.getBlueCount()));
-				setLabelProperties(BCount);
-				
-		_countPanel.add(BA);
-		_countPanel.add(BCount);
+		_cluePanel.add(firstLine);
+		_countPanel.add(secondLine);
+//		JLabel RA = new JLabel("RED AGENTS: ");
+//				setLabelProperties(RA);
+//				
+//		JLabel RCount = new JLabel(Integer.toString(_board.getRedCount()));
+//				setLabelProperties(RCount);
+//				
+//		_cluePanel.add(RA);
+//		_cluePanel.add(RCount);
+//		
+//		JLabel BA = new JLabel("BLUE AGENTS: ");
+//				setLabelProperties(BA);
+//		
+//		JLabel BCount = new JLabel(Integer.toString(_board.getBlueCount()));
+//				setLabelProperties(BCount);
+//				
+//		_countPanel.add(BA);
+//		_countPanel.add(BCount);
 		
 		JButton passButton = new JButton("PASS");
 		setButtonPropertiesSub(passButton);

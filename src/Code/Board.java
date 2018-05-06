@@ -254,6 +254,7 @@ public class Board {
 		this.entryError = false;
 
 		this.easterEgg = false;
+		this.assassinationMessage = null;
 		
 		Entry red = new Entry("R", "Red Team");
 		Entry blue = new Entry("B", "Blue Team");
@@ -296,6 +297,7 @@ public class Board {
 		this.entryError = false;
 
 		this.easterEgg = false;
+		this.assassinationMessage = null;
 		
 		Entry red = new Entry("R", "Red Team");
 		Entry blue = new Entry("B", "Blue Team");
@@ -611,6 +613,7 @@ public class Board {
 		}
 		else{
 			if(numOfAssassins != assassin) {
+				this.assassinationMessage = this.currentTeam.getTeam().toUpperCase() + " HAS BEEN ASSASSINATED.";
 				this.currentTeam = this.getNextTeam();
 				this.removePriorTeam();
 //				removeTeamChangeTurn();
@@ -771,6 +774,24 @@ public class Board {
 	 */
 	public void setGreenCount(int GC) {
 		greenCount = GC;
+	}
+	
+	private String assassinationMessage;
+	
+	public String[] getInfoPanelMessages() {
+		if (this.assassinationMessage != null) {
+			String[] retVal = {"     " + this.assassinationMessage, " "};
+			this.assassinationMessage = null;
+			return retVal;
+		}
+		else if (this.greenCount == 10) {
+			String[] retVal = {"  RED AGENTS: " + this.redCount + "         BLUE AGENTS: " + this.blueCount, " "};
+			return retVal;
+		}
+		else {
+			String[] retVal = {"  RED AGENTS: " + this.redCount + "         BLUE AGENTS: " + this.blueCount, "  GREEN AGENTS: " + this.greenCount + "         ASSASSINS: " + this.assassin};
+			return retVal;
+		}
 	}
 }
 
