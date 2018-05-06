@@ -554,7 +554,23 @@ public class GUI implements Observer {
 		this._locationPanel.removeAll();
 		for (int a = 0; a < 25; a++) {
 			JButton b = new JButton("NOPE");
-			b.setFont(new Font("Courier", Font.BOLD, (int) (screenHeight * 0.08)));
+			switch (a % 5) {
+			case 0 :
+				b.setFont(new Font("Old English Text MT", Font.BOLD, (int) (screenHeight * 0.07)));
+				break;
+			case 1 :
+				b.setFont(new Font("Bahnschrift", Font.BOLD, (int) (screenHeight * 0.08)));
+				break;
+			case 2 :
+				b.setFont(new Font("Comic Sans MS", Font.BOLD, (int) (screenHeight * 0.08)));
+				break;
+			case 3 :
+				b.setFont(new Font("Times New Roman", Font.BOLD, (int) (screenHeight * 0.08)));
+				break;
+			case 4 :
+				b.setFont(new Font("Papyrus", Font.BOLD, (int) (screenHeight * 0.06)));
+				break;
+			}
 			b.setBackground(Color.WHITE);
 			b.setForeground(Color.BLACK);
 			b.setOpaque(true);
@@ -570,7 +586,7 @@ public class GUI implements Observer {
 		_buttonPanel.removeAll();
 		
 		JLabel nopeMsg = new JLabel("NOPE");
-		nopeMsg.setFont(new Font("Courier", Font.BOLD, (int) (screenHeight * 0.12)));
+		nopeMsg.setFont(new Font("ScriptC", Font.BOLD, (int) (screenHeight * 0.12)));
 		this._messagePanel.add(nopeMsg);
 		
 		JButton nopeLeft = new JButton("NOPE");
