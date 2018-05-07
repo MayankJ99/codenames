@@ -23,17 +23,17 @@ All Tests are in the Tests package
 
 8. Method defined which correctly returns whether or not the Board is in one of the winning states --> checkGameState() --> Check_CheckGameState()
 
-9. Method defined which correctly returns which team did not lose (i.e., win) when the Assassin was revealed --> winTeam() --> Check_WinTeam()
+9. Method defined which correctly returns which team did not lose (i.e., win) when the Assassin was revealed --> winTeam() --> Check_WinTeam2Team()
 
 
 ----------------------------------------------------------------------------
 
 *********** PHASE 3 ***************
 1. Creates a List containing randomly generated assignments for each of the 6 Red Agents, 
-	5 Blue Agents, 5 Green Agents, 7 Innocent Bystanders, and 2 Assassins ---> randomAssign() ---> check_RandomAssign3Team()
+	5 Blue Agents, 5 Green Agents, 7 Innocent Bystanders, and 2 Assassins ---> randomAssign() ---> Check_RandomAssign3Team()
 	
-2.Method defined which correctly returns whether or not the Board is in one of the winning states --> checkGameState() ---> Check_checkGameState3Team()
+2.Method defined which correctly returns whether or not the Board is in one of the winning states --> checkGameState() ---> Check_CheckGameState3Team()
 
 3.Method defined which correctly returns which team wins once the 2nd Assassin is revealed ---> winTeam() ---> Check_WinTeam3Team()
 
-4.Method which returns which is used at the end of a turn to determine the team whose move is next --> getNextTeam() ---> Check_getNextTeam();
+4.Method which returns which is used at the end of a turn to determine the team whose move is next --> getNextTeam() ---> Check_GetNextTeam();
