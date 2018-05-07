@@ -422,7 +422,7 @@ public class GUI implements Observer {
 		}			
 		
 		if(_board.getAssassinCount()==0 ) {
-			JLabel x = new JLabel("Oops! Assassin Revealed. Game over. ");
+			JLabel x = new JLabel("Assassin Revealed. Game over. ");
 			JLabel y = new JLabel(_board.winTeam() + ". Would you like to play again?");
 			_messagePanel.add(x);
 			_messagePanel.add(y);
